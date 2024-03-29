@@ -20,19 +20,33 @@ O SIT tem como objetivo principal oferecer um cadastro das mulheres acolhidas pe
 
 # Backlogs do produto
 1- Como usuário eu gostaria de cadastrar um novo acolhimento.
+
 2- Como usuário eu gostaria de visualizar a lista de acolhimentos.
+
 3- Como usuário eu gostaria de classificar o status dos acolhimentos como Ativo e Encerrado
+
 4- Como usuário eu gostaria de filtrar os acolhimentos pelo status.
+
 5- Como usuário eu gostaria de buscar um acolhimento pelo nome da acolhida.
+
 6- Como usuário eu gostaria de cadastrar demandas de Psicologia, Jurídico, Assitência Social e Abrigamento.
+
 7- Como usuário eu gostaria de filtrar os acolhimentos pelo tipo de demanda.
+
 8- Como usuário eu gostaria de cadastrar psicológos, assistentes sociais e advogados.
+
 9- Como usuário eu gostaria de excluir psicólogos, assistentes sociais e advogados.
+
 10- Como usuário eu gostaria de atribuir acolhimentos a um ou mais psicólogos, assistente sociais e advogados.
+
 11- Como usuário eu gostaria de cadastrar um novo atendimento, com a data do dia atual, um campo de texto e o responsável pelo atendimento.
+
 12- Como usuário eu gostaria de visualizar o histórico de atendimentos realizados para um acolhimento.
+
 13- Como usuário eu gostaria de visualizar o calendário com eventos marcados.
+
 14- Como usuário eu gostaria de cadastrar novos eventos em datas e horários específicos.
+
 15- Como usuário eu gostaria de excluir um evento.
 
 # Backlogs do sprint
