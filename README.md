@@ -49,16 +49,20 @@ O SIT tem como objetivo principal oferecer um cadastro das mulheres acolhidas pe
 
 15- Como usuário eu gostaria de excluir um evento.
 
+16- Como usuario gostaria de utilizar um sistema que seja visualmente agradavel e com alta usabilidade 
+
 # Backlogs do sprint
 1- Como usuário eu gostaria de cadastrar um novo acolhimento.
 - Implementar menu de cadastro de acolhimento [Victor Henrique]
 - Implementar o formulário para receber os dados do cadastro [Victor Henrique]
+- Fazer com que a pagina utilize elementos do Bootstrap. [Luiz Henrique]
 
 2- Como usuário eu gostaria de visualizar a lista de acolhimentos.
 - Implementar menu de visualização de acolhimentos [Victor Henrique]
+- Adicionar as mudancas de estilo necessárias. [Luiz Henrique]
 
 3- Como usuário eu gostaria de classificar o status dos acolhimentos como Ativo e Encerrado
-- Implementar visualização de um acolhimento único [Victor Henrique]
+- Implementar visualização de um acolhimento único [Victor Henrique & Luiz Henrique]
 - Dentro da visualização de um acolhimento único, implementar opção para mudar o status [Victor Henrique]
 
 4- Como usuário eu gostaria de filtrar os acolhimentos pelo status.
@@ -72,13 +76,15 @@ O SIT tem como objetivo principal oferecer um cadastro das mulheres acolhidas pe
 
 7- Como usuário eu gostaria de filtrar os acolhimentos pelo tipo de demanda.
 - Dentro do menu de visualização de acolhimentos, implementar filtragem por tipo de demanda [Victor Henrique]
+- Adicionar ícones para cada tipo de demanda para aumentar a usabilidade [Luiz Henrique]
 
 8- Como usuário eu gostaria de cadastrar psicológos, assistentes sociais e advogados.
 - Implementar menu de cadastro de psicológos, assistentes sociais e advogados [Victor Henrique]
 - Para cada menu de cadastro de psicológos, assistentes sociais e advogados implementar um formulário para receber os dados [Victor Henrique]
+- Adicionar o formulario e seus campos às respectivas classes de estilo que forem apropriadas. [Luiz Henrique]
 
 9- Como usuário eu gostaria de excluir psicólogos, assistentes sociais e advogados.
-- Implementar menu de visualização de psicológos, assistentes sociais e advogados [Victor Henrique]
+- Implementar menu de visualização de psicológos, assistentes sociais e advogados [Victor Henrique & Luiz Henrique]
 - Dentro do menu de visualização de psicológos, assistentes sociais e advogados, implementar opção de exclusão [Victor Henrique]
 
 10- Como usuário eu gostaria de atribuir acolhimentos a um ou mais psicólogos, assistente sociais e advogados.
@@ -94,7 +100,12 @@ responsável pelo atendimento.
 
 14- Como usuário eu gostaria de cadastrar novos eventos em datas e horários específicos.
 - Dentro do menu de calendário, implementar opção para cadastro de eventos [Victor Henrique]
-- Criar formulário para receber os dados do evento [Victor Henrqiue]
+- Criar formulário para receber os dados do evento [Victor Henrque & Luiz Henrique]
 
 15- Como usuário eu gostaria de excluir um evento.
 - Dentro do menu de calendário, implementar opção para exclusão de evento [Victor Henrique]
+
+16- Como usuario gostaria de utilizar um sistema que seja visualmente agradavel e com alta usabilidade
+- Para cada elemento visual do sistema, adiciona-lo à classe de Bootstrap apropriada. [Luiz Henrique]
+- Fazer com que as configurações dos elementos Bootstrap sigam o esquema de cores previsto no protótipo Figma. [Luiz Henrique]
+- Fazer com que os elementos nas paginas estejam bem dispostos de forma tornar o uso intuitivo [Luiz Henrique]
