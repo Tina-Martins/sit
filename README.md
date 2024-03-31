@@ -53,6 +53,7 @@ O SIT tem como objetivo principal oferecer um cadastro das mulheres acolhidas pe
 0- Infraestrutura
 - Criar conta do firebase [Henrique Lisboa]
 - Criar banco de dados firestore [Henrique Lisboa]
+- Criar modelagem de banco de dados (NoSQL)
 - Configurar integração do angular com firebase tools [Henrique Lisboa]
 - Configurar integração com o banco de dados no backend [Henrique Lisboa]
 - Implementar pipelines para deploy automatizado (frontend e backend). [Henrique Lisboa]
