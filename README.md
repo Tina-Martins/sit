@@ -50,6 +50,13 @@ O SIT tem como objetivo principal oferecer um cadastro das mulheres acolhidas pe
 15- Como usuário eu gostaria de excluir um evento.
 
 # Backlogs do sprint
+0- Infraestrutura
+- Criar conta do firebase [Henrique Lisboa]
+- Criar banco de dados firestore [Henrique Lisboa]
+- Configurar integração do angular com firebase tools [Henrique Lisboa]
+- Configurar integração com o banco de dados no backend [Henrique Lisboa]
+- Implementar pipelines para deploy automatizado (frontend e backend). [Henrique Lisboa]
+  
 1- Como usuário eu gostaria de cadastrar um novo acolhimento.
 - Implementar menu de cadastro de acolhimento [Victor Henrique]
 - Implementar o formulário para receber os dados do cadastro [Victor Henrique]
@@ -102,7 +109,7 @@ O SIT tem como objetivo principal oferecer um cadastro das mulheres acolhidas pe
 responsável pelo atendimento.
 - Criar uma rota do formulário até o banco de dados [Victor Vieira]
 - Associar a data atual com o pacotes de dados a serem enviados ao banco de dados [Victor Vieira]
-- Implementar lógica de agendamento de horários [Victor Vieira]
+- Implementar lógica de agendamento de horários [Henrique Lisboa]
 
 12- Como usuário eu gostaria de visualizar o histórico de atendimentos realizados para um acolhimento.
 - Criar uma rota do banco de dados até a visualização [Victor Vieira]
@@ -116,8 +123,8 @@ responsável pelo atendimento.
 - Dentro do menu de calendário, implementar opção para cadastro de eventos [Victor Henrique]
 - Criar formulário para receber os dados do evento [Victor Henrqiue]
 - Criar uma rota do formulário ao banco de dados, associando os dados do evento [Victor Vieira]
-- Implementar lógica de agendamento de horários [Victor Vieira]
+- Implementar lógica de agendamento de horários [Henrique Lisboa]
 
 15- Como usuário eu gostaria de excluir um evento.
 - Dentro do menu de calendário, implementar opção para exclusão de evento [Victor Henrique]
-- Criar uma rota do formulário até o banco de dados [Victor Vieira]
+- Criar uma rota do formulário até o banco de dados [Henrique Lisboa]
