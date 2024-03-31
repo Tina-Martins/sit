@@ -128,3 +128,6 @@ responsável pelo atendimento.
 15- Como usuário eu gostaria de excluir um evento.
 - Dentro do menu de calendário, implementar opção para exclusão de evento [Victor Henrique]
 - Criar uma rota do formulário até o banco de dados [Henrique Lisboa]
+
+# Figma
+https://www.figma.com/file/Hevwmy5TAGTNMEBB6Jues6/Sistema-Integrado-da-Tina?type=design&node-id=212%3A17479&mode=design&t=hF2rZxJwqJYSxjFI-1
