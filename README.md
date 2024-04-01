@@ -157,4 +157,4 @@ responsável pelo atendimento.
 - Fazer com que os elementos nas paginas estejam bem dispostos de forma tornar o uso intuitivo [Luiz Henrique]-
 
 # Figma
-https://www.figma.com/file/Hevwmy5TAGTNMEBB6Jues6/Sistema-Integrado-da-Tina?type=design&node-id=212%3A17479&mode=design&t=hF2rZxJwqJYSxjFI-1
+[https://www.figma.com/file/Hevwmy5TAGTNMEBB6Jues6/Sistema-Integrado-da-Tina?type=design&node-id=212%3A17479&mode=design&t=hF2rZxJwqJYSxjFI-1](https://www.figma.com/file/DxPe8PoIhkBFxHgBAPy2qe/SIT?type=design&node-id=322-2650&mode=design&t=nx1Mr9cRTFDNl55g-0)
