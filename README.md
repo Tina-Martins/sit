@@ -49,6 +49,8 @@ O SIT tem como objetivo principal oferecer um cadastro das mulheres acolhidas pe
 
 15- Como usuário eu gostaria de excluir um evento.
 
+16- Como usuario gostaria de utilizar um sistema que seja visualmente agradavel e com alta usabilidade 
+
 # Backlogs do sprint
 0- Infraestrutura
 - Criar conta do firebase [Henrique Lisboa]
@@ -61,15 +63,16 @@ O SIT tem como objetivo principal oferecer um cadastro das mulheres acolhidas pe
 1- Como usuário eu gostaria de cadastrar um novo acolhimento.
 - Implementar menu de cadastro de acolhimento [Victor Henrique]
 - Implementar o formulário para receber os dados do cadastro [Victor Henrique]
-- Instalar node.js, Express e Axios [Victor Vieira]
-- Criar uma rota do formulário ao banco de dados [Victor Vieira]
+- Fazer com que a pagina utilize elementos do Bootstrap. [Luiz Henrique]
 
 2- Como usuário eu gostaria de visualizar a lista de acolhimentos.
 - Implementar menu de visualização de acolhimentos [Victor Henrique]
-- Criar uma rota do banco de dados a visualização [Victor Vieira]
+- Adicionar as mudancas de estilo necessárias. [Luiz Henrique]
+- Instalar node.js, Express e Axios [Victor Vieira]
+- Criar uma rota do formulário ao banco de dados [Victor Vieira]
 
 3- Como usuário eu gostaria de classificar o status dos acolhimentos como Ativo e Encerrado
-- Implementar visualização de um acolhimento único [Victor Henrique]
+- Implementar visualização de um acolhimento único [Victor Henrique & Luiz Henrique]
 - Dentro da visualização de um acolhimento único, implementar opção para mudar o status [Victor Henrique]
 - Criar uma rota até o banco de dados para mudar pontualmente o status [Victor Vieira]
 
@@ -89,16 +92,18 @@ O SIT tem como objetivo principal oferecer um cadastro das mulheres acolhidas pe
 
 7- Como usuário eu gostaria de filtrar os acolhimentos pelo tipo de demanda.
 - Dentro do menu de visualização de acolhimentos, implementar filtragem por tipo de demanda [Victor Henrique]
+- Adicionar ícones para cada tipo de demanda para aumentar a usabilidade [Luiz Henrique]
 - Criar uma rota do banco de dados a visualização [Victor Vieira]
 - Realizar a query para o banco de dados considerando a filtragem [Victor Vieira]
 
 8- Como usuário eu gostaria de cadastrar psicológos, assistentes sociais e advogados.
 - Implementar menu de cadastro de psicológos, assistentes sociais e advogados [Victor Henrique]
 - Para cada menu de cadastro de psicológos, assistentes sociais e advogados implementar um formulário para receber os dados [Victor Henrique]
+- Adicionar o formulario e seus campos às respectivas classes de estilo que forem apropriadas. [Luiz Henrique]
 - Criar uma rota do formulário ao banco de dados [Victor Vieira]
 
 9- Como usuário eu gostaria de excluir psicólogos, assistentes sociais e advogados.
-- Implementar menu de visualização de psicológos, assistentes sociais e advogados [Victor Henrique]
+- Implementar menu de visualização de psicológos, assistentes sociais e advogados [Victor Henrique & Luiz Henrique]
 - Dentro do menu de visualização de psicológos, assistentes sociais e advogados, implementar opção de exclusão [Victor Henrique]
 - Criar uma rota do formulário ao banco de dados [Victor Vieira]
 
@@ -122,6 +127,15 @@ responsável pelo atendimento.
 
 14- Como usuário eu gostaria de cadastrar novos eventos em datas e horários específicos.
 - Dentro do menu de calendário, implementar opção para cadastro de eventos [Victor Henrique]
+- Criar formulário para receber os dados do evento [Victor Henrque & Luiz Henrique]
+
+15- Como usuário eu gostaria de excluir um evento.
+- Dentro do menu de calendário, implementar opção para exclusão de evento [Victor Henrique]
+
+16- Como usuario gostaria de utilizar um sistema que seja visualmente agradavel e com alta usabilidade
+- Para cada elemento visual do sistema, adicioná-lo à classe de Bootstrap apropriada. [Luiz Henrique]
+- Fazer com que as configurações dos elementos Bootstrap sigam o esquema de cores previsto no protótipo Figma. [Luiz Henrique]
+- Fazer com que os elementos nas paginas estejam bem dispostos de forma tornar o uso intuitivo [Luiz Henrique]-
 - Criar formulário para receber os dados do evento [Victor Henrqiue]
 - Criar uma rota do formulário ao banco de dados, associando os dados do evento [Victor Vieira]
 - Implementar lógica de agendamento de horários [Henrique Lisboa]
