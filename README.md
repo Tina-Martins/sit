@@ -131,7 +131,8 @@ responsável pelo atendimento.
 
 15- Como usuário eu gostaria de excluir um evento.
 - Dentro do menu de calendário, implementar opção para exclusão de evento [Victor Henrique]
-
+- Criar uma rota do formulário até o banco de dados [Henrique Lisboa]
+  
 16- Como usuario gostaria de utilizar um sistema que seja visualmente agradavel e com alta usabilidade
 - Para cada elemento visual do sistema, adicioná-lo à classe de Bootstrap apropriada. [Luiz Henrique]
 - Fazer com que as configurações dos elementos Bootstrap sigam o esquema de cores previsto no protótipo Figma. [Luiz Henrique]
@@ -139,10 +140,6 @@ responsável pelo atendimento.
 - Criar formulário para receber os dados do evento [Victor Henrqiue]
 - Criar uma rota do formulário ao banco de dados, associando os dados do evento [Victor Vieira]
 - Implementar lógica de agendamento de horários [Henrique Lisboa]
-
-15- Como usuário eu gostaria de excluir um evento.
-- Dentro do menu de calendário, implementar opção para exclusão de evento [Victor Henrique]
-- Criar uma rota do formulário até o banco de dados [Henrique Lisboa]
 
 # Figma
 https://www.figma.com/file/Hevwmy5TAGTNMEBB6Jues6/Sistema-Integrado-da-Tina?type=design&node-id=212%3A17479&mode=design&t=hF2rZxJwqJYSxjFI-1
