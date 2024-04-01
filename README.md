@@ -63,6 +63,7 @@ O SIT tem como objetivo principal oferecer um cadastro das mulheres acolhidas pe
 1- Como usuário eu gostaria de cadastrar um novo acolhimento.
 - Implementar menu de cadastro de acolhimento [Victor Henrique]
 - Implementar o formulário para receber os dados do cadastro [Victor Henrique]
+- Adicionar as mudancas de estilo necessárias. [Luiz Henrique]
 - Fazer com que a pagina utilize elementos do Bootstrap. [Luiz Henrique]
 
 2- Como usuário eu gostaria de visualizar a lista de acolhimentos.
@@ -74,24 +75,29 @@ O SIT tem como objetivo principal oferecer um cadastro das mulheres acolhidas pe
 3- Como usuário eu gostaria de classificar o status dos acolhimentos como Ativo e Encerrado
 - Implementar visualização de um acolhimento único [Victor Henrique & Luiz Henrique]
 - Dentro da visualização de um acolhimento único, implementar opção para mudar o status [Victor Henrique]
+- Adicionar as mudancas de estilo necessárias. [Luiz Henrique]
 - Criar uma rota até o banco de dados para mudar pontualmente o status [Victor Vieira]
 
 4- Como usuário eu gostaria de filtrar os acolhimentos pelo status.
 - Dentro do menu de visualização de acolhimentos, implementar filtragem por status [Victor Henrique]
+- Adicionar as mudancas de estilo necessárias. [Luiz Henrique]
 - Criar uma rota entre a requisição de filtragem e o banco de dados [Victor Vieira]
 - Realizar a query para o banco de dados considerando a filtragem [Victor Vieira]
 
 5- Como usuário eu gostaria de buscar um acolhimento pelo nome da acolhida.
 - Dentro do menu de visualização de acolhimentos, implementar busca por nome [Victor Henrique]
+- Adicionar as mudancas de estilo necessárias. [Luiz Henrique]
 - Criar uma rota do banco de dados a visualização [Victor Vieira]
 
 6- Como usuário eu gostaria de cadastrar demandas de Psicologia, Jurídico, Assitência Social e Abrigamento.
 - Dentro da visualização de um acolhimento único, implementar opção para atribuição de demandas [Victor Henrique]
+- Adicionar as mudancas de estilo necessárias. [Luiz Henrique]
 - Criar uma rota do fromulário ao banco de dados [Victor Vieira]
 - Organizar os dados do cadastro para envio padronizado para o banco de dados [Victor Vieira]
 
 7- Como usuário eu gostaria de filtrar os acolhimentos pelo tipo de demanda.
 - Dentro do menu de visualização de acolhimentos, implementar filtragem por tipo de demanda [Victor Henrique]
+- Adicionar as mudancas de estilo necessárias. [Luiz Henrique]
 - Adicionar ícones para cada tipo de demanda para aumentar a usabilidade [Luiz Henrique]
 - Criar uma rota do banco de dados a visualização [Victor Vieira]
 - Realizar a query para o banco de dados considerando a filtragem [Victor Vieira]
@@ -100,46 +106,55 @@ O SIT tem como objetivo principal oferecer um cadastro das mulheres acolhidas pe
 - Implementar menu de cadastro de psicológos, assistentes sociais e advogados [Victor Henrique]
 - Para cada menu de cadastro de psicológos, assistentes sociais e advogados implementar um formulário para receber os dados [Victor Henrique]
 - Adicionar o formulario e seus campos às respectivas classes de estilo que forem apropriadas. [Luiz Henrique]
+- Adicionar as mudancas de estilo necessárias. [Luiz Henrique]
 - Criar uma rota do formulário ao banco de dados [Victor Vieira]
 
 9- Como usuário eu gostaria de excluir psicólogos, assistentes sociais e advogados.
 - Implementar menu de visualização de psicológos, assistentes sociais e advogados [Victor Henrique & Luiz Henrique]
 - Dentro do menu de visualização de psicológos, assistentes sociais e advogados, implementar opção de exclusão [Victor Henrique]
+- Adicionar as mudancas de estilo necessárias. [Luiz Henrique]
 - Criar uma rota do formulário ao banco de dados [Victor Vieira]
 
 10- Como usuário eu gostaria de atribuir acolhimentos a um ou mais psicólogos, assistente sociais e advogados.
 - Dentro do menu de cadastro de acolhimento, implementar opção para atribuição de múltiplos profissionais [Victor Henrique]
+- Adicionar as mudancas de estilo necessárias. [Luiz Henrique]
 - Criar uma rota até o banco de dados para atualizar dados dos acolhimentos [Victor Vieira]
 
 11- Como usuário eu gostaria de cadastrar um novo atendimento, com a data do dia atual, um campo de texto e o 
 responsável pelo atendimento.
+- Dentro do menu de visualização de acolhimento único, implementar opção para cadastrar um novo atendimento [Victor Henrique]
+- Adicionar as mudancas de estilo necessárias. [Luiz Henrique]
 - Criar uma rota do formulário até o banco de dados [Victor Vieira]
 - Associar a data atual com o pacotes de dados a serem enviados ao banco de dados [Victor Vieira]
 - Implementar lógica de agendamento de horários [Henrique Lisboa]
 
 12- Como usuário eu gostaria de visualizar o histórico de atendimentos realizados para um acolhimento.
+- Dentro do menu de visualização de acolhimento único, implementar visualização de atendimentos realizados [Victor Henrique]
+- Adicionar as mudancas de estilo necessárias. [Luiz Henrique]
 - Criar uma rota do banco de dados até a visualização [Victor Vieira]
 - Organizar o histórico cronologicamente para melhor visualização [Victor Vieira]
 
 13- Como usuário eu gostaria de visualizar o calendário com eventos marcados.
 - Implementar menu de calendário [Victor Henrique]
+- Adicionar as mudancas de estilo necessárias. [Luiz Henrique]
 - Criar uma rota do banco de dados até a visualização [Victor Vieira]
 
 14- Como usuário eu gostaria de cadastrar novos eventos em datas e horários específicos.
 - Dentro do menu de calendário, implementar opção para cadastro de eventos [Victor Henrique]
-- Criar formulário para receber os dados do evento [Victor Henrque & Luiz Henrique]
+- Criar formulário para receber os dados do evento [Victor Henrique & Luiz Henrique]
+- Adicionar as mudancas de estilo necessárias. [Luiz Henrique]
+- Implementar lógica de agendamento de horários [Henrique Lisboa]
+- Criar uma rota do formulário ao banco de dados, associando os dados do evento [Victor Vieira]
 
 15- Como usuário eu gostaria de excluir um evento.
 - Dentro do menu de calendário, implementar opção para exclusão de evento [Victor Henrique]
+- Adicionar as mudancas de estilo necessárias. [Luiz Henrique]
 - Criar uma rota do formulário até o banco de dados [Henrique Lisboa]
   
 16- Como usuario gostaria de utilizar um sistema que seja visualmente agradavel e com alta usabilidade
 - Para cada elemento visual do sistema, adicioná-lo à classe de Bootstrap apropriada. [Luiz Henrique]
 - Fazer com que as configurações dos elementos Bootstrap sigam o esquema de cores previsto no protótipo Figma. [Luiz Henrique]
 - Fazer com que os elementos nas paginas estejam bem dispostos de forma tornar o uso intuitivo [Luiz Henrique]-
-- Criar formulário para receber os dados do evento [Victor Henrqiue]
-- Criar uma rota do formulário ao banco de dados, associando os dados do evento [Victor Vieira]
-- Implementar lógica de agendamento de horários [Henrique Lisboa]
 
 # Figma
 https://www.figma.com/file/Hevwmy5TAGTNMEBB6Jues6/Sistema-Integrado-da-Tina?type=design&node-id=212%3A17479&mode=design&t=hF2rZxJwqJYSxjFI-1
