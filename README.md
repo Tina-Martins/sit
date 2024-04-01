@@ -59,18 +59,19 @@ O SIT tem como objetivo principal oferecer um cadastro das mulheres acolhidas pe
 - Configurar integração do angular com firebase tools [Henrique Lisboa]
 - Configurar integração com o banco de dados no backend [Henrique Lisboa]
 - Implementar pipelines para deploy automatizado (frontend e backend). [Henrique Lisboa]
+- Instalar node.js, Express e Axios [Victor Vieira]
   
 1- Como usuário eu gostaria de cadastrar um novo acolhimento.
 - Implementar menu de cadastro de acolhimento [Victor Henrique]
 - Implementar o formulário para receber os dados do cadastro [Victor Henrique]
 - Adicionar as mudancas de estilo necessárias. [Luiz Henrique]
 - Fazer com que a pagina utilize elementos do Bootstrap. [Luiz Henrique]
+- Criar uma rota do formulário ao banco de dados [Victor Vieira]
 
 2- Como usuário eu gostaria de visualizar a lista de acolhimentos.
 - Implementar menu de visualização de acolhimentos [Victor Henrique]
 - Adicionar as mudancas de estilo necessárias. [Luiz Henrique]
-- Instalar node.js, Express e Axios [Victor Vieira]
-- Criar uma rota do formulário ao banco de dados [Victor Vieira]
+- Criar uma rota do banco de dados á visualização [Victor Vieira]
 
 3- Como usuário eu gostaria de classificar o status dos acolhimentos como Ativo e Encerrado
 - Implementar visualização de um acolhimento único [Victor Henrique & Luiz Henrique]
