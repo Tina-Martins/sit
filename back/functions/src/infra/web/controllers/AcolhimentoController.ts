@@ -12,6 +12,15 @@ export class AcolhimentoController {
       res.status(400).json({ message: error.message });
     }
   };
+  
+  getAllAcolhimentos = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const acolhimentos = await this.acolhimentoService.getAll();
+      res.json(acolhimentos);
+    } catch (error: any) {
+      res.status(400).json({ message: error.message });
+    }
+  }
 
   getAcolhimentoById = async (req: Request, res: Response): Promise<void> => {
     try {
@@ -58,4 +67,20 @@ export class AcolhimentoController {
       res.status(400).json({ message: error.message });
     }
   };
+
+  updateAcolhimento = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const acolhimento = await this.acolhimentoService.update(
+        req.params.id,
+        req.body
+      );
+      if (acolhimento) {
+        res.json(acolhimento);
+      } else {
+        res.status(404).json({ message: "Acolhimento not found" });
+      }
+    } catch (error: any) {
+      res.status(400).json({ message: error.message });
+    }
+  }
 }

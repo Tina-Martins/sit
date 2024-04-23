@@ -9,6 +9,10 @@ export class AcolhimentoService implements IAcolhimentoService {
         return await this.repository.save(acolhimento);
     }
 
+    async getAll(): Promise<Acolhimento[]> {
+        return await this.repository.findAll();
+    }
+
     async getById(id: string): Promise<Acolhimento | null> {
         return await this.repository.findById(id);
     }
@@ -19,5 +23,9 @@ export class AcolhimentoService implements IAcolhimentoService {
 
     async getByTipoDemanda(tipoDemanda: string): Promise<Acolhimento[] | null> {
         return await this.repository.findByTipoDemanda(tipoDemanda);
+    }
+
+    async update(id: string, body: Partial<Acolhimento>): Promise<Acolhimento | null> {
+        return await this.repository.update(id, body);
     }
 }

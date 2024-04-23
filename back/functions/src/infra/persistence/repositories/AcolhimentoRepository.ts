@@ -1,14 +1,47 @@
 import { Acolhimento } from "../../../domain/models/Acolhimento";
+import { acolhimentosCol } from "../FirestoreCollections";
 import { IAcolhimentoRepository } from "../interfaces/IAcolhimentoRepository";
-import * as admin from "firebase-admin";
-
+import { v4 as uuidv4 } from "uuid";
 export class AcolhimentoRepository implements IAcolhimentoRepository {
-  private db = admin.firestore();
-  private collection = this.db.collection("acolhimentos");
+  private collection = acolhimentosCol;
+
+  async save(acolhimento: Acolhimento): Promise<Acolhimento> {
+    const doc = await this.collection.add({
+      id: uuidv4(),
+      nome: acolhimento.nome,
+      demandas: acolhimento.demandas,
+      criado_em: new Date(),
+      atualizado_em: new Date(),
+    });
+    return new Acolhimento(
+      doc.id,
+      acolhimento.nome,
+      acolhimento.demandas,
+      acolhimento.criado_em,
+      acolhimento.atualizado_em
+    );
+  }
+
+  async findAll(): Promise<Acolhimento[]> {
+    const snapshot = await this.collection.get();
+    if (snapshot.empty) {
+      return [];
+    }
+    return snapshot.docs.map(
+      (doc) =>
+        new Acolhimento(
+          doc.id,
+          doc.data().nome,
+          doc.data().demandas,
+          doc.data().criado_em,
+          doc.data().atualizado_em
+        )
+    );
+  }
 
   async findByTipoDemanda(tipoDemanda: string): Promise<Acolhimento[]> {
     const snapshot = await this.collection
-      .where("tipo_demanda", "==", tipoDemanda)
+      .where("demandas", "array-contains", tipoDemanda)
       .get();
     if (snapshot.empty) {
       return [];
@@ -17,10 +50,10 @@ export class AcolhimentoRepository implements IAcolhimentoRepository {
       (doc) =>
         new Acolhimento(
           doc.id,
-          doc.data().name,
-          doc.data().description,
-          doc.data().date,
-          doc.data().tipoDemanda
+          doc.data().nome,
+          doc.data().demandas,
+          doc.data().criado_em,
+          doc.data().atualizado_em
         )
     );
   }
@@ -30,12 +63,13 @@ export class AcolhimentoRepository implements IAcolhimentoRepository {
     if (!doc.exists) {
       return null;
     }
+    const data = doc.data()!;
     return new Acolhimento(
-      doc.id,
-      doc.data()!.nome,
-      doc.data()!.demandas,
-      doc.data()!.criado_em,
-      doc.data()!.atualizado_em
+      id,
+      data.nome,
+      data.demandas,
+      data.criado_em,
+      data.atualizado_em
     );
   }
 
@@ -47,26 +81,28 @@ export class AcolhimentoRepository implements IAcolhimentoRepository {
     const doc = snapshot.docs[0];
     return new Acolhimento(
       doc.id,
-      doc.data().name,
-      doc.data().description,
-      doc.data().date,
-      doc.data().tipoDemanda
+      doc.data().nome,
+      doc.data().demandas,
+      doc.data().criado_em,
+      doc.data().atualizado_em
     );
   }
 
-  async save(acolhimento: Acolhimento): Promise<Acolhimento> {
-    const docRef = await this.collection.add({
-      nome: acolhimento.nome,
-      demandas: acolhimento.demandas,
-      criado_em: acolhimento.criado_em,
-      atualizado_em: acolhimento.atualizado_em,
+  async update(id: string, body: Partial<Acolhimento>): Promise<Acolhimento | null> {
+    const doc = await this.collection.doc(id).get();
+    if (!doc.exists) {
+      return null;
+    }
+    await this.collection.doc(id).update({
+      ...body,
+      atualizado_em: new Date(),
     });
     return new Acolhimento(
-      docRef.id,
-      acolhimento.nome,
-      acolhimento.demandas,
-      acolhimento.criado_em,
-      acolhimento.atualizado_em
+      id,
+      body.nome || doc.data()!.nome,
+      body.demandas || doc.data()!.demandas,
+      doc.data()!.criado_em,
+      new Date()
     );
   }
 }
