@@ -1,9 +1,28 @@
 import { Acolhimento } from "../../../domain/models/Acolhimento";
+import {
+  OrderByParam,
+  PaginationOptions,
+  QueryParam,
+  executeQuery,
+} from "../../../utils/QueryUtils";
 import { acolhimentosCol } from "../FirestoreCollections";
 import { IAcolhimentoRepository } from "../interfaces/IAcolhimentoRepository";
 import { v4 as uuidv4 } from "uuid";
 export class AcolhimentoRepository implements IAcolhimentoRepository {
   private collection = acolhimentosCol;
+
+  async findByFilter(
+    queryParams: QueryParam[],
+    orderByParams: OrderByParam[],
+    paginationOptions: PaginationOptions
+  ) {
+    return executeQuery(
+      this.collection,
+      queryParams,
+      orderByParams,
+      paginationOptions
+    );
+  }
 
   async save(acolhimento: Acolhimento): Promise<Acolhimento> {
     const doc = await this.collection.add({
@@ -88,7 +107,10 @@ export class AcolhimentoRepository implements IAcolhimentoRepository {
     );
   }
 
-  async update(id: string, body: Partial<Acolhimento>): Promise<Acolhimento | null> {
+  async update(
+    id: string,
+    body: Partial<Acolhimento>
+  ): Promise<Acolhimento | null> {
     const doc = await this.collection.doc(id).get();
     if (!doc.exists) {
       return null;
@@ -104,5 +126,9 @@ export class AcolhimentoRepository implements IAcolhimentoRepository {
       doc.data()!.criado_em,
       new Date()
     );
+  }
+
+  async delete(id: string): Promise<void> {
+    await this.collection.doc(id).delete();
   }
 }
