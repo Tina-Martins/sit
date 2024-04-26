@@ -12,8 +12,6 @@ export class AcolhimentoController {
         lastDocId: lastDocId || null,
       };
 
-      console.log(filters);
-
       const { data, lastDocRef } = await this.service.getByFilter(
         filters,
         orders,
@@ -41,7 +39,11 @@ export class AcolhimentoController {
   createAcolhimento = async (req: Request, res: Response): Promise<void> => {
     try {
       const acolhimento = await this.service.create(req.body);
-      res.status(201).json(acolhimento);
+      if (acolhimento) {
+        res.status(201).json(acolhimento);
+      } else {
+        res.status(500).json({ message: "Erro ao criar acolhimento" });
+      }
     } catch (error: any) {
       res.status(500).json({ message: error.message });
     }
@@ -67,5 +69,5 @@ export class AcolhimentoController {
     } catch (error: any) {
       res.status(500).json({ message: error.message });
     }
-  }
+  };
 }

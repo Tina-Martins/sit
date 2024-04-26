@@ -1,9 +1,12 @@
-export class Acolhimento {
-    constructor(
-        public id: string,
-        public nome: string,
-        public demandas: string[],
-        public criado_em: Date,
-        public atualizado_em: Date
-    ) {}
+import { FieldValue } from "firebase-admin/firestore";
+
+export interface AcolhimentoData {
+    nome: string;
+    demandas: string[] | [];
+    criado_em: FieldValue | Date;
+    atualizado_em: FieldValue | Date;
+}
+
+export interface Acolhimento extends AcolhimentoData {
+    id?: string;
 }

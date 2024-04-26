@@ -1,5 +1,6 @@
 // queryUtils.ts
 import { CollectionReference, DocumentData } from "firebase-admin/firestore";
+import { createEntityFromDoc } from "./CreateEntityFromDoc";
 
 export interface QueryParam {
   field: string;
@@ -54,7 +55,7 @@ export async function executeQuery<T extends DocumentData>(
   query = query.limit(paginationOptions.pageSize);
 
   const snapshot = await query.get();
-  const data = snapshot.docs.map((doc) => doc.data());
+  const data = snapshot.docs.map((doc) => createEntityFromDoc(doc)) as T[];
   const lastDoc = snapshot.docs[snapshot.docs.length - 1] || null;
 
   return {

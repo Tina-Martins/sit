@@ -13,7 +13,7 @@ export interface IAcolhimentoService {
     paginationOptions: PaginationOptions
   ): Promise<PaginatedQueryResponse<Acolhimento>>;
 
-  create(acolhimento: Acolhimento): Promise<Acolhimento>;
+  create(acolhimento: Acolhimento): Promise<Acolhimento | null>;
 
   getById(id: string): Promise<Acolhimento | null>;
 
