@@ -1,6 +1,6 @@
 import bodyParser from "body-parser";
 import express from "express";
-import AcolhimentoRoutes from "./infra/web/routes/AcolhimentoRoutes";
+import AcolhimentoRoutes from "./AcolhimentoRoutes";
 
 const app = express();
 app.use(bodyParser.json());
