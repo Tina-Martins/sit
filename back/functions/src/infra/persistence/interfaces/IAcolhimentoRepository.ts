@@ -1,16 +1,12 @@
 import { Acolhimento } from "../../../domain/models/Acolhimento";
 import {
-  OrderByParam,
   PaginatedQueryResponse,
-  PaginationOptions,
-  QueryParam,
+  QueryOptions
 } from "../../../utils/QueryUtils";
 
 export interface IAcolhimentoRepository {
-  findByFilter(
-    queryParams: QueryParam[],
-    orderByParams: OrderByParam[],
-    paginationOptions: PaginationOptions
+  list(
+    queryOptions: QueryOptions
   ): Promise<PaginatedQueryResponse<Acolhimento>>;
 
   findById(id: string): Promise<Acolhimento | null>;

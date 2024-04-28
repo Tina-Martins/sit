@@ -10,7 +10,7 @@ const repository = new AcolhimentoRepository();
 const service = new AcolhimentoService(repository);
 const controller = new AcolhimentoController(service);
 
-router.get('/', controller.getByFilter);
+router.get('/', controller.listAcolhimentos);
 router.get('/:id', controller.getAcolhimentoById);
 router.post('/', controller.createAcolhimento);
 router.patch('/:id', controller.updateAcolhimento);

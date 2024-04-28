@@ -1,16 +1,12 @@
 import {
-  OrderByParam,
   PaginatedQueryResponse,
-  PaginationOptions,
-  QueryParam,
+  QueryOptions
 } from "../../utils/QueryUtils";
 import { Acolhimento } from "../models/Acolhimento";
 
 export interface IAcolhimentoService {
-  getByFilter(
-    queryParams: QueryParam[],
-    orderByParams: OrderByParam[],
-    paginationOptions: PaginationOptions
+  list(
+    queryOptions: QueryOptions
   ): Promise<PaginatedQueryResponse<Acolhimento>>;
 
   create(acolhimento: Acolhimento): Promise<Acolhimento | null>;

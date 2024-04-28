@@ -2,24 +2,18 @@ import { IAcolhimentoService } from "../interfaces/IAcolhimentoService";
 import { Acolhimento } from "../models/Acolhimento";
 import { IAcolhimentoRepository } from "../../infra/persistence/interfaces/IAcolhimentoRepository";
 import {
-  OrderByParam,
   PaginatedQueryResponse,
-  PaginationOptions,
-  QueryParam,
+  QueryOptions,
 } from "../../utils/QueryUtils";
 
 export class AcolhimentoService implements IAcolhimentoService {
   constructor(private repository: IAcolhimentoRepository) {}
 
-  async getByFilter(
-    queryParams: QueryParam[],
-    orderByParams: OrderByParam[],
-    paginationOptions: PaginationOptions
+  async list(
+    queryOptions: QueryOptions
   ): Promise<PaginatedQueryResponse<Acolhimento>> {
-    return await this.repository.findByFilter(
-      queryParams,
-      orderByParams,
-      paginationOptions
+    return await this.repository.list(
+      queryOptions
     );
   }
 

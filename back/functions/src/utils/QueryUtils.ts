@@ -1,5 +1,9 @@
 // queryUtils.ts
-import { CollectionReference, DocumentData } from "firebase-admin/firestore";
+import {
+  CollectionReference,
+  DocumentData,
+  Query,
+} from "firebase-admin/firestore";
 import { createModelFromDoc } from "./CreateModelFromDoc";
 
 export interface QueryParam {
@@ -14,7 +18,7 @@ export interface OrderByParam {
 }
 
 export interface PaginationOptions {
-  pageSize: number;
+  limit: number;
   lastDocId?: string | null;
 }
 
@@ -23,39 +27,55 @@ export interface PaginatedQueryResponse<T> {
   lastDocRef: string | null;
 }
 
+export interface QueryOptions {
+  filters?: QueryParam[];
+  orderBy?: OrderByParam;
+  paginationOptions?: PaginationOptions;
+}
+
 export async function executeQuery<T extends DocumentData>(
   collectionRef: CollectionReference<T>,
-  queryParams: QueryParam[] = [],
-  orderByParams: OrderByParam[] = [],
-  paginationOptions: PaginationOptions
+  queryOptions?: QueryOptions
 ): Promise<PaginatedQueryResponse<T>> {
-  let query: FirebaseFirestore.Query<T> = collectionRef;
+  let query: Query<T> = collectionRef;
 
-  queryParams.forEach((param) => {
-    query = query.where(param.field, param.operator, param.value);
-  });
+  if (!queryOptions) {
+    queryOptions = {
+      paginationOptions: {
+        limit: 30,
+      },
+    };
+  }
+  
+  const { filters, orderBy, paginationOptions } = queryOptions;
 
-  if (orderByParams.length === 0) {
-    query = query.orderBy("criadoEm", "desc");
-  } else {
-    orderByParams.forEach((param) => {
-      query = query.orderBy(param.field, param.direction);
+  if (filters && filters.length) {
+    filters.forEach((filter) => {
+      query = query.where(filter.field, filter.operator, filter.value);
     });
   }
 
-  if (paginationOptions.lastDocId) {
+  if (orderBy) {
+    query = query.orderBy(orderBy.field, orderBy.direction);
+  } else {
+    query = query.orderBy("criadoEm", "desc");
+  }
+
+  if (paginationOptions && paginationOptions.lastDocId) {
     const lastDocSnapshot = await collectionRef
       .doc(paginationOptions.lastDocId)
       .get();
     if (lastDocSnapshot.exists) {
       query = query.startAfter(lastDocSnapshot);
     }
+    query = query.limit(paginationOptions.limit);
   }
-  query = query.limit(paginationOptions.pageSize || 30);
 
   const snapshot = await query.get();
-  const data = snapshot.docs.map((doc) => createModelFromDoc(doc)) as T[];
-  const lastDoc = snapshot.docs[snapshot.docs.length - 1] || null;
+  const data = snapshot.docs.map((docSnapshot) =>
+    createModelFromDoc<T>(docSnapshot)
+  );
+  const lastDoc = snapshot.docs[snapshot.docs.length - 1];
 
   return {
     data,

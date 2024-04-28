@@ -1,10 +1,6 @@
+import { QueryOptions } from "./../../../utils/QueryUtils";
 import { Acolhimento } from "../../../domain/models/Acolhimento";
-import {
-  OrderByParam,
-  PaginationOptions,
-  QueryParam,
-  executeQuery,
-} from "../../../utils/QueryUtils";
+import { executeQuery } from "../../../utils/QueryUtils";
 import { acolhimentosCol } from "../FirestoreCollections";
 import { IAcolhimentoRepository } from "../interfaces/IAcolhimentoRepository";
 import { FieldValue } from "firebase-admin/firestore";
@@ -13,18 +9,9 @@ import { AcolhimentoStatus } from "../../../domain/models/Enums/AcolhimentoEnums
 export class AcolhimentoRepository implements IAcolhimentoRepository {
   private collection = acolhimentosCol;
 
-  async findByFilter(
-    queryParams: QueryParam[],
-    orderByParams: OrderByParam[],
-    paginationOptions: PaginationOptions
-  ) {
+  async list(queryOptions: QueryOptions) {
     try {
-      return await executeQuery(
-        this.collection,
-        queryParams,
-        orderByParams,
-        paginationOptions
-      );
+      return await executeQuery(this.collection, queryOptions);
     } catch (error) {
       console.error("Erro ao buscar acolhimentos com filtro:", error);
       return {

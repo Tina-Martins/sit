@@ -5,7 +5,6 @@ import { Acolhimento } from "../../domain/models/Acolhimento";
 
 export const firestore = admin.firestore();
 
-// This is just a helper to add the type to the db responses
 const createCollection = <T = DocumentData>(collectionName: string) => {
   return firestore.collection(
     collectionName

@@ -4,19 +4,11 @@ import { IAcolhimentoService } from "../../../domain/interfaces/IAcolhimentoServ
 export class AcolhimentoController {
   constructor(private service: IAcolhimentoService) {}
 
-  getByFilter = async (req: Request, res: Response): Promise<void> => {
+  listAcolhimentos = async (req: Request, res: Response): Promise<void> => {
     try {
-      const { filters, orders, limit, lastDocId } = req.body;
-      const paginationOptions = {
-        pageSize: limit || null,
-        lastDocId: lastDocId || null,
-      };
+      const { queryOptions } = req.body;
 
-      const { data, lastDocRef } = await this.service.getByFilter(
-        filters,
-        orders,
-        paginationOptions
-      );
+      const { data, lastDocRef } = await this.service.list(queryOptions);
       res.json({ data, lastDocId: lastDocRef });
     } catch (error: any) {
       res.status(500).json({ message: error.message });
