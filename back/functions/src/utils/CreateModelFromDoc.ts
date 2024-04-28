@@ -1,8 +1,12 @@
-import { DocumentSnapshot, Timestamp } from "firebase-admin/firestore";
+import {
+  DocumentSnapshot,
+  QuerySnapshot,
+  Timestamp,
+} from "firebase-admin/firestore";
 
 export const createModelFromDoc = <T>(
   snapshot: DocumentSnapshot,
-  subcollectionSnapshots?: { [subcollectionName: string]: DocumentSnapshot[] }
+  subcollectionSnapshots?: Record<string, QuerySnapshot>
 ): T => {
   const doc = snapshot.data();
   if (!doc) throw new Error("Document data undefined.");
@@ -21,8 +25,12 @@ export const createModelFromDoc = <T>(
   }
 
   if (subcollectionSnapshots) {
-    for (const [key, value] of Object.entries(subcollectionSnapshots)) {
-      result[key] = value.map((doc) => createModelFromDoc(doc));
+    for (const [collectionName, querySnapshot] of Object.entries(
+      subcollectionSnapshots
+    )) {
+      result[collectionName] = querySnapshot.docs.map((doc) =>
+        createModelFromDoc<any>(doc)
+      );
     }
   }
 

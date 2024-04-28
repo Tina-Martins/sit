@@ -37,7 +37,7 @@ export async function executeQuery<T extends DocumentData>(
   });
 
   if (orderByParams.length === 0) {
-    query = query.orderBy("criado_em", "desc");
+    query = query.orderBy("criadoEm", "desc");
   } else {
     orderByParams.forEach((param) => {
       query = query.orderBy(param.field, param.direction);

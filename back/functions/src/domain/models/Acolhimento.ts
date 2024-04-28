@@ -2,29 +2,32 @@ import { FieldValue } from "firebase-admin/firestore";
 export interface AcolhimentoData {
     nome: string;
     demandas: string[] | [];
-    origem: string;
     status: string;
-    criado_em: FieldValue | Date;
-    atualizado_por?: string;
-    atualizado_em?: FieldValue | Date;
-    reg_ativo: boolean;
+    criadoEm: FieldValue | Date;
+    origem?: string;
+    atualizadoEm?: FieldValue | Date;
+    regAtivo: boolean;
     
-    detalhes_cadastro?: DetalhesCadastro;
+    detalhesCadastro?: DetalhesCadastro;
 }
 export interface Acolhimento extends AcolhimentoData {
     id?: string;
 }
 export interface DetalhesCadastro {
-    data_nascimento?: FieldValue | Date;
+    dataNascimento?: FieldValue | Date;
     documento?: string;
-    documento_tipo?: string;
-    documento_emissor?: string;
-    raca_cor?: string;
+    documentoTipo?: string;
+    documentoEmissor?: string;
+    racaCor?: string;
     escolaridade?: string;
     orientacao_sexual?: string;
-    qtd_filhos?: number;
+    qtdfilhos?: number;
     email?: string;
     telefone?: string;
     cidade?: string;
     bairro?: string;
+}
+
+export enum AcolhimentoSubcollections {
+    DETALHES_CADASTRO = "detalhes_cadastro"
 }

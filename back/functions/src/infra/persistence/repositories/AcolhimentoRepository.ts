@@ -1,5 +1,8 @@
 import { AcolhimentoData } from "./../../../domain/models/Acolhimento";
-import { Acolhimento } from "../../../domain/models/Acolhimento";
+import {
+  Acolhimento,
+  AcolhimentoSubcollections,
+} from "../../../domain/models/Acolhimento";
 import {
   OrderByParam,
   PaginationOptions,
@@ -32,8 +35,9 @@ export class AcolhimentoRepository implements IAcolhimentoRepository {
       demandas: acolhimento.demandas,
       origem: acolhimento.origem,
       status: acolhimento.status,
-      criado_em: FieldValue.serverTimestamp(),
-      reg_ativo: true
+      criadoEm: FieldValue.serverTimestamp(),
+      regAtivo: true,
+      detalhesCadastro: acolhimento.detalhesCadastro,
     });
 
     const doc = await docRef.get();
@@ -48,14 +52,14 @@ export class AcolhimentoRepository implements IAcolhimentoRepository {
 
     const detalhesCadastroCollection = this.collection
       .doc(id)
-      .collection("detalhes_cadastro");
+      .collection(AcolhimentoSubcollections.DETALHES_CADASTRO);
     const detalhesCadastroDocs = await detalhesCadastroCollection.get();
 
-    const subcollectionSnapshots = {
-      "detalhes_cadastro": detalhesCadastroDocs.docs,
+    const subcollections = {
+      detalhesCadastro: detalhesCadastroDocs,
     };
 
-    return createModelFromDoc<Acolhimento>(doc, subcollectionSnapshots);
+    return createModelFromDoc<Acolhimento>(doc, subcollections);
   }
 
   async update(
