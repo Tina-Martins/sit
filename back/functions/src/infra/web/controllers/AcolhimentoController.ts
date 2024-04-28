@@ -8,7 +8,7 @@ export class AcolhimentoController {
     try {
       const { filters, orders, limit, lastDocId } = req.body;
       const paginationOptions = {
-        pageSize: limit || 20,
+        pageSize: limit || null,
         lastDocId: lastDocId || null,
       };
 

@@ -31,7 +31,6 @@ export async function executeQuery<T extends DocumentData>(
 ): Promise<PaginatedQueryResponse<T>> {
   let query: FirebaseFirestore.Query<T> = collectionRef;
 
-  console.log(queryParams);
   queryParams.forEach((param) => {
     query = query.where(param.field, param.operator, param.value);
   });
@@ -52,7 +51,7 @@ export async function executeQuery<T extends DocumentData>(
       query = query.startAfter(lastDocSnapshot);
     }
   }
-  query = query.limit(paginationOptions.pageSize);
+  query = query.limit(paginationOptions.pageSize || 30);
 
   const snapshot = await query.get();
   const data = snapshot.docs.map((doc) => createModelFromDoc(doc)) as T[];

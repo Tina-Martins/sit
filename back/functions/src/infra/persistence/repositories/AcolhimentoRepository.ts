@@ -1,8 +1,4 @@
-import { AcolhimentoData } from "./../../../domain/models/Acolhimento";
-import {
-  Acolhimento,
-  AcolhimentoSubcollections,
-} from "../../../domain/models/Acolhimento";
+import { Acolhimento } from "../../../domain/models/Acolhimento";
 import {
   OrderByParam,
   PaginationOptions,
@@ -13,6 +9,7 @@ import { acolhimentosCol } from "../FirestoreCollections";
 import { IAcolhimentoRepository } from "../interfaces/IAcolhimentoRepository";
 import { FieldValue } from "firebase-admin/firestore";
 import { createModelFromDoc } from "../../../utils/CreateModelFromDoc";
+import { AcolhimentoStatus } from "../../../domain/models/Enums/AcolhimentoEnums";
 export class AcolhimentoRepository implements IAcolhimentoRepository {
   private collection = acolhimentosCol;
 
@@ -21,63 +18,90 @@ export class AcolhimentoRepository implements IAcolhimentoRepository {
     orderByParams: OrderByParam[],
     paginationOptions: PaginationOptions
   ) {
-    return executeQuery(
-      this.collection,
-      queryParams,
-      orderByParams,
-      paginationOptions
-    );
+    try {
+      return await executeQuery(
+        this.collection,
+        queryParams,
+        orderByParams,
+        paginationOptions
+      );
+    } catch (error) {
+      console.error("Erro ao buscar acolhimentos com filtro:", error);
+      return {
+        data: [],
+        lastDocRef: null,
+      };
+    }
   }
 
-  async save(acolhimento: AcolhimentoData): Promise<Acolhimento | null> {
-    const docRef = await this.collection.add({
-      nome: acolhimento.nome,
-      demandas: acolhimento.demandas,
-      origem: acolhimento.origem,
-      status: acolhimento.status,
-      criadoEm: FieldValue.serverTimestamp(),
-      regAtivo: true,
-      detalhesCadastro: acolhimento.detalhesCadastro,
-    });
+  async save(acolhimentoData: Acolhimento): Promise<Acolhimento | null> {
+    try {
+      const docRef = await this.collection.add({
+        ...acolhimentoData,
+        criadoEm: FieldValue.serverTimestamp(),
+        status: AcolhimentoStatus.ATIVO,
+        regAtivo: true,
+      });
 
-    const doc = await docRef.get();
-    return doc.exists ? createModelFromDoc(doc) : null;
+      return {
+        ...acolhimentoData,
+        id: docRef.id,
+      };
+    } catch (error) {
+      console.error("Erro ao salvar acolhimento:", error);
+      return null;
+    }
   }
 
   async findById(id: string): Promise<Acolhimento | null> {
-    const doc = await this.collection.doc(id).get();
-    if (!doc.exists) {
+    try {
+      const doc = await this.collection.doc(id).get();
+      if (!doc.exists) {
+        console.log("Acolhimento não encontrado:", id);
+        return null;
+      }
+
+      return createModelFromDoc<Acolhimento>(doc);
+    } catch (error) {
+      console.error("Erro ao encontrar acolhimento:", error);
       return null;
     }
-
-    const detalhesCadastroCollection = this.collection
-      .doc(id)
-      .collection(AcolhimentoSubcollections.DETALHES_CADASTRO);
-    const detalhesCadastroDocs = await detalhesCadastroCollection.get();
-
-    const subcollections = {
-      detalhesCadastro: detalhesCadastroDocs,
-    };
-
-    return createModelFromDoc<Acolhimento>(doc, subcollections);
   }
 
   async update(
     id: string,
     body: Partial<Acolhimento>
   ): Promise<Acolhimento | null> {
-    const doc = await this.collection.doc(id).get();
-    if (!doc.exists) {
+    try {
+      const doc = await this.collection.doc(id).get();
+      if (!doc.exists) {
+        console.log("Acolhimento não encontrado:", id);
+        return null;
+      }
+
+      await this.collection.doc(id).update({
+        ...body,
+        atualizadoEm: FieldValue.serverTimestamp(),
+      });
+
+      const updatedDoc = await this.collection.doc(id).get();
+      return updatedDoc.exists
+        ? createModelFromDoc<Acolhimento>(updatedDoc)
+        : null;
+    } catch (error) {
+      console.error("Erro ao atualizar acolhimento:", error);
       return null;
     }
-    await this.collection.doc(id).update({
-      ...body,
-      atualizado_em: new Date(),
-    });
-    return doc.exists ? createModelFromDoc(doc) : null;
   }
 
   async delete(id: string): Promise<void> {
-    await this.collection.doc(id).delete();
+    try {
+      await this.collection.doc(id).update({
+        regAtivo: false,
+        atualizadoEm: FieldValue.serverTimestamp(),
+      });
+    } catch (error) {
+      console.error("Erro ao deletar acolhimento:", error);
+    }
   }
 }

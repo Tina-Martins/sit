@@ -1,33 +1,33 @@
 import { FieldValue } from "firebase-admin/firestore";
-export interface AcolhimentoData {
-    nome: string;
-    demandas: string[] | [];
-    status: string;
-    criadoEm: FieldValue | Date;
-    origem?: string;
-    atualizadoEm?: FieldValue | Date;
-    regAtivo: boolean;
-    
-    detalhesCadastro?: DetalhesCadastro;
-}
-export interface Acolhimento extends AcolhimentoData {
-    id?: string;
-}
-export interface DetalhesCadastro {
-    dataNascimento?: FieldValue | Date;
-    documento?: string;
-    documentoTipo?: string;
-    documentoEmissor?: string;
-    racaCor?: string;
-    escolaridade?: string;
-    orientacao_sexual?: string;
-    qtdfilhos?: number;
-    email?: string;
-    telefone?: string;
-    cidade?: string;
-    bairro?: string;
-}
-
-export enum AcolhimentoSubcollections {
-    DETALHES_CADASTRO = "detalhes_cadastro"
+import {
+  AcolhimentoDocumentoTipo,
+  AcolhimentoEscolaridade,
+  AcolhimentoOrientationSexual,
+  AcolhimentoOrigem,
+  AcolhimentoRacaCor,
+  AcolhimentoServicoReferencia,
+  AcolhimentoStatus,
+} from "./Enums/AcolhimentoEnums";
+export interface Acolhimento {
+  id?: string;
+  nome: string;
+  demandas: string[] | [];
+  status: AcolhimentoStatus;
+  dataNascimento?: FieldValue | Date;
+  documento?: string;
+  documentoTipo?: AcolhimentoDocumentoTipo;
+  documentoEmissor?: string;
+  racaCor?: AcolhimentoRacaCor;
+  escolaridade?: AcolhimentoEscolaridade;
+  orientacaoSexual?: AcolhimentoOrientationSexual;
+  qtdfilhos?: number;
+  email?: string;
+  telefone?: string;
+  cidade?: string;
+  bairro?: string;
+  origem?: AcolhimentoOrigem;
+  servicoReferencia?: AcolhimentoServicoReferencia;
+  criadoEm: FieldValue | Date;
+  atualizadoEm?: FieldValue | Date;
+  regAtivo: boolean | true;
 }

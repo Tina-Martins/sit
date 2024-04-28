@@ -1,5 +1,5 @@
 import { IAcolhimentoService } from "../interfaces/IAcolhimentoService";
-import { Acolhimento, AcolhimentoData } from "../models/Acolhimento";
+import { Acolhimento } from "../models/Acolhimento";
 import { IAcolhimentoRepository } from "../../infra/persistence/interfaces/IAcolhimentoRepository";
 import {
   OrderByParam,
@@ -23,7 +23,7 @@ export class AcolhimentoService implements IAcolhimentoService {
     );
   }
 
-  async create(acolhimento: AcolhimentoData): Promise<Acolhimento | null> {
+  async create(acolhimento: Acolhimento): Promise<Acolhimento | null> {
     return await this.repository.save(acolhimento);
   }
 

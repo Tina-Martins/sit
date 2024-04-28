@@ -11,16 +11,13 @@ export const createModelFromDoc = <T>(
   const doc = snapshot.data();
   if (!doc) throw new Error("Document data undefined.");
 
-  const result: any = {};
+  const result: any = { id: snapshot.id };
   for (const key in doc) {
-    if (doc.hasOwnProperty(key)) {
-      const typedKey = key as keyof T;
-      if (doc[key] instanceof Timestamp) {
-        result[typedKey] = doc[key].toDate();
-      } else {
-        result[typedKey] = doc[key];
-      }
-      result.id = snapshot.id;
+    const typedKey = key as keyof T;
+    if (doc[key] instanceof Timestamp) {
+      result[typedKey] = doc[key].toDate();
+    } else {
+      result[typedKey] = doc[key];
     }
   }
 
@@ -29,7 +26,7 @@ export const createModelFromDoc = <T>(
       subcollectionSnapshots
     )) {
       result[collectionName] = querySnapshot.docs.map((doc) =>
-        createModelFromDoc<any>(doc)
+        createModelFromDoc<T>(doc)
       );
     }
   }

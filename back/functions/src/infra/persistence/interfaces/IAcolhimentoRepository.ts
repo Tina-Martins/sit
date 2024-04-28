@@ -1,4 +1,4 @@
-import { Acolhimento, AcolhimentoData } from "../../../domain/models/Acolhimento";
+import { Acolhimento } from "../../../domain/models/Acolhimento";
 import {
   OrderByParam,
   PaginatedQueryResponse,
@@ -15,7 +15,7 @@ export interface IAcolhimentoRepository {
 
   findById(id: string): Promise<Acolhimento | null>;
 
-  save(acolhimento: AcolhimentoData): Promise<Acolhimento| null>;
+  save(acolhimento: Acolhimento): Promise<Acolhimento| null>;
 
   update(id: string, body: Partial<Acolhimento>): Promise<Acolhimento | null>;
 
