@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { IAcolhimentoService } from "../../../domain/interfaces/IAcolhimentoService";
+import { createResponse } from "../../../utils/CreateResponse";
 
 export class AcolhimentoController {
   constructor(private service: IAcolhimentoService) {}
@@ -9,9 +10,9 @@ export class AcolhimentoController {
       const { queryOptions } = req.body;
 
       const { data, lastDocRef } = await this.service.list(queryOptions);
-      res.json({ data, lastDocId: lastDocRef });
+      createResponse(res, 200, { data: { data, lastDocId: lastDocRef } });
     } catch (error: any) {
-      res.status(500).json({ message: error.message });
+      createResponse(res, 500, { message: error.message });
     }
   };
 
@@ -21,10 +22,10 @@ export class AcolhimentoController {
       if (acolhimento) {
         res.json(acolhimento);
       } else {
-        res.status(404).json({ message: "Acolhimento não encontrado" });
+        createResponse(res, 404, { message: "Acolhimento não encontrado" });
       }
     } catch (error: any) {
-      res.status(500).json({ message: error.message });
+      createResponse(res, 500, { message: error.message });
     }
   };
 
@@ -34,10 +35,10 @@ export class AcolhimentoController {
       if (acolhimento) {
         res.status(201).json(acolhimento);
       } else {
-        res.status(500).json({ message: "Erro ao criar acolhimento" });
+        createResponse(res, 500, { message: "Erro ao criar acolhimento" });
       }
     } catch (error: any) {
-      res.status(500).json({ message: error.message });
+      createResponse(res, 500, { message: error.message });
     }
   };
 
@@ -47,19 +48,19 @@ export class AcolhimentoController {
       if (acolhimento) {
         res.json(acolhimento);
       } else {
-        res.status(404).json({ message: "Acolhimento não encontrado" });
+        createResponse(res, 500, { message: "Erro ao atualizar acolhimento" });
       }
     } catch (error: any) {
-      res.status(500).json({ message: error.message });
+      createResponse(res, 500, { message: error.message });
     }
   };
 
   deleteAcolhimento = async (req: Request, res: Response): Promise<void> => {
     try {
       await this.service.delete(req.params.id);
-      res.status(204).send();
+      createResponse(res, 204, {});
     } catch (error: any) {
-      res.status(500).json({ message: error.message });
+      createResponse(res, 500, { message: error.message });
     }
   };
 }
