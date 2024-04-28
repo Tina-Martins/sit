@@ -1,0 +1,6 @@
+export enum DemandaStatus {
+    EM_ABERTO = 'EM_ABERTO',
+    EM_ANDAMENTO = 'EM_ANDAMENTO',
+    ENCERRADO = 'ENCERRADO',
+    ENCAMINHADO = 'ENCAMINHADO'
+}
