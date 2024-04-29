@@ -5,6 +5,10 @@ type ResponseData<T> = {
   message?: string;
 };
 
-export function createResponse<T>(res: Response, statusCode: number, payload: ResponseData<T>) {
+export function createResponse<T>(
+  res: Response,
+  statusCode: number,
+  payload: ResponseData<T>
+) {
   res.status(statusCode).json(payload);
 }

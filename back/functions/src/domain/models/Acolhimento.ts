@@ -29,5 +29,5 @@ export interface Acolhimento {
   servicoReferencia?: AcolhimentoServicoReferencia;
   criadoEm: FieldValue | Date;
   atualizadoEm?: FieldValue | Date;
-  regAtivo: boolean | true;
+  regAtivo: boolean;
 }

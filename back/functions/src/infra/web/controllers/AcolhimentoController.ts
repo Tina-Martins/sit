@@ -49,7 +49,7 @@ export class AcolhimentoController {
   deleteAcolhimento = async (req: Request, res: Response): Promise<void> => {
     try {
       await this.service.delete(req.params.id);
-      
+
       createResponse(res, 200, {});
     } catch (error: any) {
       createResponse(res, 500, { message: error.message });

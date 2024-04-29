@@ -1,7 +1,7 @@
 import { Acolhimento } from "../../../domain/models/Acolhimento";
 import {
   PaginatedQueryResponse,
-  QueryOptions
+  QueryOptions,
 } from "../../../utils/QueryUtils";
 
 export interface IAcolhimentoRepository {

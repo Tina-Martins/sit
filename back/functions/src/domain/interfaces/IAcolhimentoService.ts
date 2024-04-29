@@ -1,7 +1,4 @@
-import {
-  PaginatedQueryResponse,
-  QueryOptions
-} from "../../utils/QueryUtils";
+import { PaginatedQueryResponse, QueryOptions } from "../../utils/QueryUtils";
 import { Acolhimento } from "../models/Acolhimento";
 
 export interface IAcolhimentoService {

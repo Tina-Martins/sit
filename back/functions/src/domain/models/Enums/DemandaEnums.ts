@@ -1,6 +1,6 @@
 export enum DemandaStatus {
-    EM_ABERTO = 'EM_ABERTO',
-    EM_ANDAMENTO = 'EM_ANDAMENTO',
-    ENCERRADO = 'ENCERRADO',
-    ENCAMINHADO = 'ENCAMINHADO'
+  EM_ABERTO = "Em Aberto",
+  EM_ANDAMENTO = "Em Andamento",
+  ENCERRADO = "Encerrado",
+  ENCAMINHADO = "Encaminhado",
 }

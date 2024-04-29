@@ -1,10 +1,7 @@
 import { IAcolhimentoService } from "../interfaces/IAcolhimentoService";
 import { Acolhimento } from "../models/Acolhimento";
 import { IAcolhimentoRepository } from "../../infra/persistence/interfaces/IAcolhimentoRepository";
-import {
-  PaginatedQueryResponse,
-  QueryOptions,
-} from "../../utils/QueryUtils";
+import { PaginatedQueryResponse, QueryOptions } from "../../utils/QueryUtils";
 
 export class AcolhimentoService implements IAcolhimentoService {
   constructor(private repository: IAcolhimentoRepository) {}
@@ -12,9 +9,7 @@ export class AcolhimentoService implements IAcolhimentoService {
   async list(
     queryOptions: QueryOptions
   ): Promise<PaginatedQueryResponse<Acolhimento>> {
-    return await this.repository.list(
-      queryOptions
-    );
+    return await this.repository.list(queryOptions);
   }
 
   async create(acolhimento: Acolhimento): Promise<Acolhimento> {
@@ -25,10 +20,7 @@ export class AcolhimentoService implements IAcolhimentoService {
     return await this.repository.findById(id);
   }
 
-  async update(
-    id: string,
-    body: Partial<Acolhimento>
-  ): Promise<Acolhimento> {
+  async update(id: string, body: Partial<Acolhimento>): Promise<Acolhimento> {
     return await this.repository.update(id, body);
   }
 

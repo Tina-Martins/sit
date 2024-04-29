@@ -1,86 +1,85 @@
-
 export enum AcolhimentoStatus {
-    ATIVO = "ativo",
-    ENCERRADO = "encerrado",
-    ENCAMINHADO = "encaminhado"
+  ATIVO = "Ativo",
+  ENCERRADO = "Encerrado",
+  ENCAMINHADO = "Encaminhado",
 }
 
 export enum AcolhimentoDemandas {
-    PSICOLOGIA = "psicologia",
-    JURIDICO = "juridico",
-    ASSISTENCIA_SOCIAL = "assistenciaSocial",
-    ABRIGAMENTO = "abrigamento",
+  PSICOLOGIA = "Psicologia",
+  JURIDICO = "Jurídico",
+  ASSISTENCIA_SOCIAL = "Assistência Social",
+  ABRIGAMENTO = "Abrigamento",
 }
 
 export enum AcolhimentoServicoReferencia {
-    BEM_VINDA = "bemVinda",
-    CRAS = "cras",
-    CREAS = "creas",
-    CENTRO_DE_SAUDE = "centroDeSaude",
-    HOSPITAL = "hospital",
-    CAO_VD_MPMG = "caoVdMpmg",
-    CERNA = "cerna",
-    CASA_DA_MULHER_MINEIRA = "casaDaMulherMineira",
-    DEAM = "deam",
-    GUARDA_MUNICIPAL = "guardaMunicipal",
-    POLICIA_MILITAR = "policiaMilitar",
+  BEM_VINDA = "Bem Vinda",
+  CRAS = "CRAS",
+  CREAS = "CREAS",
+  CENTRO_DE_SAUDE = "Centro de Saúde",
+  HOSPITAL = "Hospital",
+  CAO_VD_MPMG = "CAO VD MPMG",
+  CERNA = "CERNA",
+  CASA_DA_MULHER_MINEIRA = "Casa da Mulher Mineira",
+  DEAM = "DEAM",
+  GUARDA_MUNICIPAL = "Guarda Municipal",
+  POLICIA_MILITAR = "Polícia Militar",
 }
 
 export enum AcolhimentoOrigem {
-    DEMANDA_ESPONTANEA = "demandaEspontanea",
-    REDE_DE_ATENDIMENTO = "redeDeAtendimento",
+  DEMANDA_ESPONTANEA = "Demanda Espontânea",
+  REDE_DE_ATENDIMENTO = "Rede de Atendimento",
 }
 
 export enum AcolhimentoDocumentoTipo {
-    RG = "rg",
-    CPF = "cpf",
-    CNH = "cnh"
+  RG = "RG",
+  CPF = "CPF",
+  CNH = "CNH",
 }
 
 export enum AcolhimentoRacaCor {
-    PRETA = "preta",
-    PARDA = "parda",
-    BRANCA = "branca",
-    INDIGENA = "indigena",
-    AMARELA = "amarela",
-    QUILOMBOLA = "quilombola"
+  PRETA = "Preta",
+  PARDA = "Parda",
+  BRANCA = "Branca",
+  INDIGENA = "Indígena",
+  AMARELA = "Amarela",
+  QUILOMBOLA = "Quilombola",
 }
 
 export enum AcolhimentoEscolaridade {
-    NAO_POSSUI = "naoPossui",
-    FUNDAMENTAL = "fundamental",
-    MEDIO = "medio",
-    SUPERIOR = "superior",
-    POS_GRADUACAO = "posGraduacao",
-    MESTRADO = "mestrado",
-    DOUTORADO = "doutorado"
+  NAO_POSSUI = "Não possui",
+  FUNDAMENTAL = "Ensino Fundamental",
+  MEDIO = "Ensino Médio",
+  SUPERIOR = "Ensino Superior",
+  POS_GRADUACAO = "Pós-graduação",
+  MESTRADO = "Mestrado",
+  DOUTORADO = "Doutorado",
 }
 
 export enum AcolhimentoOrientationSexual {
-    HETEROSEXUAL = "heterosexual",
-    HOMOSSEXUAL = 'homossexual',
-    BISEXUAL = 'bisexual',
-    PANSEXUAL = 'pansexual',
-    ASSEXUAL = 'assexual',
-    OUTRA = 'outra'
+  HETEROSEXUAL = "Heterossexual",
+  HOMOSSEXUAL = "Homossexual",
+  BISEXUAL = "Bissexual",
+  PANSEXUAL = "Pansexual",
+  ASSEXUAL = "Assexual",
+  OUTRA = "Outra",
 }
 
 export enum AcolhimentoSexo {
-    FEMININO = "feminino",
-    MASCULINO = "masculino",
-    INTERSEXO = "intersexo"
+  FEMININO = "Feminino",
+  MASCULINO = "Masculino",
+  INTERSEXO = "Intersexo",
 }
 
 export enum Nacionalidade {
-    BRASILEIRA = "brasileira",
-    ESTRANGEIRA = "estrangeira"
+  BRASILEIRA = "Brasileira",
+  ESTRANGEIRA = "Estrangeira",
 }
 
 export enum AcolhimentoReligiao {
-    NAO_POSSUI = "naoPossui",
-    CATOLICISMO = "catolicismo",
-    EVANGELICA = "evangelica",
-    ESPIRITISMO = "espiritismo",
-    AFRO_BRASILEIRA = "afro-brasileira",
-    OUTRA = "outra"
+  NAO_POSSUI = "Não possui",
+  CATOLICISMO = "Catolicismo",
+  EVANGELICA = "Evangélica",
+  ESPIRITISMO = "Espírita",
+  AFRO_BRASILEIRA = "Afro-brasileira",
+  OUTRA = "Outra",
 }
