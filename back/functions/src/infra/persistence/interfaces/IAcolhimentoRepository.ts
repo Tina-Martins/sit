@@ -9,11 +9,11 @@ export interface IAcolhimentoRepository {
     queryOptions: QueryOptions
   ): Promise<PaginatedQueryResponse<Acolhimento>>;
 
-  findById(id: string): Promise<Acolhimento | null>;
+  findById(id: string): Promise<Acolhimento>;
 
-  save(acolhimento: Acolhimento): Promise<Acolhimento| null>;
+  save(acolhimento: Acolhimento): Promise<Acolhimento>;
 
-  update(id: string, body: Partial<Acolhimento>): Promise<Acolhimento | null>;
+  update(id: string, body: Partial<Acolhimento>): Promise<Acolhimento>;
 
   delete(id: string): Promise<void>;
 }

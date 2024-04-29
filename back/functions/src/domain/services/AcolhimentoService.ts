@@ -17,18 +17,18 @@ export class AcolhimentoService implements IAcolhimentoService {
     );
   }
 
-  async create(acolhimento: Acolhimento): Promise<Acolhimento | null> {
+  async create(acolhimento: Acolhimento): Promise<Acolhimento> {
     return await this.repository.save(acolhimento);
   }
 
-  async getById(id: string): Promise<Acolhimento | null> {
+  async getById(id: string): Promise<Acolhimento> {
     return await this.repository.findById(id);
   }
 
   async update(
     id: string,
     body: Partial<Acolhimento>
-  ): Promise<Acolhimento | null> {
+  ): Promise<Acolhimento> {
     return await this.repository.update(id, body);
   }
 

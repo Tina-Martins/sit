@@ -1,6 +1,6 @@
 import { QueryOptions } from "./../../../utils/QueryUtils";
 import { Acolhimento } from "../../../domain/models/Acolhimento";
-import { executeQuery } from "../../../utils/QueryUtils";
+import { executeListQuery } from "../../../utils/QueryUtils";
 import { acolhimentosCol } from "../FirestoreCollections";
 import { IAcolhimentoRepository } from "../interfaces/IAcolhimentoRepository";
 import { FieldValue } from "firebase-admin/firestore";
@@ -11,17 +11,14 @@ export class AcolhimentoRepository implements IAcolhimentoRepository {
 
   async list(queryOptions: QueryOptions) {
     try {
-      return await executeQuery(this.collection, queryOptions);
-    } catch (error) {
-      console.error("Erro ao buscar acolhimentos com filtro:", error);
-      return {
-        data: [],
-        lastDocRef: null,
-      };
+      return await executeListQuery(this.collection, queryOptions);
+    } catch (error: any) {
+      console.error(error);
+      throw new Error("Erro ao lsitar acolhimentos!");
     }
   }
 
-  async save(acolhimentoData: Acolhimento): Promise<Acolhimento | null> {
+  async save(acolhimentoData: Acolhimento): Promise<Acolhimento> {
     try {
       const docRef = await this.collection.add({
         ...acolhimentoData,
@@ -30,40 +27,39 @@ export class AcolhimentoRepository implements IAcolhimentoRepository {
         regAtivo: true,
       });
 
+      if (!docRef.id) {
+        throw new Error("Erro ao criar acolhimento!");
+      }
+
       return {
         ...acolhimentoData,
         id: docRef.id,
       };
-    } catch (error) {
-      console.error("Erro ao salvar acolhimento:", error);
-      return null;
+    } catch (error: any) {
+      console.error(error);
+      throw new Error("Erro ao criar acolhimento!");
     }
   }
 
-  async findById(id: string): Promise<Acolhimento | null> {
+  async findById(id: string): Promise<Acolhimento> {
     try {
       const doc = await this.collection.doc(id).get();
       if (!doc.exists) {
-        console.log("Acolhimento não encontrado:", id);
-        return null;
+        throw new Error("Acolhimento não encontrado!");
       }
 
       return createModelFromDoc<Acolhimento>(doc);
-    } catch (error) {
-      console.error("Erro ao encontrar acolhimento:", error);
-      return null;
+    } catch (error: any) {
+      console.error(error);
+      throw new Error("Erro ao buscar acolhimento!");
     }
   }
 
-  async update(
-    id: string,
-    body: Partial<Acolhimento>
-  ): Promise<Acolhimento | null> {
+  async update(id: string, body: Partial<Acolhimento>): Promise<Acolhimento> {
     try {
       const doc = await this.collection.doc(id).get();
       if (!doc.exists) {
-        console.log("Acolhimento não encontrado:", id);
-        return null;
+        throw new Error("Acolhimento não encontrado!");
       }
 
       await this.collection.doc(id).update({
@@ -72,23 +68,28 @@ export class AcolhimentoRepository implements IAcolhimentoRepository {
       });
 
       const updatedDoc = await this.collection.doc(id).get();
-      return updatedDoc.exists
-        ? createModelFromDoc<Acolhimento>(updatedDoc)
-        : null;
-    } catch (error) {
-      console.error("Erro ao atualizar acolhimento:", error);
-      return null;
+      return createModelFromDoc<Acolhimento>(updatedDoc);
+    } catch (error: any) {
+      console.error(error);
+      throw new Error("Erro ao atualizar acolhimento!");
     }
   }
 
   async delete(id: string): Promise<void> {
     try {
+      const doc = await this.collection.doc(id).get();
+
+      if (!doc.exists) {
+        throw new Error("Acolhimento não encontrado!");
+      }
+
       await this.collection.doc(id).update({
         regAtivo: false,
         atualizadoEm: FieldValue.serverTimestamp(),
       });
-    } catch (error) {
-      console.error("Erro ao deletar acolhimento:", error);
+    } catch (error: any) {
+      console.error(error);
+      throw new Error("Erro ao deletar acolhimento!");
     }
   }
 }

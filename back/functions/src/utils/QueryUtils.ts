@@ -33,10 +33,10 @@ export interface QueryOptions {
   paginationOptions?: PaginationOptions;
 }
 
-export async function executeQuery<T extends DocumentData>(
+export const executeListQuery = async <T extends DocumentData>(
   collectionRef: CollectionReference<T>,
   queryOptions?: QueryOptions
-): Promise<PaginatedQueryResponse<T>> {
+): Promise<PaginatedQueryResponse<T>> => {
   let query: Query<T> = collectionRef;
 
   if (!queryOptions) {
@@ -46,7 +46,7 @@ export async function executeQuery<T extends DocumentData>(
       },
     };
   }
-  
+
   const { filters, orderBy, paginationOptions } = queryOptions;
 
   if (filters && filters.length) {
@@ -61,24 +61,29 @@ export async function executeQuery<T extends DocumentData>(
     query = query.orderBy("criadoEm", "desc");
   }
 
-  if (paginationOptions && paginationOptions.lastDocId) {
-    const lastDocSnapshot = await collectionRef
-      .doc(paginationOptions.lastDocId)
-      .get();
-    if (lastDocSnapshot.exists) {
-      query = query.startAfter(lastDocSnapshot);
+  try {
+    if (paginationOptions && paginationOptions.lastDocId) {
+      const lastDocSnapshot = await collectionRef
+        .doc(paginationOptions.lastDocId)
+        .get();
+      if (lastDocSnapshot.exists) {
+        query = query.startAfter(lastDocSnapshot);
+      }
+      query = query.limit(paginationOptions.limit);
     }
-    query = query.limit(paginationOptions.limit);
+
+    const snapshot = await query.get();
+
+    const data = snapshot.docs.map((docSnapshot) =>
+      createModelFromDoc<T>(docSnapshot)
+    );
+    const lastDoc = snapshot.docs[snapshot.docs.length - 1];
+
+    return {
+      data,
+      lastDocRef: lastDoc ? lastDoc.id : null,
+    };
+  } catch (error: any) {
+    throw new Error(error.message);
   }
-
-  const snapshot = await query.get();
-  const data = snapshot.docs.map((docSnapshot) =>
-    createModelFromDoc<T>(docSnapshot)
-  );
-  const lastDoc = snapshot.docs[snapshot.docs.length - 1];
-
-  return {
-    data,
-    lastDocRef: lastDoc ? lastDoc.id : null,
-  };
-}
+};
