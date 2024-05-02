@@ -1,13 +1,14 @@
 {
-    "entryFile": "src/index.ts",
-    "noImplicitAdditionalProperties": "throw-on-extras",
-    "controllerPathGlobs": ["src/infra/controllers/**/*Controller.ts"],
-    "spec": {
-      "outputDirectory": "src/swagger",
-      "specVersion": 3
-    },
-    "routes": {
-      "routesDir": "src/infra/routes"
-    }
+  "entryFile": "src/index.ts",
+  "noImplicitAdditionalProperties": "throw-on-extras",
+  "controllerPathGlobs": [
+    "src/core/**/adapters/controllers/**/*Controller.ts"
+  ],
+  "spec": {
+    "outputDirectory": "src/swagger",
+    "specVersion": 3
+  },
+  "routes": {
+    "routesDir": "src/routes"
   }
-  
+}

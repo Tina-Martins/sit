@@ -9,7 +9,7 @@ import express, {
 } from "express";
 import { ValidateError } from "tsoa";
 import * as functions from "firebase-functions";
-import { RegisterRoutes } from "./infra/routes/routes";
+import { RegisterRoutes } from "./routes/routes";
 import swaggerUI from "swagger-ui-express";
 import * as swaggerJson from "./swagger/swagger.json";
 
