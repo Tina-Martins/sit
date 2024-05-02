@@ -1,15 +1,15 @@
 import { DemandaStatus } from "./Enums/DemandaEnums";
 
 export class Demanda {
-  id?: string;
-  tipo: string;
-  status: DemandaStatus;
-  acolhimentoId: string;
-  usuarioId?: string;
-  usuarioNome?: string;
-  criadoEm: Date;
-  atualizadoEm: Date;
-  regAtivo: boolean;
+  private id?: string;
+  private tipo: string;
+  private status: DemandaStatus;
+  private acolhimentoId: string;
+  private usuarioId?: string;
+  private usuarioNome?: string;
+  private criadoEm: Date;
+  private atualizadoEm: Date;
+  private regAtivo: boolean;
 
   constructor(tipo: string, status: DemandaStatus, acolhimentoId: string, criadoEm: Date, atualizadoEm: Date, regAtivo: boolean){
     this.tipo = tipo;

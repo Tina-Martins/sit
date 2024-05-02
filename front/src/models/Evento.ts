@@ -1,15 +1,22 @@
-import { FieldValue } from "firebase-admin/firestore";
+export class Evento {
+  private id?: string;
+  private titulo: string;
+  private descricao?: string;
+  private data: Date;
+  private horaInicio?:Date;
+  private horaFim?: Date;
+  private diaTodo: boolean;
+  private local?: string;
+  private criadoEm: Date;
+  private atualizadoEm:Date;
+  private regAtivo: boolean;
 
-export interface Evento {
-  id?: string;
-  titulo: string;
-  descricao?: string;
-  data: FieldValue | Date;
-  horaInicio?: FieldValue | Date;
-  horaFim?: FieldValue | Date;
-  diaTodo: boolean;
-  local?: string;
-  criadoEm: FieldValue | Date;
-  atualizadoEm: FieldValue | Date;
-  regAtivo: boolean;
+  constructor(titulo: string, data: Date, diaTodo: boolean, criadoEm: Date, atualizadoEm: Date, regAtivo: boolean) {
+    this.titulo = titulo;
+    this.data = data;
+    this.diaTodo = diaTodo;
+    this.criadoEm = criadoEm;
+    this.atualizadoEm = atualizadoEm;
+    this.regAtivo = regAtivo;
+  }
 }

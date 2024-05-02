@@ -9,27 +9,27 @@ import {
 } from "./Enums/AcolhimentoEnums";
 
 export class Acolhimento {
-  id?: string;
-  nome: string;
-  demandas: string[];
-  status: AcolhimentoStatus;
-  dataNascimento?: Date;
-  documento?: string;
-  documentoTipo?: AcolhimentoDocumentoTipo;
-  documentoEmissor?: string;
-  racaCor?: AcolhimentoRacaCor;
-  escolaridade?: AcolhimentoEscolaridade;
-  orientacaoSexual?: AcolhimentoOrientationSexual;
-  qtdfilhos?: number;
-  email?: string;
-  telefone?: string;
-  cidade?: string;
-  bairro?: string;
-  origem?: AcolhimentoOrigem;
-  servicoReferencia?: AcolhimentoServicoReferencia;
-  criadoEm?: Date;
-  atualizadoEm?: Date;
-  regAtivo?: boolean;
+  private id?: string;
+  private nome: string;
+  private demandas: string[];
+  private status: AcolhimentoStatus;
+  private dataNascimento?: Date;
+  private documento?: string;
+  private documentoTipo?: AcolhimentoDocumentoTipo;
+  private documentoEmissor?: string;
+  private racaCor?: AcolhimentoRacaCor;
+  private escolaridade?: AcolhimentoEscolaridade;
+  private orientacaoSexual?: AcolhimentoOrientationSexual;
+  private qtdfilhos?: number;
+  private email?: string;
+  private telefone?: string;
+  private cidade?: string;
+  private bairro?: string;
+  private origem?: AcolhimentoOrigem;
+  private servicoReferencia?: AcolhimentoServicoReferencia;
+  private criadoEm?: Date;
+  private atualizadoEm?: Date;
+  private regAtivo?: boolean;
 
   constructor(nome: string, demandas: string[], status: AcolhimentoStatus){
     this.nome = nome;

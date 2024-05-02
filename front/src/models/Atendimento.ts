@@ -1,10 +1,10 @@
 export class Atendimento {
-  id?: string;
-  data: Date;
-  registro: string;
-  criadoEm: Date;
-  atualizadoEm: Date;
-  regAtivo: boolean;
+  private id?: string;
+  private data: Date;
+  private registro: string;
+  private criadoEm: Date;
+  private atualizadoEm: Date;
+  private regAtivo: boolean;
 
   constructor(data: Date, registro: string, criadoEm:Date, atualizadoEm:Date, regAtivo:boolean){
     this.data = data;
