@@ -14,7 +14,7 @@ export class AcolhimentoRepository implements IAcolhimentoRepository {
       return await executeListQuery(this.collection, queryOptions);
     } catch (error: any) {
       console.error(error);
-      throw new Error("Erro ao lsitar acolhimentos!");
+      throw new Error("Erro ao listar acolhimentos!");
     }
   }
 

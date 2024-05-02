@@ -11,7 +11,7 @@ import {
 export interface Acolhimento {
   id?: string;
   nome: string;
-  demandas: string[] | [];
+  demandas: string[];
   status: AcolhimentoStatus;
   dataNascimento?: FieldValue | Date;
   documento?: string;
@@ -27,7 +27,7 @@ export interface Acolhimento {
   bairro?: string;
   origem?: AcolhimentoOrigem;
   servicoReferencia?: AcolhimentoServicoReferencia;
-  criadoEm: FieldValue | Date;
+  criadoEm?: FieldValue | Date;
   atualizadoEm?: FieldValue | Date;
-  regAtivo: boolean;
+  regAtivo?: boolean;
 }

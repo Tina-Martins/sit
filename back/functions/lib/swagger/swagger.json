@@ -1,0 +1,460 @@
+{
+    "openapi": "3.0.0",
+    "components": {
+        "examples": {},
+        "headers": {},
+        "parameters": {},
+        "requestBodies": {},
+        "responses": {},
+        "schemas": {
+            "AcolhimentoStatus": {
+                "enum": [
+                    "Ativo",
+                    "Encerrado",
+                    "Encaminhado"
+                ],
+                "type": "string"
+            },
+            "FirebaseFirestore.FieldValue": {
+                "description": "Sentinel values that can be used when writing document fields with set(),\ncreate() or update().",
+                "properties": {},
+                "type": "object",
+                "additionalProperties": false
+            },
+            "AcolhimentoDocumentoTipo": {
+                "enum": [
+                    "RG",
+                    "CPF",
+                    "CNH"
+                ],
+                "type": "string"
+            },
+            "AcolhimentoRacaCor": {
+                "enum": [
+                    "Preta",
+                    "Parda",
+                    "Branca",
+                    "Indígena",
+                    "Amarela",
+                    "Quilombola"
+                ],
+                "type": "string"
+            },
+            "AcolhimentoEscolaridade": {
+                "enum": [
+                    "Não possui",
+                    "Ensino Fundamental",
+                    "Ensino Médio",
+                    "Ensino Superior",
+                    "Pós-graduação",
+                    "Mestrado",
+                    "Doutorado"
+                ],
+                "type": "string"
+            },
+            "AcolhimentoOrientationSexual": {
+                "enum": [
+                    "Heterossexual",
+                    "Homossexual",
+                    "Bissexual",
+                    "Pansexual",
+                    "Assexual",
+                    "Outra"
+                ],
+                "type": "string"
+            },
+            "AcolhimentoOrigem": {
+                "enum": [
+                    "Demanda Espontânea",
+                    "Rede de Atendimento"
+                ],
+                "type": "string"
+            },
+            "AcolhimentoServicoReferencia": {
+                "enum": [
+                    "Bem Vinda",
+                    "CRAS",
+                    "CREAS",
+                    "Centro de Saúde",
+                    "Hospital",
+                    "CAO VD MPMG",
+                    "CERNA",
+                    "Casa da Mulher Mineira",
+                    "DEAM",
+                    "Guarda Municipal",
+                    "Polícia Militar"
+                ],
+                "type": "string"
+            },
+            "Acolhimento": {
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "nome": {
+                        "type": "string"
+                    },
+                    "demandas": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/AcolhimentoStatus"
+                    },
+                    "dataNascimento": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/FirebaseFirestore.FieldValue"
+                            },
+                            {
+                                "type": "string",
+                                "format": "date-time"
+                            }
+                        ]
+                    },
+                    "documento": {
+                        "type": "string"
+                    },
+                    "documentoTipo": {
+                        "$ref": "#/components/schemas/AcolhimentoDocumentoTipo"
+                    },
+                    "documentoEmissor": {
+                        "type": "string"
+                    },
+                    "racaCor": {
+                        "$ref": "#/components/schemas/AcolhimentoRacaCor"
+                    },
+                    "escolaridade": {
+                        "$ref": "#/components/schemas/AcolhimentoEscolaridade"
+                    },
+                    "orientacaoSexual": {
+                        "$ref": "#/components/schemas/AcolhimentoOrientationSexual"
+                    },
+                    "qtdfilhos": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "telefone": {
+                        "type": "string"
+                    },
+                    "cidade": {
+                        "type": "string"
+                    },
+                    "bairro": {
+                        "type": "string"
+                    },
+                    "origem": {
+                        "$ref": "#/components/schemas/AcolhimentoOrigem"
+                    },
+                    "servicoReferencia": {
+                        "$ref": "#/components/schemas/AcolhimentoServicoReferencia"
+                    },
+                    "criadoEm": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/FirebaseFirestore.FieldValue"
+                            },
+                            {
+                                "type": "string",
+                                "format": "date-time"
+                            }
+                        ]
+                    },
+                    "atualizadoEm": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/FirebaseFirestore.FieldValue"
+                            },
+                            {
+                                "type": "string",
+                                "format": "date-time"
+                            }
+                        ]
+                    },
+                    "regAtivo": {
+                        "type": "boolean"
+                    }
+                },
+                "required": [
+                    "nome",
+                    "demandas",
+                    "status"
+                ],
+                "type": "object",
+                "additionalProperties": false
+            },
+            "PaginatedQueryResponse_Acolhimento_": {
+                "properties": {
+                    "data": {
+                        "items": {
+                            "$ref": "#/components/schemas/Acolhimento"
+                        },
+                        "type": "array"
+                    },
+                    "lastDocRef": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "required": [
+                    "data",
+                    "lastDocRef"
+                ],
+                "type": "object",
+                "additionalProperties": false
+            },
+            "Partial_Acolhimento_": {
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "nome": {
+                        "type": "string"
+                    },
+                    "demandas": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/AcolhimentoStatus"
+                    },
+                    "dataNascimento": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/FirebaseFirestore.FieldValue"
+                            },
+                            {
+                                "type": "string",
+                                "format": "date-time"
+                            }
+                        ]
+                    },
+                    "documento": {
+                        "type": "string"
+                    },
+                    "documentoTipo": {
+                        "$ref": "#/components/schemas/AcolhimentoDocumentoTipo"
+                    },
+                    "documentoEmissor": {
+                        "type": "string"
+                    },
+                    "racaCor": {
+                        "$ref": "#/components/schemas/AcolhimentoRacaCor"
+                    },
+                    "escolaridade": {
+                        "$ref": "#/components/schemas/AcolhimentoEscolaridade"
+                    },
+                    "orientacaoSexual": {
+                        "$ref": "#/components/schemas/AcolhimentoOrientationSexual"
+                    },
+                    "qtdfilhos": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "telefone": {
+                        "type": "string"
+                    },
+                    "cidade": {
+                        "type": "string"
+                    },
+                    "bairro": {
+                        "type": "string"
+                    },
+                    "origem": {
+                        "$ref": "#/components/schemas/AcolhimentoOrigem"
+                    },
+                    "servicoReferencia": {
+                        "$ref": "#/components/schemas/AcolhimentoServicoReferencia"
+                    },
+                    "criadoEm": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/FirebaseFirestore.FieldValue"
+                            },
+                            {
+                                "type": "string",
+                                "format": "date-time"
+                            }
+                        ]
+                    },
+                    "atualizadoEm": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/FirebaseFirestore.FieldValue"
+                            },
+                            {
+                                "type": "string",
+                                "format": "date-time"
+                            }
+                        ]
+                    },
+                    "regAtivo": {
+                        "type": "boolean"
+                    }
+                },
+                "type": "object",
+                "description": "Make all properties in T optional"
+            }
+        },
+        "securitySchemes": {}
+    },
+    "info": {
+        "title": "functions",
+        "contact": {}
+    },
+    "paths": {
+        "/acolhimentos": {
+            "get": {
+                "operationId": "ListAcolhimentos",
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PaginatedQueryResponse_Acolhimento_"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "queryOptions",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
+            },
+            "post": {
+                "operationId": "CreateAcolhimento",
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Acolhimento"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [],
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Acolhimento"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/acolhimentos/{id}": {
+            "get": {
+                "operationId": "GetAcolhimentoById",
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Acolhimento"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
+            },
+            "patch": {
+                "operationId": "UpdateAcolhimento",
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Acolhimento"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Partial_Acolhimento_"
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "DeleteAcolhimento",
+                "responses": {
+                    "204": {
+                        "description": "No content"
+                    }
+                },
+                "security": [],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "servers": [
+        {
+            "url": "/"
+        }
+    ]
+}

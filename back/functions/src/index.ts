@@ -2,7 +2,44 @@ import * as admin from "firebase-admin";
 console.log("Initializing Firebase Admin SDK");
 admin.initializeApp();
 
-import { https } from "firebase-functions";
-import app from "./infra/web/routes";
+import express, {
+    Response as ExResponse,
+    Request as ExRequest,
+    NextFunction,
+} from "express";
+import { ValidateError } from "tsoa";
+import * as functions from "firebase-functions";
+import { RegisterRoutes } from "./infra/routes/routes";
+import swaggerUI from "swagger-ui-express";
+import * as swaggerJson from "./swagger/swagger.json";
 
-export const api = https.onRequest(app);
+const app = express();
+app.use(express.json());
+
+RegisterRoutes(app);
+
+app.use(["/docs"], swaggerUI.serve, swaggerUI.setup(swaggerJson));
+
+app.use(function errorHandler(
+  err: unknown,
+  req: ExRequest,
+  res: ExResponse,
+  next: NextFunction
+): ExResponse | void {
+  if (err instanceof ValidateError) {
+    console.warn(`Caught Validation Error for ${req.path}:`, err.fields);
+    return res.status(400).json({
+      message: "Validation Failed",
+      details: err?.fields,
+    });
+  }
+  if (err instanceof Error) {
+    return res.status(500).json({
+      message: "Internal Server Error",
+    });
+  }
+
+  next();
+});
+
+export const api = functions.https.onRequest(app);
