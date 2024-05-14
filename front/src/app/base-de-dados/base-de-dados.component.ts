@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { ApiService } from 'src/services/api.service';
 
 @Component({
   selector: 'app-base-de-dados',
@@ -10,5 +11,7 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./base-de-dados.component.scss']
 })
 export class BaseDeDadosComponent {
+
+  constructor(private api_service: ApiService) { }
 
 }
