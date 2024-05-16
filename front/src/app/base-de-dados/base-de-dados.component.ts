@@ -12,6 +12,12 @@ import { ApiService } from 'src/services/api.service';
 })
 export class BaseDeDadosComponent {
 
-  constructor(private api_service: ApiService) { }
+  constructor(private apiService: ApiService) { }
 
+
+  ngOnInit(){
+    this.apiService.getAcolhimentos().then((acolhimentos) => {
+      console.log(acolhimentos);
+    });
+  }
 }
