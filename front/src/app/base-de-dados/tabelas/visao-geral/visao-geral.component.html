@@ -7,10 +7,12 @@
             <th>Data do cadastro</th>
         </tr>
 
-        <tr>
-            <td>Nome do usuário</td>
-            <td>Demanda(s) do usuário</td>
-            <td>Status geral do usuário</td>
+        <tr *ngFor="let acolhimento of this.acolhimentos">
+            <td>{{acolhimento.nome}}</td>
+            <td>
+               <div *ngFor="let demanda of acolhimento.demandas">{{demanda}}</div> 
+            </td>
+            <td>{{acolhimento.status}}</td>
             <td>Data do cadastro do usuário</td>
         </tr>        
     </table>

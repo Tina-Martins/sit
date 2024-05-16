@@ -8,14 +8,10 @@ const API_URL = 'http://localhost:5001/tina-martins/us-central1/api';
   providedIn: 'root'
 })
 export class ApiService {
-  private acolhimentosLastDocRef: string | null = null;
-
   constructor() { }
 
-  public async getAcolhimentos(queryOptions?: QueryOptions): Promise<Array<Acolhimento>> {
-    const query_params = queryOptions ? 
-      `?queryOptions=${encodeURIComponent(JSON.stringify(queryOptions))}&lastDocRef=${this.acolhimentosLastDocRef}` : 
-      `?lastDocRef=${this.acolhimentosLastDocRef}`;
+  public async fetchAcolhimentos(queryOptions?: QueryOptions): Promise<{acolhimentos: Array<Acolhimento>, lastDocRef?:string}> {
+    const query_params = queryOptions ? `?queryOptions=${encodeURIComponent(JSON.stringify(queryOptions))}` : ``;
 
     const response = await fetch(`${API_URL}/acolhimentos${query_params}`);
   
@@ -24,7 +20,6 @@ export class ApiService {
     }
   
     const data: { acolhimentos: Acolhimento[], lastDocRef?: string } = await response.json(); // 'Blind trust'
-    this.acolhimentosLastDocRef = data.lastDocRef || null;
-    return data.acolhimentos;
+    return data;
   }
 }
