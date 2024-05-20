@@ -12,12 +12,15 @@ import * as functions from "firebase-functions";
 import { RegisterRoutes } from "./routes/routes";
 import swaggerUI from "swagger-ui-express";
 import * as swaggerJson from "./swagger/swagger.json";
+import cors from 'cors';
 
 const app = express();
+app.use(cors({
+  origin: 'http://localhost:4200' 
+}));
+
 app.use(express.json());
-
 RegisterRoutes(app);
-
 app.use(["/docs"], swaggerUI.serve, swaggerUI.setup(swaggerJson));
 
 app.use(function errorHandler(

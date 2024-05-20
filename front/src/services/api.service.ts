@@ -10,7 +10,7 @@ const API_URL = 'http://localhost:5001/tina-martins/us-central1/api';
 export class ApiService {
   constructor() { }
 
-  public async fetchAcolhimentos(queryOptions?: QueryOptions): Promise<{acolhimentos: Array<Acolhimento>, lastDocRef?:string}> {
+  public async fetchAcolhimentos(queryOptions?: QueryOptions): Promise<{data: Array<Acolhimento>, lastDocRef?:string}> {
     const query_params = queryOptions ? `?queryOptions=${encodeURIComponent(JSON.stringify(queryOptions))}` : ``;
 
     const response = await fetch(`${API_URL}/acolhimentos${query_params}`);
@@ -18,8 +18,8 @@ export class ApiService {
     if(!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-  
-    const data: { acolhimentos: Acolhimento[], lastDocRef?: string } = await response.json(); // 'Blind trust'
+
+    const data: { data: Acolhimento[], lastDocRef?: string } = await response.json(); // 'Blind trust'
     return data;
   }
 }

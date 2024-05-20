@@ -16,7 +16,7 @@ export class AcolhimentosService {
 
     let result = await this.apiService.fetchAcolhimentos(queryOptions);
     this.lastDocRef = result.lastDocRef || null;
-    return result.acolhimentos;
+    return result.data;
   }
 
 

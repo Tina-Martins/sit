@@ -20,6 +20,7 @@ export class VisaoGeralComponent {
   async ngOnInit() {
     this.acolhimentosService.getAcolhimentos().then((acolhimentos) => {
       this.acolhimentos = acolhimentos;
+      console.info("Sucessfully fetched " + this.acolhimentos.length + " acolhimentos");
     });
   }
 }
