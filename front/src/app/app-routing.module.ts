@@ -8,7 +8,7 @@ import { VisaoGeralComponent } from './base-de-dados/tabelas/visao-geral/visao-g
 import { PsicologiaComponent } from './base-de-dados/tabelas/psicologia/psicologia.component';
 import { JuridicoComponent } from './base-de-dados/tabelas/juridico/juridico.component';
 import { ServicoSocialComponent } from './base-de-dados/tabelas/servico-social/servico-social.component';
-import { AbrigamentoComponent } from './base-de-dados/ficha/abas-de-demandas/abrigamento/abrigamento.component';
+import { AbrigamentosComponent } from './base-de-dados/tabelas/abrigamentos/abrigamentos.component';
 
 const routes: Routes = [
   { path: 'base-de-dados', component: BaseDeDadosComponent , children: [
@@ -16,7 +16,7 @@ const routes: Routes = [
     {path: 'psicologia', component: PsicologiaComponent},
     {path: 'juridico', component: JuridicoComponent},
     {path: 'servico-social', component: ServicoSocialComponent},
-    {path: 'abrigamentos', component: AbrigamentoComponent},
+    {path: 'abrigamentos', component: AbrigamentosComponent},
     {path: '', redirectTo: 'visao-geral', pathMatch: 'full'}
   ]},
   
