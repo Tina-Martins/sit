@@ -9,6 +9,7 @@ import { PsicologiaComponent } from './base-de-dados/tabelas/psicologia/psicolog
 import { JuridicoComponent } from './base-de-dados/tabelas/juridico/juridico.component';
 import { ServicoSocialComponent } from './base-de-dados/tabelas/servico-social/servico-social.component';
 import { AbrigamentosComponent } from './base-de-dados/tabelas/abrigamentos/abrigamentos.component';
+import { NovoCadastroComponent } from './base-de-dados/novo-cadastro/novo-cadastro.component';
 
 const routes: Routes = [
   { path: 'base-de-dados', component: BaseDeDadosComponent , children: [
@@ -19,6 +20,7 @@ const routes: Routes = [
     {path: 'abrigamentos', component: AbrigamentosComponent},
     {path: '', redirectTo: 'visao-geral', pathMatch: 'full'}
   ]},
+  { path:'novo-cadastro', component: NovoCadastroComponent },
   
   { path: 'calendario', component: CalendarioComponent },
   { path: 'configuracoes', component: ConfiguracoesComponent },

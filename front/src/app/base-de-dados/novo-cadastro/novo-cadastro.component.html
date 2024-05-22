@@ -1,1 +1,171 @@
-<p>novo-cadastro works!</p>
+<body>
+  <header>
+    <h1 class="title">Novo cadastro</h1>
+    <button class="cancel-button" (click)="cancel()">Cancelar</button>
+    <button class="save-button" (click)="save()">
+        <span class="check-icon">✓</span> Salvar
+    </button>
+  </header>
+
+  <div class="form-section">
+    <h2>Dados pessoais</h2>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="nomeCompleto">Nome completo:</label>
+        <input type="text" id="nomeCompleto" [(ngModel)]="acolhimento.nome" />
+      </div>
+
+      <div class="form-group">
+        <label for="dataNascimento">Data de nascimento:</label>
+        <input type="date" id="dataNascimento" [(ngModel)]="acolhimento.dataNascimento" />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="tipoDocumento">Tipo documento:</label>
+        <select id="tipoDocumento" [(ngModel)]="acolhimento.documentoTipo">
+          <option
+            *ngFor="let tipo of acolhimentoDocumentoTipos"
+            [value]="tipo"
+          >
+            {{ tipo }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="documento">Documento:</label>
+        <input type="text" id="documento" [(ngModel)]="acolhimento.documento" />
+      </div>
+
+      <div class="form-group">
+        <label for="documentoEmissor">Órgão emissor:</label>
+        <input
+          type="text"
+          id="documentoEmissor"
+          [(ngModel)]="acolhimento.documentoEmissor"
+        />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="racaCor">Raça/cor:</label>
+        <select id="racaCor" [(ngModel)]="acolhimento.racaCor">
+          <option *ngFor="let raca of acolhimentoRacaCores" [value]="raca">
+            {{ raca }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="orientacaoSexual">Orientação sexual:</label>
+        <select
+          id="orientacaoSexual"
+          [(ngModel)]="acolhimento.orientacaoSexual"
+        >
+          <option
+            *ngFor="let orientacao of acolhimentoOrientationSexuais"
+            [value]="orientacao"
+          >
+            {{ orientacao }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="escolaridade">Escolaridade:</label>
+        <select id="escolaridade" [(ngModel)]="acolhimento.escolaridade">
+          <option
+            *ngFor="let escolaridade of acolhimentoEscolaridades"
+            [value]="escolaridade"
+          >
+            {{ escolaridade }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="qtdFilhos">Número de filhos:</label>
+        <input
+          type="number"
+          id="qtdFilhos"
+          [(ngModel)]="acolhimento.qtdfilhos"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <h2>Dados de contato</h2>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" [(ngModel)]="acolhimento.email" />
+      </div>
+
+      <div class="form-group">
+        <label for="telefone">Telefone:</label>
+        <input type="tel" id="telefone" [(ngModel)]="acolhimento.telefone" />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="cidade">Cidade:</label>
+        <input type="text" id="cidade" [(ngModel)]="acolhimento.cidade" />
+      </div>
+
+      <div class="form-group">
+        <label for="bairro">Bairro:</label>
+        <input type="text" id="bairro" [(ngModel)]="acolhimento.bairro" />
+      </div>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <h2>Caracterização da demanda</h2>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="origem">Origem:</label>
+        <select id="origem" [(ngModel)]="acolhimento.origem">
+          <option *ngFor="let origem of acolhimentoOrigens" [value]="origem">
+            {{ origem }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="servicoReferencia">Serviço de referência:</label>
+        <select id="servicoReferencia" [(ngModel)]="acolhimento.servicoReferencia">
+          <option
+            *ngFor="let servico of acolhimentoServicosReferencia"
+            [value]="servico"
+          >
+            {{ servico }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <h3>Demanda(s)</h3>
+      <div *ngFor="let demanda of acolhimentoDemandas">
+        <input
+          type="checkbox"
+          [id]="demanda"
+          [(ngModel)]="selectedDemandas[demanda]"
+        />
+        <label [for]="demanda">{{ demanda }}</label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="descricao">Descrição:</label>
+      <textarea id="descricao" [(ngModel)]="descricao"></textarea>
+    </div>
+  </div>
+</body>
