@@ -38,18 +38,39 @@ export class NovoCadastroComponent {
     );
   }
 
-  cancel() {
+  protected cancel() {
     // TODO: Implement cancel logic
     console.log('Cancel clicked!');
   }
 
-  save() {
-    // Populate acolhimento.demandas based on selectedDemandas
+  protected save() {
     this.acolhimento.demandas = this.acolhimentoDemandas.filter(
       (demanda) => this.selectedDemandas[demanda]
     );
+    
+    console.info("Registering acolhimento:")
+    console.info(this.acolhimento);
 
-    // TODO: Implement save logic
-    console.log('Save clicked!', this.acolhimento, this.descricao);
+    // fetch(`${API_URL}/acolhimentos`, {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(newAcolhimento),
+    // })
+    //   .then((response) => {
+    //     if (!response.ok) {
+    //       throw new Error(`HTTP error! status: ${response.status}`);
+    //     }
+    //     return response.json();
+    //   })
+    //   .then((data) => {
+    //     console.log('Acolhimento created successfully:', data);
+    //     // TODO: Handle success (e.g., display a success message, navigate to another page)
+    //   })
+    //   .catch((error) => {
+    //     console.error('Error creating acolhimento:', error);
+    //     // TODO: Handle error (e.g., display an error message)
+    //   });
   }
 }

@@ -23,6 +23,7 @@ export class AcolhimentoRepository implements IAcolhimentoRepository {
       const docRef = await this.collection.add({
         ...acolhimentoData,
         criadoEm: new Date().toISOString(),
+        atualizadoEm: new Date().toISOString(),
         status: AcolhimentoStatus.ATIVO,
         regAtivo: true,
       });
