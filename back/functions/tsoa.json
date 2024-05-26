@@ -6,7 +6,19 @@
   ],
   "spec": {
     "outputDirectory": "src/swagger",
-    "specVersion": 3
+    "specVersion": 3,
+    "spec": {
+      "servers": [
+        {
+          "url": "https://us-central1-tina-martins.cloudfunctions.net/api",
+          "description": "SIT DEV"
+        },
+        {
+          "url": "http://127.0.0.1:5001/tina-martins/us-central1/api",
+          "description": "SIT LOCAL"
+        }
+      ]
+    }
   },
   "routes": {
     "routesDir": "src/routes"

@@ -12,9 +12,11 @@ import {
   Patch,
   Delete,
   Query,
+  Tags,
 } from "tsoa";
 
 @Route("acolhimentos")
+@Tags("Acolhimentos")
 export class AcolhimentoController extends Controller {
   private repository = new AcolhimentoRepository();
   private service = new AcolhimentoService(this.repository);

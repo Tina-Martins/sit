@@ -13,9 +13,11 @@ import {
   Patch,
   Delete,
   Query,
+  Tags,
 } from "tsoa";
 
 @Route("eventos")
+@Tags("Eventos")
 export class EventoController extends Controller {
   private repository = new EventoRepository();
   private service = new EventoService(this.repository);

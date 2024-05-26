@@ -13,10 +13,12 @@ import {
   Patch,
   Delete,
   Query,
+  Tags,
 } from "tsoa";
 import { Atendimento } from "../../domain/entities/Atendimento";
 
 @Route("demandas")
+@Tags("Demandas")
 export class DemandaController extends Controller {
   private repository = new DemandaRepository();
   private service = new DemandaService(this.repository);

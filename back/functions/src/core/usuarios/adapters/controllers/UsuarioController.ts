@@ -13,9 +13,11 @@ import {
   Patch,
   Delete,
   Query,
+  Tags,
 } from "tsoa";
 
 @Route("usuarios")
+@Tags("Usuarios")
 export class UsuarioController extends Controller {
   private repository = new UsuarioRepository();
   private service = new UsuarioService(this.repository);
