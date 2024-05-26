@@ -16,12 +16,12 @@ import cors from 'cors';
 
 const app = express();
 app.use(cors({
-  origin: 'http://localhost:4200' 
+  origin: '*' 
 }));
 
 app.use(express.json());
 RegisterRoutes(app);
-app.use(["/docs"], swaggerUI.serve, swaggerUI.setup(swaggerJson));
+app.use(["/docs/"], swaggerUI.serve, swaggerUI.setup(swaggerJson));
 
 app.use(function errorHandler(
   err: unknown,
@@ -38,7 +38,7 @@ app.use(function errorHandler(
   }
   if (err instanceof Error) {
     return res.status(500).json({
-      message: "Internal Server Error",
+      message: err.message,
     });
   }
 

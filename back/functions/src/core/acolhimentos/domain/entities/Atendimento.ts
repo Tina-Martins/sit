@@ -3,6 +3,10 @@ export interface Atendimento {
   data: Date | string;
   registro: string;
   criadoEm: Date | string;
+  criadoPor?: string;
   atualizadoEm: Date | string;
+  atualizadoPor?: string;
+  excluidoEm?: Date | string;
+  excluidoPor?: string;
   regAtivo: boolean;
 }

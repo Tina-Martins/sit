@@ -1,9 +1,16 @@
+import { UsuarioEscopos } from "../enums/UsuarioEscopos";
+
 export interface Usuario {
   id?: string;
   nome: string;
   email: string;
-  escopos: string[];
-  criadoEm: Date | string;
-  atualizadoEm: Date | string;
-  regAtivo: boolean;
+  escopo: UsuarioEscopos;
+  ultimoLogin?: Date | string;
+  criadoEm?: Date | string;
+  criadoPor?: string;
+  atualizadoEm?: Date | string;
+  atualizadoPor?: string;
+  excluidoEm?: Date | string;
+  excluidoPor?: string;
+  regAtivo?: boolean;
 }

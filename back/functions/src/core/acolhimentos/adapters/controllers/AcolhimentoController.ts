@@ -25,7 +25,7 @@ export class AcolhimentoController extends Controller {
   ): Promise<PaginatedQueryResponse<Acolhimento>> {
 
     const decodedQueryOptions = JSON.parse(queryOptions || '{}') as QueryOptions;
-    return this.service.list(decodedQueryOptions);
+    return this.repository.list(decodedQueryOptions);
   }
 
   @Get("{id}")

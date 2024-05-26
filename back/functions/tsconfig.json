@@ -17,5 +17,5 @@
   "compileOnSave": true,
   "include": [
     "src"
-, "src/index.ts"  ]
+, "src/index.ts", "crud-generator.js"  ]
 }

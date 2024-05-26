@@ -6,7 +6,7 @@ export interface Evento {
   horaInicio?: Date | string;
   horaFim?: Date | string;
   diaTodo: boolean;
-  local?: string;
+  local: string;
   criadoEm: Date | string;
   atualizadoEm: Date | string;
   regAtivo: boolean;
