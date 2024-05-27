@@ -5,6 +5,7 @@ import { AcolhimentosService } from 'src/services/acolhimentos.service';
 import { ApiService } from 'src/services/api.service';
 import { CommonModule } from '@angular/common';
 import { DateService } from 'src/services/date.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-visao-geral',
@@ -16,11 +17,21 @@ import { DateService } from 'src/services/date.service';
 export class VisaoGeralComponent {
   protected acolhimentos: Array<Acolhimento> | null = null;
 
-  constructor(private acolhimentosService: AcolhimentosService, protected dateService: DateService) { }
+  constructor(private acolhimentosService: AcolhimentosService, protected dateService: DateService, private router: Router) { }
 
   async ngOnInit() {
-    this.acolhimentos = await this.acolhimentosService.getAcolhimentos();
-    console.info("Sucessfully fetched " + this.acolhimentos.length + " acolhimentos:");
-    console.info(this.acolhimentos);
+    this.acolhimentosService.getAcolhimentos()
+      .then((acolhimentos) => {
+        console.info("Sucessfully fetched " + acolhimentos.length + " acolhimentos:");
+        console.info(acolhimentos);
+        this.acolhimentos = acolhimentos;
+      })
+      .catch((error) => {
+        console.error("Error fetching acolhimentos:");
+        console.error(error);
+        this.router.navigate(['/error']);
+      });
+    
+    
   }
 }

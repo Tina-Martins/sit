@@ -1,7 +1,7 @@
 import {
   AcolhimentoDocumentoTipo,
   AcolhimentoEscolaridade,
-  AcolhimentoOrientationSexual,
+  AcolhimentoOrientacaoSexual,
   AcolhimentoOrigem,
   AcolhimentoRacaCor,
   AcolhimentoServicoReferencia,
@@ -13,13 +13,14 @@ export interface Acolhimento {
   nome: string;
   demandas: string[];
   status: AcolhimentoStatus;
-  dataNascimento?: string;
+  dataNascimento?: Date | string;
+  descricao?: string;
   documento?: string;
   documentoTipo?: AcolhimentoDocumentoTipo;
   documentoEmissor?: string;
   racaCor?: AcolhimentoRacaCor;
   escolaridade?: AcolhimentoEscolaridade;
-  orientacaoSexual?: AcolhimentoOrientationSexual;
+  orientacaoSexual?: AcolhimentoOrientacaoSexual;
   qtdfilhos?: number;
   email?: string;
   telefone?: string;
@@ -27,7 +28,12 @@ export interface Acolhimento {
   bairro?: string;
   origem?: AcolhimentoOrigem;
   servicoReferencia?: AcolhimentoServicoReferencia;
-  criadoEm?: string;
-  atualizadoEm?: string;
+  criadoEm?: Date | string;
+  criadoPor?: string;
+  atualizadoEm?: Date | string;
+  atualizadoPor?: string;
+  excluidoEm?: Date | string;
+  excluidoPor?: string;
   regAtivo?: boolean;
 }
+

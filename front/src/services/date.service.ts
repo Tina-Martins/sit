@@ -7,7 +7,7 @@ export class DateService {
 
   constructor() { }
 
-  public formatDate(dateString: string | undefined): string {
+  public formatDate(dateString: string | Date): string {
     if (!dateString) return '';
 
     let date: Date = new Date(dateString);

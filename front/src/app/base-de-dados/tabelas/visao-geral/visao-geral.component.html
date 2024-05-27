@@ -13,7 +13,7 @@
                <div *ngFor="let demanda of acolhimento.demandas">{{demanda}}</div> 
             </td>
             <td>{{acolhimento.status}}</td>
-            <p>{{ this.dateService.formatDate(acolhimento.criadoEm) }}</p>
+            <p>{{ this.dateService.formatDate(acolhimento.criadoEm!) }}</p>
         </tr>        
     </table>
 </body>

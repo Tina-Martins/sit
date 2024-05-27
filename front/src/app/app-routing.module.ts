@@ -10,6 +10,7 @@ import { JuridicoComponent } from './base-de-dados/tabelas/juridico/juridico.com
 import { ServicoSocialComponent } from './base-de-dados/tabelas/servico-social/servico-social.component';
 import { AbrigamentosComponent } from './base-de-dados/tabelas/abrigamentos/abrigamentos.component';
 import { NovoCadastroComponent } from './base-de-dados/novo-cadastro/novo-cadastro.component';
+import { ErrorComponent } from './error/error/error.component';
 
 const routes: Routes = [
   { path: 'base-de-dados', component: BaseDeDadosComponent , children: [
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'configuracoes', component: ConfiguracoesComponent },
 
   { path: '', redirectTo: 'base-de-dados', pathMatch: 'full' }, // default route
+  {path: 'error', component: ErrorComponent},
   { path: '**', component: PageNotFoundComponent }, // wildcard route for 404 not found
 ];
 

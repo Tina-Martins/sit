@@ -55,7 +55,7 @@ export enum AcolhimentoEscolaridade {
   DOUTORADO = "Doutorado",
 }
 
-export enum AcolhimentoOrientationSexual {
+export enum AcolhimentoOrientacaoSexual {
   HETEROSEXUAL = "Heterossexual",
   HOMOSSEXUAL = "Homossexual",
   BISEXUAL = "Bissexual",
