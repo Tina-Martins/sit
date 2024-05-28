@@ -12,7 +12,7 @@ export interface Acolhimento {
   id?: string;
   nome: string;
   demandas: string[];
-  status: AcolhimentoStatus;
+  status: AcolhimentoStatus; 
   dataNascimento?: Date | string;
   descricao?: string;
   documento?: string;

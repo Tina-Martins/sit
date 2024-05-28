@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Acolhimento } from 'src/models/Acolhimento';
 import 'src/models/enums/AcolhimentoEnums';
@@ -6,6 +6,9 @@ import { AcolhimentoDemandas, AcolhimentoDocumentoTipo, AcolhimentoEscolaridade,
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { ApiService } from 'src/services/api.service';
+import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CadastroIncompletoComponent } from './cadastro-incompleto/cadastro-incompleto/cadastro-incompleto.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-novo-cadastro',
@@ -14,7 +17,7 @@ import { ApiService } from 'src/services/api.service';
   templateUrl: './novo-cadastro.component.html',
   styleUrls: ['./novo-cadastro.component.scss']
 })
-export class NovoCadastroComponent {
+export class NovoCadastroComponent implements OnDestroy{
   @ViewChild('acolhimentoForm') acolhimentoForm!: NgForm;
   protected tried_submit: boolean = false;
   
@@ -34,13 +37,21 @@ export class NovoCadastroComponent {
   protected acolhimentoEscolaridades = Object.values(AcolhimentoEscolaridade);
   protected acolhimentoOrientacaoSexuais = Object.values(AcolhimentoOrientacaoSexual);
 
-  constructor(private apiService: ApiService, private router: Router) {}
+  private saveIncompleteSubscription: Subscription | undefined;
+
+  constructor(private apiService: ApiService, private router: Router, private modalService: NgbModal) {}
 
   ngOnInit() {
     // Initialize selectedDemandas with false for each demand
     this.acolhimentoDemandas.forEach(
       (demanda) => (this.selectedDemandas[demanda] = false)
     );
+  }
+
+  ngOnDestroy(): void {
+    if(this.saveIncompleteSubscription){
+      this.saveIncompleteSubscription.unsubscribe();
+    }
   }
 
   protected cancel() {
@@ -60,22 +71,45 @@ export class NovoCadastroComponent {
   protected save() {
     this.tried_submit = true;
 
-    if (this.acolhimentoForm.valid) {
-      this.acolhimento.demandas = this.acolhimentoDemandas.filter(
-        (demanda) => this.selectedDemandas[demanda]
-      );
-      
+    let minimum_valid_state: boolean = (this.acolhimento.nome.length!=0 && this.isAnyDemandaSelected());
+
+    if(!minimum_valid_state){ // User has to select at least one demanda and fill the name field
+      this.acolhimentoForm.control.markAllAsTouched();
+      return;
+    }
+
+    // here both name and demandas are filled
+    this.acolhimento.demandas = this.acolhimentoDemandas.filter(
+      (demanda) => this.selectedDemandas[demanda]
+    );
+
+    if (this.acolhimentoForm.valid) { // Form fully filled
       console.info("Registering acolhimento:")
       console.info(this.acolhimento);
   
       this.apiService.postAcolhimento(this.acolhimento)
+        .then(() => { this.router.navigate(['/']); })
         .catch((error) => {
           console.error("Error posting acolhimento:");
           console.error(error);
           this.router.navigate(['/error']);
         });
-    }else{
-      this.acolhimentoForm.control.markAllAsTouched();
+
+    }else{ // Form is incomplete
+      const modalRef = this.modalService.open(CadastroIncompletoComponent); // Open the pop-up
+      this.saveIncompleteSubscription = modalRef.componentInstance.saveIncomplete.subscribe(() => {
+        console.log("Saving incomplete form..."); 
+        console.info(this.acolhimento);
+        
+        this.apiService.postAcolhimento(this.acolhimento)
+          .then(() => { this.router.navigate(['/']); })
+          .catch((error) => {
+            console.error("Error posting acolhimento:");
+            console.error(error);
+            this.router.navigate(['/error']);
+          });
+          
+      });
     }
     
   }

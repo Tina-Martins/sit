@@ -3,6 +3,7 @@ import { acolhimentosCol } from "../../../../utils/FirestoreCollections";
 import { QueryOptions, executeListQuery } from "../../../../utils/QueryUtils";
 import { IAcolhimentoRepository } from "../../ports/out/IAcolhimentoRepository";
 import { Acolhimento } from "../../domain/entities/Acolhimento";
+import { AcolhimentoStatus } from "../../domain/enums/AcolhimentoStatus";
 
 
 export class AcolhimentoRepository implements IAcolhimentoRepository {
@@ -83,6 +84,7 @@ export class AcolhimentoRepository implements IAcolhimentoRepository {
       }
 
       await this.collection.doc(id).update({
+        status: AcolhimentoStatus.ENCERRADO,
         regAtivo: false,
         excluidoEm: new Date().toISOString(),
       });
