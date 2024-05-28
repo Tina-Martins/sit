@@ -6,16 +6,16 @@
         </div>
 
         <div>
-            <input type="text" id="name" name="name" placeholder="Buscar por nome">
+            <input type="text" id="name" name="name" placeholder="Buscar por nome" [(ngModel)]="searchName" (ngModelChange)="updateSearch()">
         
-            <select name="status">
-                <option value="1">Status</option>
-                <option value="2">2</option>
+            <select name="status" [(ngModel)]="searchStatus" (ngModelChange)="updateSearch()">
+                <option value="">Todos os Status</option> 
+                <option *ngFor="let status of acolhimentoStatus" [value]="status">{{status}}</option>
             </select>
 
-            <select name="tipo_demanda">
-                <option value="1">Tipo de demanda</option>
-                <option value="2">2</option>
+            <select name="tipo_demanda" [(ngModel)]="searchDemanda" (ngModelChange)="updateSearch()">
+                <option value="">Todas as Demandas</option>
+                <option *ngFor="let demanda of acolhimentoDemandas" [value]="demanda">{{demanda}}</option>
             </select>
         </div>
     </header>

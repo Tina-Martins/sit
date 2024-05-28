@@ -39,30 +39,28 @@ export class ApiService {
     return data;
   }
 
-  private async fetchDemandas(queryOptions?: QueryOptions): Promise<{data: Array<Acolhimento>, lastDocRef?:string}> {
-    const query_params = queryOptions ? `?queryOptions=${JSON.stringify(queryOptions)}` : ``;
+  public async fetchDemandas(acolhimentoId: string): Promise<Array<Demanda>> {
+    const query_params = `?queryOptions=${JSON.stringify({filters: [{field: 'acolhimentoId', operator: '==', value: acolhimentoId}]})}`;
     let request: string = `${API_URL}/demandas${query_params}`;
-    
+
     const response = await fetch(request);
     if(!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    const data: { data: Acolhimento[], lastDocRef?: string } = await response.json(); // 'Blind trust'
-    return data;
+    const data: { data: Demanda[], lastDocRef?: string } = await response.json(); // 'Blind trust'
+    return data.data;
   }
 
   public async fetchDemanda(acolhimentoId: string, tipo: string) : Promise<Demanda> {
-    // TODO: Implementar
-    let placeholder: Demanda = {
-      tipo: tipo,
-      status: DemandaStatus.EM_ABERTO,
-      acolhimentoId: "368dasf",
-      criadoEm: new Date(),
-      atualizadoEm: new Date(),
-      regAtivo: true
-    };
-    
-    return placeholder;
+    let demandas = await this.fetchDemandas(acolhimentoId);
+
+    for (let demanda of demandas) {
+      if (demanda.tipo === tipo) {
+        return demanda;
+      }
+    }
+
+    throw new Error("Demanda " + tipo + " não encontrada para esse acolhimento!");
   }
 }
