@@ -44,4 +44,8 @@ export class VisaoGeralComponent implements OnDestroy{
   ngOnDestroy(): void {
     this.searchSubscription.unsubscribe();
   }
+
+  protected openFicha(acolhimentoId: string){
+    this.router.navigate(['/base-de-dados', acolhimentoId]);
+  }
 }

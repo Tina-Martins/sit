@@ -31,8 +31,8 @@ export class AbrigamentosComponent {
         continue;
       }
   
-      let demanda: Demanda = await this.apiService.fetchDemanda(acolhimento.id, tipo_demanda);
-      this.acolhimento_demanda.set(acolhimento.id, demanda);
+      // let demanda: Demanda = await this.apiService.fetchDemanda(acolhimento.id, tipo_demanda);
+      // this.acolhimento_demanda.set(acolhimento.id, demanda);
     }
 
     console.info("Successfully fetched " + this.acolhimentos.length + " acolhimentos");

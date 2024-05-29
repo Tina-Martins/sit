@@ -11,6 +11,10 @@ import { ServicoSocialComponent } from './base-de-dados/tabelas/servico-social/s
 import { AbrigamentosComponent } from './base-de-dados/tabelas/abrigamentos/abrigamentos.component';
 import { NovoCadastroComponent } from './base-de-dados/novo-cadastro/novo-cadastro.component';
 import { ErrorComponent } from './error/error/error.component';
+import { FichaComponent } from './base-de-dados/ficha/ficha.component';
+import { CadastroComponent } from './base-de-dados/ficha/abas-de-demandas/cadastro/cadastro.component';
+import { FichaDemandaComponent } from './base-de-dados/ficha/abas-de-demandas/ficha-demanda/ficha-demanda.component';
+import { AnexosComponent } from './base-de-dados/ficha/abas-de-demandas/anexos/anexos.component';
 
 const routes: Routes = [
   { path: 'base-de-dados', component: BaseDeDadosComponent , children: [
@@ -22,6 +26,12 @@ const routes: Routes = [
     {path: '', redirectTo: 'visao-geral', pathMatch: 'full'}
   ]},
   { path:'novo-cadastro', component: NovoCadastroComponent },
+
+  {path: 'base-de-dados/:acolhimentoId', component: FichaComponent, children:[
+    {path:'', component: CadastroComponent},
+    {path: ':demandaId', component: FichaDemandaComponent},
+    {path: 'anexos', component: AnexosComponent}
+  ]},
   
   { path: 'calendario', component: CalendarioComponent },
   { path: 'configuracoes', component: ConfiguracoesComponent },

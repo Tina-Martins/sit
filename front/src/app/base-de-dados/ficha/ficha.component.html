@@ -1,1 +1,34 @@
-<p>ficha works!</p>
+<body>
+    <header>
+        <div id="nav-back">
+          <div id="nav-back-icon"></div>
+          <a routerLink="/base-de-dados" routerLinkActive="active">Base de dados</a>
+        </div>
+
+        <div id="info">
+            <h1>Nome Sobrenome</h1>
+            <!-- <div *ngFor="let demanda of this.demandas">
+                <span>{{demanda}}</span>
+            </div> -->
+        </div>
+
+        <div id="editar-cadastro">
+            <span>Editar cadastro</span>
+        </div>
+    </header> 
+
+    <nav>
+        <ul>
+            <li><a routerLink="." routerLinkActive="active">Cadastro</a></li>
+            <!-- <li><a>Psicologia</a></li>
+            <li><a>Jurídico</a></li> -->
+            <li><a routerLink="anexos" routerLinkActive="active">Anexos</a></li>
+        </ul>
+
+        <span id="incompleto-aviso">Cadastro incompleto</span>
+    </nav>
+
+    <section>
+        <router-outlet></router-outlet>
+    </section>
+</body>

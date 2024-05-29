@@ -29,7 +29,7 @@ export class ApiService {
   public async fetchAcolhimentos(queryOptions?: QueryOptions): Promise<{data: Array<Acolhimento>, lastDocRef?:string}> {
     const query_params = queryOptions ? `?queryOptions=${JSON.stringify(queryOptions)}` : ``;
     let request: string = `${API_URL}/acolhimentos${query_params}`;
-    
+
     const response = await fetch(request);
     if(!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -52,7 +52,7 @@ export class ApiService {
     return data.data;
   }
 
-  public async fetchDemanda(acolhimentoId: string, tipo: string) : Promise<Demanda> {
+  public async fetchDemanda(acolhimentoId: string, tipo: string) : Promise<Demanda | null> {
     let demandas = await this.fetchDemandas(acolhimentoId);
 
     for (let demanda of demandas) {
@@ -61,6 +61,6 @@ export class ApiService {
       }
     }
 
-    throw new Error("Demanda " + tipo + " não encontrada para esse acolhimento!");
+    return null;
   }
 }

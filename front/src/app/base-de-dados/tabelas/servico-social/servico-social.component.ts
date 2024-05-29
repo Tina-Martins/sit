@@ -21,7 +21,7 @@ export class ServicoSocialComponent {
   protected acolhimentos: Array<Acolhimento> | null = null;
   private searchSubscription: Subscription;
 
-  protected acolhimento_demanda: Map<string, Demanda> | null = null;
+  protected acolhimento_demanda: Map<string, Demanda | null> | null = null;
 
   constructor(
     private acolhimentosService: AcolhimentosService, 
@@ -59,7 +59,9 @@ export class ServicoSocialComponent {
       }
       
       this.apiService.fetchDemanda(acolhimento.id, tipo_demanda)
-        .then(demanda => this.acolhimento_demanda?.set(acolhimento.id!, demanda))
+        .then(demanda => {
+          this.acolhimento_demanda?.set(acolhimento.id!, demanda);
+        })
         .catch((error) => {
           console.error("Error fetching demanda for acolhimento " + acolhimento.id);
           console.error(error);
