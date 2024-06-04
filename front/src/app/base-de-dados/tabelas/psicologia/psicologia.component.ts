@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Acolhimento } from 'src/models/Acolhimento';
 import { Demanda } from 'src/models/Demanda';
 import { ApiService } from 'src/services/api.service';
-import { AcolhimentosService } from 'src/services/acolhimentos.service';
+import { StateService } from 'src/services/state.service';
 import { AcolhimentoDemandas } from 'src/models/enums/AcolhimentoEnums';
 
 @Component({
@@ -17,7 +17,7 @@ export class PsicologiaComponent {
   protected acolhimentos: Array<Acolhimento> | null = null;
   protected acolhimento_demanda: Map<string, Demanda> | null = null;
 
-  constructor(protected acolhimentosService: AcolhimentosService, private apiService: ApiService) { }
+  constructor(protected acolhimentosService: StateService, private apiService: ApiService) { }
 
   async ngOnInit() {
     let tipo_demanda: AcolhimentoDemandas = AcolhimentoDemandas.PSICOLOGIA;

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BaseDeDadosComponent } from './base-de-dados/base-de-dados.component';
 import { PageNotFoundComponent } from './misc/page-not-found/page-not-found.component';
@@ -18,6 +18,7 @@ import { AnexosComponent } from './base-de-dados/ficha/abas-de-demandas/anexos/a
 
 const routes: Routes = [
   { path: 'base-de-dados', component: BaseDeDadosComponent , children: [
+    { path:'novo-cadastro', component: NovoCadastroComponent },
     {path: 'visao-geral', component: VisaoGeralComponent},
     {path: 'psicologia', component: PsicologiaComponent},
     {path: 'juridico', component: JuridicoComponent},
@@ -25,12 +26,11 @@ const routes: Routes = [
     {path: 'abrigamentos', component: AbrigamentosComponent},
     {path: '', redirectTo: 'visao-geral', pathMatch: 'full'}
   ]},
-  { path:'novo-cadastro', component: NovoCadastroComponent },
 
-  {path: 'base-de-dados/:acolhimentoId', component: FichaComponent, children:[
-    {path:'', component: CadastroComponent},
-    {path: ':demandaId', component: FichaDemandaComponent},
-    {path: 'anexos', component: AnexosComponent}
+  {path: 'base-de-dados/ficha', component: FichaComponent, children: [
+    {path:'cadastro', component: CadastroComponent},
+    {path: 'demanda', component: FichaDemandaComponent},
+    {path: 'anexos', component: AnexosComponent},
   ]},
   
   { path: 'calendario', component: CalendarioComponent },

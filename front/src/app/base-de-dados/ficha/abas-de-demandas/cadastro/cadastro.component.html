@@ -1,1 +1,68 @@
-<p>cadastro works!</p>
+<body>
+    <div id="dados-pessoais">
+        <h1>Dados pessoais</h1>
+        <div class="data-row">
+            <h2>Nome completo</h2>
+            <span>{{this.acolhimento?.nome}}</span>
+        </div>
+        <div class="data-row">
+            <h2>Data de nascimento</h2>
+            <span>{{this.acolhimento?.dataNascimento}}</span>
+        </div>
+        <div class="data-row">
+            <h2>Documento</h2>
+            <span>{{this.acolhimento?.documento}}</span>
+        </div>
+        <div class="data-row">
+            <h2>Raça/cor</h2>
+            <span>{{this.acolhimento?.racaCor}}</span>
+        </div>
+        <div class="data-row">
+            <h2>Orientação sexual</h2>
+            <span>{{this.acolhimento?.orientacaoSexual}}</span>
+        </div>
+        <div class="data-row">
+            <h2>Escolaridade</h2>
+            <span>{{this.acolhimento?.escolaridade}}</span>
+        </div>
+        <div class="data-row">
+            <h2>Número de filhos</h2>
+            <span>{{this.acolhimento?.qtdfilhos}}</span>
+        </div>
+    </div>
+    <div id="dados-de-contato">
+        <h1>Dados de contato</h1>
+        <div class="data-row">
+            <h2>E-mail</h2>
+            <span>{{this.acolhimento?.email}}</span>
+        </div>
+        <div class="data-row">
+            <h2>Telefone</h2>
+            <span>{{this.acolhimento?.telefone}}</span>
+        </div>
+        <div class="data-row">
+            <h2>Cidade</h2>
+            <span>{{this.acolhimento?.cidade}}</span>
+        </div>
+        <div class="data-row">
+            <h2>Bairro</h2>
+            <span>{{this.acolhimento?.bairro}}</span>
+        </div>
+    </div>
+    <div id="demanda">
+        <div id="header">
+            <h1>Demanda</h1>
+            <button>Adicionar informações</button>
+        </div>
+
+        <p>{{this.acolhimento?.descricao}}</p>
+        <div class="data-row">
+            <h2>Tipo de demanda</h2>
+            <span> {{this.acolhimento?.demandas?.join(" | ")}} </span>
+        </div>
+        <div class="data-row">
+            <h2>Data de contato</h2>
+            <span>21/05/2023</span>
+        </div>
+    </div>
+</body>

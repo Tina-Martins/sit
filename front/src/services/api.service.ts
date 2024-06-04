@@ -63,4 +63,16 @@ export class ApiService {
 
     return null;
   }
+
+  public async getAcolhimentoById(acolhimentoId: string): Promise<Acolhimento> {
+    let request: string = `${API_URL}/acolhimentos/${acolhimentoId}`;
+
+    const response = await fetch(request);
+    if(!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data: Acolhimento = await response.json(); // 'Blind trust'
+    return data;
+  }
 }

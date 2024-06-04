@@ -4,11 +4,15 @@ import { QueryOptions, QueryParam } from 'src/models/QueryOptions';
 import { ApiService } from './api.service';
 import { AcolhimentoDemandas, AcolhimentoStatus } from 'src/models/enums/AcolhimentoEnums';
 import { Router } from '@angular/router';
+import { Demanda } from 'src/models/Demanda';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AcolhimentosService {
+export class StateService {
+  private currentAcolhimento: Acolhimento | undefined;
+  private currentDemandas: Demanda[] | undefined;
+
   private lastDocRef: string | null = null;
 
   constructor(private apiService: ApiService, private router: Router) { }
@@ -48,6 +52,19 @@ export class AcolhimentosService {
     let result = await this.apiService.fetchAcolhimentos(queryOptions);
     this.lastDocRef = result.lastDocRef || null;
     return result.data;
+  }
+
+  public async getAcolhimentoById(id: string){
+    
+  }
+
+  public async updateCurrentAcolhimento(id: string): Promise<void>{
+    let result = await this.apiService.getAcolhimentoById(id);
+    this.currentAcolhimento = result;
+  }
+
+  public getCurrentAcolhimento(): Acolhimento | undefined {
+    return this.currentAcolhimento;
   }
 
 

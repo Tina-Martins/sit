@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Acolhimento } from 'src/models/Acolhimento';
-import { AcolhimentosService } from 'src/services/acolhimentos.service';
+import { StateService } from 'src/services/state.service';
 import { CommonModule } from '@angular/common';
 import { AcolhimentoDemandas } from 'src/models/enums/AcolhimentoEnums';
 import { Demanda } from 'src/models/Demanda';
@@ -24,7 +24,7 @@ export class ServicoSocialComponent {
   protected acolhimento_demanda: Map<string, Demanda | null> | null = null;
 
   constructor(
-    private acolhimentosService: AcolhimentosService, 
+    private acolhimentosService: StateService, 
     protected dateService: DateService, 
     private router: Router, 
     private searchService: SearchService,

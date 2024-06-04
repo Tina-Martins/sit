@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Acolhimento } from 'src/models/Acolhimento';
 import { QueryOptions, QueryParam } from 'src/models/QueryOptions';
-import { AcolhimentosService } from 'src/services/acolhimentos.service';
+import { StateService } from 'src/services/state.service';
 import { CommonModule } from '@angular/common';
 import { DateService } from 'src/services/date.service';
 import { Router } from '@angular/router';
@@ -21,7 +21,7 @@ export class VisaoGeralComponent implements OnDestroy{
   private searchSubscription: Subscription;
 
   constructor(
-    private acolhimentosService: AcolhimentosService, 
+    private acolhimentosService: StateService, 
     protected dateService: DateService, 
     private router: Router, 
     private searchService: SearchService
@@ -45,7 +45,8 @@ export class VisaoGeralComponent implements OnDestroy{
     this.searchSubscription.unsubscribe();
   }
 
-  protected openFicha(acolhimentoId: string){
-    this.router.navigate(['/base-de-dados', acolhimentoId]);
+  protected async openFicha(acolhimentoId: string){
+    await this.acolhimentosService.updateCurrentAcolhimento(acolhimentoId);
+    this.router.navigate(['base-de-dados/ficha/cadastro']);
   }
 }

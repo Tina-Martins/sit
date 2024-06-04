@@ -6,26 +6,25 @@
         </div>
 
         <div id="info">
-            <h1>Nome Sobrenome</h1>
-            <!-- <div *ngFor="let demanda of this.demandas">
+            <h1>{{this.acolhimento?.nome}}</h1>
+            <div *ngFor="let demanda of this.acolhimento?.demandas">
                 <span>{{demanda}}</span>
-            </div> -->
+            </div>
         </div>
 
         <div id="editar-cadastro">
-            <span>Editar cadastro</span>
+            <button>Editar cadastro</button>
         </div>
     </header> 
 
     <nav>
         <ul>
-            <li><a routerLink="." routerLinkActive="active">Cadastro</a></li>
-            <!-- <li><a>Psicologia</a></li>
-            <li><a>Jurídico</a></li> -->
+            <li><a routerLink="cadastro" routerLinkActive="active">Cadastro</a></li>
+            <li *ngFor="let demanda of this.acolhimento?.demandas"><a (click)="openDemanda(demanda)">{{demanda}}</a></li>
             <li><a routerLink="anexos" routerLinkActive="active">Anexos</a></li>
         </ul>
 
-        <span id="incompleto-aviso">Cadastro incompleto</span>
+        <span id="incompleto-aviso" *ngIf="this.isComplete">Cadastro incompleto</span>
     </nav>
 
     <section>
