@@ -26,10 +26,10 @@ export class FichaComponent implements OnInit{
   protected isDemandaActive: boolean = false;
   protected isAnexosActive: boolean = false;
   
-  constructor(private acolhimentoService: StateService, private cdr: ChangeDetectorRef) { }
+  constructor(private stateService: StateService, private cdr: ChangeDetectorRef, private router: Router) { }
 
   async ngOnInit() {
-    this.acolhimento = this.acolhimentoService.getCurrentAcolhimento();
+    this.acolhimento = this.stateService.getCurrentAcolhimento();
     this.isComplete = this.isCadastroComplete();
   }
 
@@ -51,14 +51,18 @@ export class FichaComponent implements OnInit{
     this.isAnexosActive = false;
   }
 
-  protected openDemanda(demanda: string){
+  protected async openDemanda(demanda: string){
+    try{
+      await this.stateService.setCurrentAcolhimentoDemanda(demanda);
+    }catch(error){
+      console.error(error);
+      this.router.navigate(['/error']);
+    }
+
     this.isCadastroActive = false;
     this.isDemandaActive = true;
     this.isAnexosActive = false;
-
     this.cdr.detectChanges();
-
-    this.fichaDemanda.openDemanda(demanda);
   }
 
   protected openAnexos(){

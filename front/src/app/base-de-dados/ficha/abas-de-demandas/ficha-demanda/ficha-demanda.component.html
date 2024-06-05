@@ -4,6 +4,28 @@
             <div id="warning-icon"></div>
             <span>Demanda não atribuída</span>
             <button>Atribuir demanda</button>
+        </div> 
+
+        <div id="user-info" *ngIf="isDemandaAssigned">
+            <div id="name">
+                <span>Profissional Responsável: </span>
+                <span>{{this.currentAcolhimentoDemanda.usuarioNome}}</span>
+            </div>
+
+            <div id="begin-date">
+                <span>Início do atendimento: </span>
+                <span>{{this.getInicioAtendimento()}}</span>
+            </div>
+
+            <div id="status">
+                <span>Status: </span>
+                <span>{{this.currentAcolhimentoDemanda.status}}</span>
+            </div>
+
+            <div id="user-options">
+                <button>Atualizar status</button>
+                <button>Novo registro</button>
+            </div>
         </div>
     </section>
 </body>

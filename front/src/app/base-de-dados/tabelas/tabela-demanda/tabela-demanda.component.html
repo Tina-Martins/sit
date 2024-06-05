@@ -13,7 +13,7 @@
             <td>{{acolhimento_demanda?.get(acolhimento.id!)?.status}}</td>
             <td>{{this.dateService.formatDate(acolhimento_demanda?.get(acolhimento.id!)?.criadoEm!)}}</td>
             <td>{{this.dateService.formatDate(acolhimento_demanda?.get(acolhimento.id!)?.atualizadoEm!)}}</td>
-            <td>{{acolhimento_demanda?.get(acolhimento.id!)?.usuarioNome}}</td>
+            <td>{{acolhimento_demanda?.get(acolhimento.id!)?.usuarioNome || '-'}}</td>
         </tr>        
     </table>
 </body>

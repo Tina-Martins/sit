@@ -12,6 +12,7 @@ import { CadastroComponent } from './base-de-dados/ficha/abas-de-demandas/cadast
 import { FichaDemandaComponent } from './base-de-dados/ficha/abas-de-demandas/ficha-demanda/ficha-demanda.component';
 import { AnexosComponent } from './base-de-dados/ficha/abas-de-demandas/anexos/anexos.component';
 import { TabelaDemandaComponent } from './base-de-dados/tabelas/tabela-demanda/tabela-demanda.component';
+import { EditarCadastroComponent } from './base-de-dados/ficha/editar-cadastro/editar-cadastro.component';
 
 const routes: Routes = [
   { path: 'base-de-dados', component: BaseDeDadosComponent , children: [
@@ -25,6 +26,8 @@ const routes: Routes = [
   ]},
 
   {path: 'base-de-dados/ficha', component: FichaComponent},
+
+  {path: 'base-de-dados/ficha/editar', component: EditarCadastroComponent},
   
   { path: 'calendario', component: CalendarioComponent },
   { path: 'configuracoes', component: ConfiguracoesComponent },
