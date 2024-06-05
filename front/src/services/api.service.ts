@@ -54,7 +54,6 @@ export class ApiService {
 
   public async fetchDemanda(acolhimentoId: string, tipo: string) : Promise<Demanda | null> {
     let demandas = await this.fetchDemandas(acolhimentoId);
-
     for (let demanda of demandas) {
       if (demanda.tipo === tipo) {
         return demanda;

@@ -5,13 +5,15 @@ import { ApiService } from './api.service';
 import { AcolhimentoDemandas, AcolhimentoStatus } from 'src/models/enums/AcolhimentoEnums';
 import { Router } from '@angular/router';
 import { Demanda } from 'src/models/Demanda';
-
+ 
 @Injectable({
   providedIn: 'root'
 })
 export class StateService {
+  private currentTipoDemanda: AcolhimentoDemandas | undefined;
+
   private currentAcolhimento: Acolhimento | undefined;
-  private currentDemandas: Demanda[] | undefined;
+  private currentAcolhimentoDemanda: Demanda | undefined;
 
   private lastDocRef: string | null = null;
 
@@ -58,14 +60,28 @@ export class StateService {
     
   }
 
-  public async updateCurrentAcolhimento(id: string): Promise<void>{
+  public setCurrentTipoDemanda(tipo: AcolhimentoDemandas): void {
+    this.currentTipoDemanda = tipo;
+  }
+
+  public async setCurrentAcolhimento(id: string): Promise<void>{
     let result = await this.apiService.getAcolhimentoById(id);
     this.currentAcolhimento = result;
   }
 
-  public getCurrentAcolhimento(): Acolhimento | undefined {
-    return this.currentAcolhimento;
+  public async setCurrentAcolhimentoDemanda(tipo: string): Promise<void> {
+    if(!this.currentAcolhimento){
+      throw new Error("Current Acolhimento not set!");
+    }
+    let result = await this.apiService.fetchDemanda(this.currentAcolhimento.id!, tipo);
+    if(!result){
+      throw new Error("Demanda not found!");
+    }
+
+    this.currentAcolhimentoDemanda = result;
   }
 
-
+  public getCurrentTipoDemanda(): AcolhimentoDemandas | undefined { return this.currentTipoDemanda; }
+  public getCurrentAcolhimento(): Acolhimento | undefined { return this.currentAcolhimento; }
+  public getCurrentAcolhimentoDemanda(): Demanda | undefined { return this.currentAcolhimentoDemanda; }
 }

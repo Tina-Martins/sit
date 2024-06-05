@@ -1,1 +1,9 @@
-<p>ficha-demanda works!</p>
+<body>
+    <section>
+        <div id="incomplete-warning" *ngIf="!isDemandaAssigned">
+            <div id="warning-icon"></div>
+            <span>Demanda não atribuída</span>
+            <button>Atribuir demanda</button>
+        </div>
+    </section>
+</body>

@@ -2,16 +2,18 @@
     <table>
         <tr>
             <th>Nome</th>
-            <th>Status - Serviço social</th>
+            <th>Status - {{this.tipoDemanda}}</th>
             <th>Data do cadastro</th>
             <th>Última atualização</th>
+            <th>Profissional responsável</th>
         </tr>
 
-        <tr *ngFor="let acolhimento of this.acolhimentos">
+        <tr *ngFor="let acolhimento of this.acolhimentos" (click)="this.openFicha(acolhimento.id!)">
             <td>{{acolhimento.nome}}</td>
             <td>{{acolhimento_demanda?.get(acolhimento.id!)?.status}}</td>
             <td>{{this.dateService.formatDate(acolhimento_demanda?.get(acolhimento.id!)?.criadoEm!)}}</td>
             <td>{{this.dateService.formatDate(acolhimento_demanda?.get(acolhimento.id!)?.atualizadoEm!)}}</td>
+            <td>{{acolhimento_demanda?.get(acolhimento.id!)?.usuarioNome}}</td>
         </tr>        
     </table>
 </body>

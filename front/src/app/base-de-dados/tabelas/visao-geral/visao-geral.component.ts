@@ -21,19 +21,18 @@ export class VisaoGeralComponent implements OnDestroy{
   private searchSubscription: Subscription;
 
   constructor(
-    private acolhimentosService: StateService, 
+    private stateService: StateService, 
     protected dateService: DateService, 
     private router: Router, 
     private searchService: SearchService
   ) {
     this.searchSubscription = this.searchService.searchParams$.subscribe({
       next: (params) => {
-        this.acolhimentosService.fetchAcolhimentos(params.name, params.status, params.demanda)
+        this.stateService.fetchAcolhimentos(params.name, params.status, params.demanda)
           .then((acolhimentos) => {
             this.acolhimentos = acolhimentos;
           })
           .catch((error) => {
-            console.error("Error fetching acolhimentos:");
             console.error(error);
             this.router.navigate(['/error']);
           });
@@ -46,7 +45,10 @@ export class VisaoGeralComponent implements OnDestroy{
   }
 
   protected async openFicha(acolhimentoId: string){
-    await this.acolhimentosService.updateCurrentAcolhimento(acolhimentoId);
-    this.router.navigate(['base-de-dados/ficha/cadastro']);
+    await this.stateService.setCurrentAcolhimento(acolhimentoId).catch((error) => {
+      console.error(error);
+      this.router.navigate(['/error']);
+    });
+    this.router.navigate(['base-de-dados/ficha']);
   }
 }

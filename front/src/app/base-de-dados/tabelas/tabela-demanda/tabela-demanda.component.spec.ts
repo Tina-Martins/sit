@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PsicologiaComponent } from './psicologia.component';
+import { TabelaDemandaComponent } from './tabela-demanda.component';
 
-describe('PsicologiaComponent', () => {
-  let component: PsicologiaComponent;
-  let fixture: ComponentFixture<PsicologiaComponent>;
+describe('TabelaDemandaComponent', () => {
+  let component: TabelaDemandaComponent;
+  let fixture: ComponentFixture<TabelaDemandaComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PsicologiaComponent]
+      imports: [TabelaDemandaComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(PsicologiaComponent);
+    fixture = TestBed.createComponent(TabelaDemandaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

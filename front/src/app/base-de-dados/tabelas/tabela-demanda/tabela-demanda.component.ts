@@ -1,38 +1,50 @@
-import { Component } from '@angular/core';
-import { Acolhimento } from 'src/models/Acolhimento';
-import { StateService } from 'src/services/state.service';
 import { CommonModule } from '@angular/common';
-import { AcolhimentoDemandas } from 'src/models/enums/AcolhimentoEnums';
-import { Demanda } from 'src/models/Demanda';
-import { ApiService } from 'src/services/api.service';
-import { Subscription } from 'rxjs';
-import { DateService } from 'src/services/date.service';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { Acolhimento } from 'src/models/Acolhimento';
+import { Demanda } from 'src/models/Demanda';
+import { AcolhimentoDemandas } from 'src/models/enums/AcolhimentoEnums';
+import { ApiService } from 'src/services/api.service';
+import { DateService } from 'src/services/date.service';
 import { SearchService } from 'src/services/search.service';
+import { StateService } from 'src/services/state.service';
 
 @Component({
-  selector: 'app-servico-social',
+  selector: 'app-tabela-demanda',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './servico-social.component.html',
-  styleUrls: ['./servico-social.component.scss', '../tabela-base.scss']
+  templateUrl: './tabela-demanda.component.html',
+  styleUrls: ['./tabela-demanda.component.scss']
 })
-export class ServicoSocialComponent {
+export class TabelaDemandaComponent {
+  protected tipoDemanda!: AcolhimentoDemandas;
+
   protected acolhimentos: Array<Acolhimento> | null = null;
-  private searchSubscription: Subscription;
+  private searchSubscription!: Subscription;
 
   protected acolhimento_demanda: Map<string, Demanda | null> | null = null;
 
   constructor(
-    private acolhimentosService: StateService, 
+    private stateService: StateService, 
     protected dateService: DateService, 
     private router: Router, 
     private searchService: SearchService,
     private apiService: ApiService
   ) {
+    try{
+      let tipo_demanda: AcolhimentoDemandas|undefined = this.stateService.getCurrentTipoDemanda();
+      if (!tipo_demanda) { throw new Error("Tipo de demanda não definido") }
+      this.tipoDemanda = tipo_demanda;
+
+    } catch(error){
+      console.error(error);
+      this.router.navigate(['/error']);
+    }
+    
     this.searchSubscription = this.searchService.searchParams$.subscribe({
       next: (params) => {
-        this.acolhimentosService.fetchAcolhimentos(params.name, params.status, AcolhimentoDemandas.ASSISTENCIA_SOCIAL)
+        this.stateService.fetchAcolhimentos(params.name, params.status, this.tipoDemanda)
           .then((acolhimentos) => this.init(acolhimentos))
           .catch((error) => {
             console.error("Error fetching acolhimentos:");
@@ -49,8 +61,7 @@ export class ServicoSocialComponent {
 
   private async init(acolhimentos: Array<Acolhimento>): Promise<void> {
     this.acolhimentos = acolhimentos;
-
-    let tipo_demanda: AcolhimentoDemandas = AcolhimentoDemandas.ASSISTENCIA_SOCIAL;
+    
     this.acolhimento_demanda = new Map();
     for (let acolhimento of this.acolhimentos) {
       if (!acolhimento.id) {
@@ -58,7 +69,7 @@ export class ServicoSocialComponent {
         continue;
       }
       
-      this.apiService.fetchDemanda(acolhimento.id, tipo_demanda)
+      this.apiService.fetchDemanda(acolhimento.id, this.tipoDemanda)
         .then(demanda => {
           this.acolhimento_demanda?.set(acolhimento.id!, demanda);
         })
@@ -68,5 +79,14 @@ export class ServicoSocialComponent {
           this.router.navigate(['/error']);
         });
     }
+  }
+
+  protected async openFicha(acolhimentoId: string){
+    await this.stateService.setCurrentAcolhimento(acolhimentoId).catch((error) => {
+      console.error(error);
+      this.router.navigate(['/error']);
+    });
+
+    this.router.navigate(['base-de-dados/ficha']);
   }
 }

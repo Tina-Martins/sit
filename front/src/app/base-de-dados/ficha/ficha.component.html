@@ -19,15 +19,17 @@
 
     <nav>
         <ul>
-            <li><a routerLink="cadastro" routerLinkActive="active">Cadastro</a></li>
+            <li><a (click)="openCadastro()">Cadastro</a></li>
             <li *ngFor="let demanda of this.acolhimento?.demandas"><a (click)="openDemanda(demanda)">{{demanda}}</a></li>
-            <li><a routerLink="anexos" routerLinkActive="active">Anexos</a></li>
+            <li><a (click)="openAnexos()">Anexos</a></li>
         </ul>
 
         <span id="incompleto-aviso" *ngIf="this.isComplete">Cadastro incompleto</span>
     </nav>
 
     <section>
-        <router-outlet></router-outlet>
+        <app-cadastro #cadastro *ngIf="isCadastroActive"></app-cadastro>
+        <app-ficha-demanda #fichaDemanda *ngIf="isDemandaActive"></app-ficha-demanda>
+        <app-anexos #anexos *ngIf="isAnexosActive"></app-anexos>
     </section>
 </body>
