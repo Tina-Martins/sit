@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Acolhimento } from 'src/models/Acolhimento';
 import { Demanda } from 'src/models/Demanda';
 import { QueryOptions } from 'src/models/QueryOptions';
+import { Usuario } from 'src/models/Usuario';
 import { DemandaStatus } from 'src/models/enums/DemandaEnums';
 
 const API_URL = 'http://localhost:5001/tina-martins/us-central1/api';
@@ -103,7 +104,7 @@ export class ApiService {
     return null;
   }
 
-  public async fetchUsuarios(queryOptions?: QueryOptions): Promise<Array<string>> {
+  public async fetchUsuarios(queryOptions?: QueryOptions): Promise<Array<Usuario>> {
     const query_params = queryOptions ? `?queryOptions=${JSON.stringify(queryOptions)}` : ``;
     let request: string = `${API_URL}/usuarios${query_params}`;
 
@@ -112,7 +113,7 @@ export class ApiService {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    const data: { data: string[], lastDocRef?: string } = await response.json(); // 'Blind trust'
+    const data: { data: Usuario[], lastDocRef?: string } = await response.json(); // 'Blind trust'
     return data.data;
   }
 }

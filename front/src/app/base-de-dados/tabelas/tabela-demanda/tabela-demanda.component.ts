@@ -44,7 +44,7 @@ export class TabelaDemandaComponent {
     
     this.searchSubscription = this.searchService.searchParams$.subscribe({
       next: (params) => {
-        this.stateService.fetchAcolhimentos(params.name, params.status, this.tipoDemanda)
+        this.stateService.getAcolhimentos(params.name, params.status, this.tipoDemanda)
           .then((acolhimentos) => this.init(acolhimentos))
           .catch((error) => {
             console.error("Error fetching acolhimentos:");

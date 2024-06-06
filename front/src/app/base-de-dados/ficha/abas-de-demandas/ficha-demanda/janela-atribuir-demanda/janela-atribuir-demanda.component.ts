@@ -3,6 +3,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Usuario } from 'src/models/Usuario';
 import { ApiService } from 'src/services/api.service';
 import { StateService } from 'src/services/state.service';
 
@@ -16,7 +17,7 @@ import { StateService } from 'src/services/state.service';
 export class JanelaAtribuirDemandaComponent implements OnInit{
   protected usuarioNome: string | undefined;
 
-  protected usuarios: string[] = [];
+  protected usuarios: Array<Usuario> | undefined;
   constructor(public activeModal: NgbActiveModal, protected stateService: StateService, private apiService: ApiService, private router: Router) {}
 
   async ngOnInit() {
@@ -30,12 +31,8 @@ export class JanelaAtribuirDemandaComponent implements OnInit{
     }
   }
 
-  protected onUsuarioSelection(){
-
-  }
-
-  protected asignDemanda(): void {
-
+  protected save(): void {
+    this.activeModal.close();
   }
 
 }

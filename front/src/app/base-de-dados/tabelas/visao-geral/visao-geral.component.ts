@@ -28,7 +28,7 @@ export class VisaoGeralComponent implements OnDestroy{
   ) {
     this.searchSubscription = this.searchService.searchParams$.subscribe({
       next: (params) => {
-        this.stateService.fetchAcolhimentos(params.name, params.status, params.demanda)
+        this.stateService.getAcolhimentos(params.name, params.status, params.demanda)
           .then((acolhimentos) => {
             this.acolhimentos = acolhimentos;
           })

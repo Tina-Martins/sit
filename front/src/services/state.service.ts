@@ -19,7 +19,12 @@ export class StateService {
 
   constructor(private apiService: ApiService, private router: Router) { }
 
-  public async fetchAcolhimentos(searchName: string, searchStatus: string | '', searchDemanda: string | ''): Promise<Array<Acolhimento>> {
+  public async setCurrentAcolhimento(id: string): Promise<void>{
+    let result = await this.apiService.getAcolhimentoById(id);
+    this.currentAcolhimento = result;
+  }
+
+  public async getAcolhimentos(searchName: string, searchStatus: string | '', searchDemanda: string | ''): Promise<Array<Acolhimento>> {
     let queryOptions: QueryOptions = {};
     let queryParams: QueryParam[] = [];
 
@@ -47,26 +52,14 @@ export class StateService {
     return result.data;
   }
 
-  public async getAcolhimentosWithDemanda(demanda: AcolhimentoDemandas): Promise<Array<Acolhimento>>{
-    let query_params: QueryParam[] = [{field: "demandas", operator: "array-contains", value: demanda}]
-    let queryOptions: QueryOptions = { filters: query_params }
-
-    let result = await this.apiService.fetchAcolhimentos(queryOptions);
-    this.lastDocRef = result.lastDocRef || null;
-    return result.data;
-  }
-
   public async getAcolhimentoById(id: string){
     
   }
 
+  public getCurrentAcolhimento(): Acolhimento | undefined { return this.currentAcolhimento; }  
+
   public setCurrentTipoDemanda(tipo: AcolhimentoDemandas): void {
     this.currentTipoDemanda = tipo;
-  }
-
-  public async setCurrentAcolhimento(id: string): Promise<void>{
-    let result = await this.apiService.getAcolhimentoById(id);
-    this.currentAcolhimento = result;
   }
 
   public async setCurrentAcolhimentoDemanda(tipo: string): Promise<void> {
@@ -79,17 +72,9 @@ export class StateService {
     }
 
     this.currentAcolhimentoDemanda = result;
-  }
-
-  public updateCurrentTipoDemanda(new_demanda: Demanda): void {
-    if(this.currentAcolhimentoDemanda?.tipo != new_demanda.tipo){
-      throw new Error("Demanda type mismatch!");
-    }
-
-    this.currentAcolhimentoDemanda = new_demanda;
+    this.setCurrentTipoDemanda(result.tipo);
   }
 
   public getCurrentTipoDemanda(): AcolhimentoDemandas | undefined { return this.currentTipoDemanda; }
-  public getCurrentAcolhimento(): Acolhimento | undefined { return this.currentAcolhimento; }
   public getCurrentAcolhimentoDemanda(): Demanda | undefined { return this.currentAcolhimentoDemanda; }
 }
