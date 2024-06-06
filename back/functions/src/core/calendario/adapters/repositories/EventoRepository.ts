@@ -23,7 +23,11 @@ export class EventoRepository implements IEventoRepository {
       
       const docRef = await this.collection.add({
         ...eventoData,
+        data: new Date(eventoData.data).toISOString(),
+        horaInicio: new Date(eventoData.horaInicio!).toISOString(),
+        horaFim: new Date(eventoData.horaFim!).toISOString(),
         criadoEm: new Date().toISOString(),
+        atualizadoEm: new Date().toISOString(),
         regAtivo: true,
       });
 
@@ -64,6 +68,9 @@ export class EventoRepository implements IEventoRepository {
 
       await this.collection.doc(id).update({
         ...body,
+        data: new Date(body.data!).toISOString(),
+        horaInicio: new Date(body.horaInicio!).toISOString(),
+        horaFim: new Date(body.horaFim!).toISOString(),
         atualizadoEm: new Date().toISOString(),
       });
 

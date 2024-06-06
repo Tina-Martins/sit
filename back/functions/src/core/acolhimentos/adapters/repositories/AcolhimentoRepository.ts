@@ -22,6 +22,7 @@ export class AcolhimentoRepository implements IAcolhimentoRepository {
     try {
       const docRef = await this.collection.add({
         ...acolhimentoData,
+        dataNascimento: new Date(acolhimentoData.dataNascimento!).toISOString(),
         criadoEm: new Date().toISOString(),
         atualizadoEm: new Date().toISOString(),
         regAtivo: true,
@@ -64,6 +65,7 @@ export class AcolhimentoRepository implements IAcolhimentoRepository {
 
       await this.collection.doc(id).update({
         ...body,
+        dataNascimento: new Date(body.dataNascimento!).toISOString(),
         atualizadoEm: new Date().toISOString(),
       });
 
@@ -86,6 +88,7 @@ export class AcolhimentoRepository implements IAcolhimentoRepository {
       await this.collection.doc(id).update({
         status: AcolhimentoStatus.ENCERRADO,
         regAtivo: false,
+        atualizadoEm: new Date().toISOString(),
         excluidoEm: new Date().toISOString(),
       });
     } catch (error: any) {

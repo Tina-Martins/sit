@@ -45,6 +45,7 @@ export class DemandaRepository implements IDemandaRepository {
       const docRef = await this.collection.add({
         ...demandaData,
         criadoEm: new Date().toISOString(),
+        atualizadoEm: new Date().toISOString(),
         regAtivo: true,
       });
 
@@ -121,6 +122,7 @@ export class DemandaRepository implements IDemandaRepository {
       await this.collection.doc(id).update({
         regAtivo: false,
         atualizadoEm: new Date().toISOString(),
+        excluidoEm: new Date().toISOString(),
       });
     } catch (error: any) {
       console.error(error);
