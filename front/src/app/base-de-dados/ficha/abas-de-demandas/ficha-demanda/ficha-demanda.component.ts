@@ -1,9 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { Demanda } from 'src/models/Demanda';
 import { DateService } from 'src/services/date.service';
 import { StateService } from 'src/services/state.service';
+import { JanelaAtribuirDemandaComponent } from './janela-atribuir-demanda/janela-atribuir-demanda.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Subscription } from 'rxjs';
+import { ApiService } from 'src/services/api.service';
 
 @Component({
   selector: 'app-ficha-demanda',
@@ -17,7 +21,9 @@ export class FichaDemandaComponent implements OnInit {
 
   protected isDemandaAssigned: boolean = false;
 
-  constructor(private stateService: StateService, private router: Router, private dateService: DateService){}
+  // private demandaAtribuida: Subscription | undefined;
+
+  constructor(private stateService: StateService, private router: Router, private dateService: DateService, private modalService: NgbModal, private apiService: ApiService){}
 
   ngOnInit(){
     try{
@@ -42,10 +48,13 @@ export class FichaDemandaComponent implements OnInit {
   protected getInicioAtendimento(): string{
     if(this.currentAcolhimentoDemanda.atendimentos){
       let inicioAtendimento = this.currentAcolhimentoDemanda.atendimentos[0].data;
-      console.log(inicioAtendimento)
-      return this.dateService.formatDate(inicioAtendimento);
+      return this.dateService.makeDisplayableDate(inicioAtendimento);
     }else{
       return "Não iniciado";
     }
+  }
+
+  protected openAssignDemandaDialog(): void {
+    const modalRef = this.modalService.open(JanelaAtribuirDemandaComponent); // Open the pop-up
   }
 }

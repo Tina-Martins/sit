@@ -81,6 +81,14 @@ export class StateService {
     this.currentAcolhimentoDemanda = result;
   }
 
+  public updateCurrentTipoDemanda(new_demanda: Demanda): void {
+    if(this.currentAcolhimentoDemanda?.tipo != new_demanda.tipo){
+      throw new Error("Demanda type mismatch!");
+    }
+
+    this.currentAcolhimentoDemanda = new_demanda;
+  }
+
   public getCurrentTipoDemanda(): AcolhimentoDemandas | undefined { return this.currentTipoDemanda; }
   public getCurrentAcolhimento(): Acolhimento | undefined { return this.currentAcolhimento; }
   public getCurrentAcolhimentoDemanda(): Demanda | undefined { return this.currentAcolhimentoDemanda; }

@@ -27,6 +27,9 @@
         <div class="form-group">
           <label for="dataNascimento">Data de nascimento:</label>
           <input type="date" id="dataNascimento" name="dataNascimento" [(ngModel)]="acolhimento.dataNascimento" required/>
+          <div *ngIf="acolhimentoForm.controls['dataNascimento']?.invalid && (acolhimentoForm.controls['dataNascimento']?.dirty || acolhimentoForm.controls['dataNascimento']?.touched)" class="error-message">
+            Data de nascimento é obrigatória
+          </div>
         </div>
       </div>
 

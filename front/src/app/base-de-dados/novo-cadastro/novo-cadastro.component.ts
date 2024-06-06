@@ -9,6 +9,7 @@ import { ApiService } from 'src/services/api.service';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CadastroIncompletoComponent } from './cadastro-incompleto/cadastro-incompleto/cadastro-incompleto.component';
 import { Subscription } from 'rxjs';
+import { DateService } from 'src/services/date.service';
 
 @Component({
   selector: 'app-novo-cadastro',
@@ -39,7 +40,7 @@ export class NovoCadastroComponent implements OnDestroy{
 
   private saveIncompleteSubscription: Subscription | undefined;
 
-  constructor(private apiService: ApiService, private router: Router, private modalService: NgbModal) {}
+  constructor(private apiService: ApiService, private router: Router, private modalService: NgbModal, private dateService: DateService) {}
 
   ngOnInit() {
     // Initialize selectedDemandas with false for each demand
@@ -71,7 +72,7 @@ export class NovoCadastroComponent implements OnDestroy{
   protected save() {
     this.tried_submit = true;
 
-    let minimum_valid_state: boolean = (this.acolhimento.nome.length!=0 && this.isAnyDemandaSelected());
+    let minimum_valid_state: boolean = (this.acolhimento.nome.length!=0 && this.isAnyDemandaSelected() && !!this.acolhimento.dataNascimento);
 
     if(!minimum_valid_state){ // User has to select at least one demanda and fill the name field
       this.acolhimentoForm.control.markAllAsTouched();
@@ -82,6 +83,11 @@ export class NovoCadastroComponent implements OnDestroy{
     this.acolhimento.demandas = this.acolhimentoDemandas.filter(
       (demanda) => this.selectedDemandas[demanda]
     );
+
+    if(this.acolhimento.dataNascimento){
+      let dataNascimento = this.dateService.makeISODate(this.acolhimento.dataNascimento);
+      this.acolhimento.dataNascimento = dataNascimento;
+    }
 
     if (this.acolhimentoForm.valid) { // Form fully filled
       console.info("Registering acolhimento:")

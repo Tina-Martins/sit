@@ -9,6 +9,7 @@ import { AcolhimentoDemandas, AcolhimentoDocumentoTipo, AcolhimentoEscolaridade,
 import { ApiService } from 'src/services/api.service';
 import { CadastroIncompletoComponent } from '../../novo-cadastro/cadastro-incompleto/cadastro-incompleto/cadastro-incompleto.component';
 import { StateService } from 'src/services/state.service';
+import { DateService } from 'src/services/date.service';
 
 @Component({
   selector: 'app-editar-cadastro',
@@ -37,7 +38,7 @@ export class EditarCadastroComponent implements OnInit{
 
   private saveIncompleteSubscription: Subscription | undefined;
 
-  constructor(private apiService: ApiService, private router: Router, private modalService: NgbModal,  private stateService: StateService, private cdr: ChangeDetectorRef) {}
+  constructor(private apiService: ApiService, private router: Router, private modalService: NgbModal,  private stateService: StateService, private dateService: DateService) {}
 
   ngOnInit() {
     try {

@@ -7,7 +7,7 @@
         </div>
         <div class="data-row">
             <h2>Data de nascimento</h2>
-            <span>{{this.acolhimento?.dataNascimento}}</span>
+            <span>{{this.dateService.makeDisplayableDate(this.acolhimento?.dataNascimento!)}}</span>
         </div>
         <div class="data-row">
             <h2>Documento</h2>
@@ -62,7 +62,7 @@
         </div>
         <div class="data-row">
             <h2>Data de contato</h2>
-            <span>21/05/2023</span>
+            <span>{{this.dateService.makeDisplayableDate(this.acolhimento?.criadoEm!)}}</span>
         </div>
     </div>
 </body>

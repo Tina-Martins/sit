@@ -60,8 +60,11 @@ export class FichaComponent implements OnInit{
     }
 
     this.isCadastroActive = false;
-    this.isDemandaActive = true;
+    this.isDemandaActive = false;
     this.isAnexosActive = false;
+    this.cdr.detectChanges();
+
+    this.isDemandaActive = true;
     this.cdr.detectChanges();
   }
 

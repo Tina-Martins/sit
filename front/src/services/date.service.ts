@@ -7,10 +7,10 @@ export class DateService {
 
   constructor() { }
 
-  public formatDate(dateString: string | Date): string {
-    if (!dateString) return '';
+  public makeDisplayableDate(dateObject: string | Date): string {
+    if (!dateObject) return '';
 
-    let date: Date = new Date(dateString);
+    let date: Date = new Date(dateObject);
     
     const day = date.getDate();
     const month = date.getMonth() + 1; // Months are zero-indexed
@@ -20,5 +20,9 @@ export class DateService {
     const monthString = month < 10 ? `0${month}` : month.toString();
 
     return `${dayString}/${monthString}/${year}`;
+  }
+
+  public makeISODate(dateObject: string | Date): string {
+    return new Date(dateObject).toISOString();
   }
 }
