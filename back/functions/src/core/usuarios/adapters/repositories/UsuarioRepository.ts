@@ -21,7 +21,6 @@ export class UsuarioRepository implements IUsuarioRepository {
     try {
       const docRef = await this.collection.add({
         ...usuarioData,
-        ultimoLogin: new Date().toISOString(),
         criadoEm: new Date().toISOString(),
         atualizadoEm: new Date().toISOString(),
         regAtivo: true,
@@ -64,7 +63,6 @@ export class UsuarioRepository implements IUsuarioRepository {
 
       await this.collection.doc(id).update({
         ...body,
-        ultimoLogin: new Date(body.ultimoLogin!).toISOString(),
         atualizadoEm: new Date().toISOString(),
       });
 

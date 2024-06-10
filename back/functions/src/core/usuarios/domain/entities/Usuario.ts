@@ -5,12 +5,12 @@ export interface Usuario {
   nome: string;
   email: string;
   escopo: UsuarioEscopos;
-  ultimoLogin?: Date | string;
-  criadoEm?: Date | string;
+  ultimoLogin?: string;
+  criadoEm?: string;
   criadoPor?: string;
-  atualizadoEm?: Date | string;
+  atualizadoEm?: string;
   atualizadoPor?: string;
-  excluidoEm?: Date | string;
+  excluidoEm?: string;
   excluidoPor?: string;
   regAtivo?: boolean;
 }

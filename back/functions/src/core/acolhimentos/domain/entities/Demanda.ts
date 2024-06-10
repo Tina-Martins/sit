@@ -9,11 +9,11 @@ export interface Demanda {
   acolhimentoId: string;
   usuarioId?: string;
   usuarioNome?: string;
-  criadoEm?: Date | string;
-  atualizadoEm?: Date | string;
+  criadoEm?: string;
+  atualizadoEm?: string;
   criadoPor?: string;
   atualizadoPor?: string;
-  excluidoEm?: Date | string;
+  excluidoEm?: string;
   excluidoPor?: string;
   regAtivo?: boolean;
   atendimentos?: Atendimento[];

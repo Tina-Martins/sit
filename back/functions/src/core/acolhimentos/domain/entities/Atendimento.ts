@@ -1,12 +1,12 @@
 export interface Atendimento {
   id?: string;
-  data: Date | string;
+  data: string;
   registro: string;
-  criadoEm: Date | string;
+  criadoEm: string;
   criadoPor?: string;
-  atualizadoEm: Date | string;
+  atualizadoEm: string;
   atualizadoPor?: string;
-  excluidoEm?: Date | string;
+  excluidoEm?: string;
   excluidoPor?: string;
   regAtivo: boolean;
 }

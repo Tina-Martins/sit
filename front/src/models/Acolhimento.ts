@@ -13,7 +13,7 @@ export interface Acolhimento {
   nome: string;
   demandas: string[];
   status: AcolhimentoStatus;
-  dataNascimento?: Date | string;
+  dataNascimento?: string;
   descricao?: string;
   documento?: string;
   documentoTipo?: AcolhimentoDocumentoTipo;
@@ -28,11 +28,11 @@ export interface Acolhimento {
   bairro?: string;
   origem?: AcolhimentoOrigem;
   servicoReferencia?: AcolhimentoServicoReferencia;
-  criadoEm?: Date | string;
+  criadoEm?: string;
   criadoPor?: string;
-  atualizadoEm?: Date | string;
+  atualizadoEm?: string;
   atualizadoPor?: string;
-  excluidoEm?: Date | string;
+  excluidoEm?: string;
   excluidoPor?: string;
   regAtivo?: boolean;
 }

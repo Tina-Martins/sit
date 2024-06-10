@@ -1,4 +1,3 @@
-
 import { createModelFromDoc } from "../../../../utils/CreateModelFromDoc";
 import { eventosCol } from "../../../../utils/FirestoreCollections";
 import { QueryOptions, executeListQuery } from "../../../../utils/QueryUtils";
@@ -20,14 +19,9 @@ export class EventoRepository implements IEventoRepository {
   async save(eventoData: Evento): Promise<Evento> {
     try {
       this.validateEvento(eventoData);
-      
+
       const docRef = await this.collection.add({
         ...eventoData,
-        data: new Date(eventoData.data).toISOString(),
-        horaInicio: new Date(eventoData.horaInicio!).toISOString(),
-        horaFim: new Date(eventoData.horaFim!).toISOString(),
-        criadoEm: new Date().toISOString(),
-        atualizadoEm: new Date().toISOString(),
         regAtivo: true,
       });
 
@@ -66,12 +60,13 @@ export class EventoRepository implements IEventoRepository {
         throw new Error("Evento não encontrado!");
       }
 
+      this.validateEvento({
+        ...(doc.data() as Evento),
+        ...body,
+      });
+
       await this.collection.doc(id).update({
         ...body,
-        data: new Date(body.data!).toISOString(),
-        horaInicio: new Date(body.horaInicio!).toISOString(),
-        horaFim: new Date(body.horaFim!).toISOString(),
-        atualizadoEm: new Date().toISOString(),
       });
 
       const updatedDoc = await this.collection.doc(id).get();
@@ -102,24 +97,38 @@ export class EventoRepository implements IEventoRepository {
 
   private async validateEvento(eventoData: Evento): Promise<void> {
     const eventosSnapshot = await this.collection
-      .where('local', '==', eventoData.local)
-      .where('data', '==', eventoData.data)
+      .where("local", "==", eventoData.local)
+      .where("data", "==", eventoData.data)
       .get();
 
-    const eventos = eventosSnapshot.docs.map((doc) => createModelFromDoc<Evento>(doc));
+    const eventos = eventosSnapshot.docs.map((doc) =>
+      createModelFromDoc<Evento>(doc)
+    );
 
-    const novoInicio = new Date(`${eventoData.data}T${eventoData.horaInicio || '00:00:00'}`).getTime();
-    const novoFim = new Date(`${eventoData.data}T${eventoData.horaFim || '23:59:59'}`).getTime();
+    const novoInicio = new Date(
+      `${eventoData.data}T${eventoData.horaInicio || "00:00:00"}`
+    ).getTime();
+    const novoFim = new Date(
+      `${eventoData.data}T${eventoData.horaFim || "23:59:59"}`
+    ).getTime();
 
     for (const evento of eventos) {
-      const eventoInicio = new Date(`${evento.data}T${evento.horaInicio || '00:00:00'}`).getTime();
-      const eventoFim = new Date(`${evento.data}T${evento.horaFim || '23:59:59'}`).getTime();
+      const eventoInicio = new Date(
+        `${evento.data}T${evento.horaInicio || "00:00:00"}`
+      ).getTime();
+      const eventoFim = new Date(
+        `${evento.data}T${evento.horaFim || "23:59:59"}`
+      ).getTime();
 
-      if ((novoInicio < eventoFim && novoFim > eventoInicio) || eventoData.diaTodo || evento.diaTodo) {
-        throw new Error("Conflito de horário/local com outro evento já existente.");
+      if (
+        (novoInicio < eventoFim && novoFim > eventoInicio) ||
+        eventoData.diaTodo ||
+        evento.diaTodo
+      ) {
+        throw new Error(
+          "Conflito de horário/local com outro evento já existente."
+        );
       }
     }
   }
-
 }
-  
