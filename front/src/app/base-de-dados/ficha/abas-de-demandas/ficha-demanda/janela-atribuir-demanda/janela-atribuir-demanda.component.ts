@@ -32,6 +32,18 @@ export class JanelaAtribuirDemandaComponent implements OnInit{
   }
 
   protected save(): void {
+    try{
+      let currentDemanda = this.stateService.getCurrentAcolhimentoDemanda();
+      if(!currentDemanda){ throw new Error("Demanda não encontrada"); }
+      if(!this.usuarioNome){ return ;}
+
+      this.apiService.assignDemandaTo(currentDemanda, this.usuarioNome);
+
+    }catch(error){
+      console.error(error);
+      this.router.navigate(['/error']);
+    }
+
     this.activeModal.close();
   }
 

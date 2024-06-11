@@ -80,6 +80,10 @@ export class ApiService {
     }
   }
 
+  public async assignDemandaTo(demanda: Demanda, usuarioNome: string): Promise<void>{
+    // TODO: Implementar no back
+  }
+
   public async fetchDemandas(acolhimentoId: string): Promise<Array<Demanda>> {
     const query_params = `?queryOptions=${JSON.stringify({filters: [{field: 'acolhimentoId', operator: '==', value: acolhimentoId}]})}`;
     let request: string = `${API_URL}/demandas${query_params}`;

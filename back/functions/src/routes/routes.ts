@@ -29,12 +29,12 @@ const models: TsoaRoute.Models = {
             "nome": {"dataType":"string","required":true},
             "email": {"dataType":"string","required":true},
             "escopo": {"ref":"UsuarioEscopos","required":true},
-            "ultimoLogin": {"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"string"}]},
-            "criadoEm": {"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"string"}]},
+            "ultimoLogin": {"dataType":"string"},
+            "criadoEm": {"dataType":"string"},
             "criadoPor": {"dataType":"string"},
-            "atualizadoEm": {"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"string"}]},
+            "atualizadoEm": {"dataType":"string"},
             "atualizadoPor": {"dataType":"string"},
-            "excluidoEm": {"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"string"}]},
+            "excluidoEm": {"dataType":"string"},
             "excluidoPor": {"dataType":"string"},
             "regAtivo": {"dataType":"boolean"},
         },
@@ -52,7 +52,7 @@ const models: TsoaRoute.Models = {
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Partial_Usuario_": {
         "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"id":{"dataType":"string"},"nome":{"dataType":"string"},"email":{"dataType":"string"},"escopo":{"ref":"UsuarioEscopos"},"ultimoLogin":{"dataType":"union","subSchemas":[{"dataType":"string"},{"dataType":"datetime"}]},"criadoEm":{"dataType":"union","subSchemas":[{"dataType":"string"},{"dataType":"datetime"}]},"criadoPor":{"dataType":"string"},"atualizadoEm":{"dataType":"union","subSchemas":[{"dataType":"string"},{"dataType":"datetime"}]},"atualizadoPor":{"dataType":"string"},"excluidoEm":{"dataType":"union","subSchemas":[{"dataType":"string"},{"dataType":"datetime"}]},"excluidoPor":{"dataType":"string"},"regAtivo":{"dataType":"boolean"}},"validators":{}},
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"id":{"dataType":"string"},"nome":{"dataType":"string"},"email":{"dataType":"string"},"escopo":{"ref":"UsuarioEscopos"},"ultimoLogin":{"dataType":"string"},"criadoEm":{"dataType":"string"},"criadoPor":{"dataType":"string"},"atualizadoEm":{"dataType":"string"},"atualizadoPor":{"dataType":"string"},"excluidoEm":{"dataType":"string"},"excluidoPor":{"dataType":"string"},"regAtivo":{"dataType":"boolean"}},"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Evento": {
@@ -61,13 +61,13 @@ const models: TsoaRoute.Models = {
             "id": {"dataType":"string"},
             "titulo": {"dataType":"string","required":true},
             "descricao": {"dataType":"string"},
-            "data": {"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"string"}],"required":true},
-            "horaInicio": {"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"string"}]},
-            "horaFim": {"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"string"}]},
+            "data": {"dataType":"string","required":true},
+            "horaInicio": {"dataType":"string"},
+            "horaFim": {"dataType":"string"},
             "diaTodo": {"dataType":"boolean","required":true},
             "local": {"dataType":"string","required":true},
-            "criadoEm": {"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"string"}],"required":true},
-            "atualizadoEm": {"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"string"}],"required":true},
+            "criadoEm": {"dataType":"string","required":true},
+            "atualizadoEm": {"dataType":"string","required":true},
             "regAtivo": {"dataType":"boolean","required":true},
         },
         "additionalProperties": false,
@@ -84,7 +84,7 @@ const models: TsoaRoute.Models = {
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Partial_Evento_": {
         "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"id":{"dataType":"string"},"titulo":{"dataType":"string"},"descricao":{"dataType":"string"},"data":{"dataType":"union","subSchemas":[{"dataType":"string"},{"dataType":"datetime"}]},"horaInicio":{"dataType":"union","subSchemas":[{"dataType":"string"},{"dataType":"datetime"}]},"horaFim":{"dataType":"union","subSchemas":[{"dataType":"string"},{"dataType":"datetime"}]},"diaTodo":{"dataType":"boolean"},"local":{"dataType":"string"},"criadoEm":{"dataType":"union","subSchemas":[{"dataType":"string"},{"dataType":"datetime"}]},"atualizadoEm":{"dataType":"union","subSchemas":[{"dataType":"string"},{"dataType":"datetime"}]},"regAtivo":{"dataType":"boolean"}},"validators":{}},
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"id":{"dataType":"string"},"titulo":{"dataType":"string"},"descricao":{"dataType":"string"},"data":{"dataType":"string"},"horaInicio":{"dataType":"string"},"horaFim":{"dataType":"string"},"diaTodo":{"dataType":"boolean"},"local":{"dataType":"string"},"criadoEm":{"dataType":"string"},"atualizadoEm":{"dataType":"string"},"regAtivo":{"dataType":"boolean"}},"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "AcolhimentoDemandas": {
@@ -101,13 +101,13 @@ const models: TsoaRoute.Models = {
         "dataType": "refObject",
         "properties": {
             "id": {"dataType":"string"},
-            "data": {"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"string"}],"required":true},
+            "data": {"dataType":"string","required":true},
             "registro": {"dataType":"string","required":true},
-            "criadoEm": {"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"string"}],"required":true},
+            "criadoEm": {"dataType":"string","required":true},
             "criadoPor": {"dataType":"string"},
-            "atualizadoEm": {"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"string"}],"required":true},
+            "atualizadoEm": {"dataType":"string","required":true},
             "atualizadoPor": {"dataType":"string"},
-            "excluidoEm": {"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"string"}]},
+            "excluidoEm": {"dataType":"string"},
             "excluidoPor": {"dataType":"string"},
             "regAtivo": {"dataType":"boolean","required":true},
         },
@@ -123,11 +123,11 @@ const models: TsoaRoute.Models = {
             "acolhimentoId": {"dataType":"string","required":true},
             "usuarioId": {"dataType":"string"},
             "usuarioNome": {"dataType":"string"},
-            "criadoEm": {"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"string"}]},
-            "atualizadoEm": {"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"string"}]},
+            "criadoEm": {"dataType":"string"},
+            "atualizadoEm": {"dataType":"string"},
             "criadoPor": {"dataType":"string"},
             "atualizadoPor": {"dataType":"string"},
-            "excluidoEm": {"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"string"}]},
+            "excluidoEm": {"dataType":"string"},
             "excluidoPor": {"dataType":"string"},
             "regAtivo": {"dataType":"boolean"},
             "atendimentos": {"dataType":"array","array":{"dataType":"refObject","ref":"Atendimento"}},
@@ -146,12 +146,12 @@ const models: TsoaRoute.Models = {
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Partial_Demanda_": {
         "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"id":{"dataType":"string"},"tipo":{"ref":"AcolhimentoDemandas"},"status":{"ref":"DemandaStatus"},"acolhimentoId":{"dataType":"string"},"usuarioId":{"dataType":"string"},"usuarioNome":{"dataType":"string"},"criadoEm":{"dataType":"union","subSchemas":[{"dataType":"string"},{"dataType":"datetime"}]},"atualizadoEm":{"dataType":"union","subSchemas":[{"dataType":"string"},{"dataType":"datetime"}]},"criadoPor":{"dataType":"string"},"atualizadoPor":{"dataType":"string"},"excluidoEm":{"dataType":"union","subSchemas":[{"dataType":"string"},{"dataType":"datetime"}]},"excluidoPor":{"dataType":"string"},"regAtivo":{"dataType":"boolean"},"atendimentos":{"dataType":"array","array":{"dataType":"refObject","ref":"Atendimento"}}},"validators":{}},
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"id":{"dataType":"string"},"tipo":{"ref":"AcolhimentoDemandas"},"status":{"ref":"DemandaStatus"},"acolhimentoId":{"dataType":"string"},"usuarioId":{"dataType":"string"},"usuarioNome":{"dataType":"string"},"criadoEm":{"dataType":"string"},"atualizadoEm":{"dataType":"string"},"criadoPor":{"dataType":"string"},"atualizadoPor":{"dataType":"string"},"excluidoEm":{"dataType":"string"},"excluidoPor":{"dataType":"string"},"regAtivo":{"dataType":"boolean"},"atendimentos":{"dataType":"array","array":{"dataType":"refObject","ref":"Atendimento"}}},"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Partial_Atendimento_": {
         "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"id":{"dataType":"string"},"data":{"dataType":"union","subSchemas":[{"dataType":"string"},{"dataType":"datetime"}]},"registro":{"dataType":"string"},"criadoEm":{"dataType":"union","subSchemas":[{"dataType":"string"},{"dataType":"datetime"}]},"criadoPor":{"dataType":"string"},"atualizadoEm":{"dataType":"union","subSchemas":[{"dataType":"string"},{"dataType":"datetime"}]},"atualizadoPor":{"dataType":"string"},"excluidoEm":{"dataType":"union","subSchemas":[{"dataType":"string"},{"dataType":"datetime"}]},"excluidoPor":{"dataType":"string"},"regAtivo":{"dataType":"boolean"}},"validators":{}},
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"id":{"dataType":"string"},"data":{"dataType":"string"},"registro":{"dataType":"string"},"criadoEm":{"dataType":"string"},"criadoPor":{"dataType":"string"},"atualizadoEm":{"dataType":"string"},"atualizadoPor":{"dataType":"string"},"excluidoEm":{"dataType":"string"},"excluidoPor":{"dataType":"string"},"regAtivo":{"dataType":"boolean"}},"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "AcolhimentoStatus": {
@@ -211,11 +211,11 @@ const models: TsoaRoute.Models = {
             "bairro": {"dataType":"string"},
             "origem": {"ref":"AcolhimentoOrigem"},
             "servicoReferencia": {"ref":"AcolhimentoServicoReferencia"},
-            "criadoEm": {"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"string"}]},
+            "criadoEm": {"dataType":"string"},
             "criadoPor": {"dataType":"string"},
-            "atualizadoEm": {"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"string"}]},
+            "atualizadoEm": {"dataType":"string"},
             "atualizadoPor": {"dataType":"string"},
-            "excluidoEm": {"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"string"}]},
+            "excluidoEm": {"dataType":"string"},
             "excluidoPor": {"dataType":"string"},
             "regAtivo": {"dataType":"boolean"},
         },
@@ -233,7 +233,7 @@ const models: TsoaRoute.Models = {
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Partial_Acolhimento_": {
         "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"id":{"dataType":"string"},"nome":{"dataType":"string"},"demandas":{"dataType":"array","array":{"dataType":"string"}},"status":{"ref":"AcolhimentoStatus"},"dataNascimento":{"dataType":"string"},"descricao":{"dataType":"string"},"documento":{"dataType":"string"},"documentoTipo":{"ref":"AcolhimentoDocumentoTipo"},"documentoEmissor":{"dataType":"string"},"racaCor":{"ref":"AcolhimentoRacaCor"},"escolaridade":{"ref":"AcolhimentoEscolaridade"},"orientacaoSexual":{"ref":"AcolhimentoOrientacaoSexual"},"qtdfilhos":{"dataType":"double"},"email":{"dataType":"string"},"telefone":{"dataType":"string"},"cidade":{"dataType":"string"},"bairro":{"dataType":"string"},"origem":{"ref":"AcolhimentoOrigem"},"servicoReferencia":{"ref":"AcolhimentoServicoReferencia"},"criadoEm":{"dataType":"union","subSchemas":[{"dataType":"string"},{"dataType":"datetime"}]},"criadoPor":{"dataType":"string"},"atualizadoEm":{"dataType":"union","subSchemas":[{"dataType":"string"},{"dataType":"datetime"}]},"atualizadoPor":{"dataType":"string"},"excluidoEm":{"dataType":"union","subSchemas":[{"dataType":"string"},{"dataType":"datetime"}]},"excluidoPor":{"dataType":"string"},"regAtivo":{"dataType":"boolean"}},"validators":{}},
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"id":{"dataType":"string"},"nome":{"dataType":"string"},"demandas":{"dataType":"array","array":{"dataType":"string"}},"status":{"ref":"AcolhimentoStatus"},"dataNascimento":{"dataType":"string"},"descricao":{"dataType":"string"},"documento":{"dataType":"string"},"documentoTipo":{"ref":"AcolhimentoDocumentoTipo"},"documentoEmissor":{"dataType":"string"},"racaCor":{"ref":"AcolhimentoRacaCor"},"escolaridade":{"ref":"AcolhimentoEscolaridade"},"orientacaoSexual":{"ref":"AcolhimentoOrientacaoSexual"},"qtdfilhos":{"dataType":"double"},"email":{"dataType":"string"},"telefone":{"dataType":"string"},"cidade":{"dataType":"string"},"bairro":{"dataType":"string"},"origem":{"ref":"AcolhimentoOrigem"},"servicoReferencia":{"ref":"AcolhimentoServicoReferencia"},"criadoEm":{"dataType":"string"},"criadoPor":{"dataType":"string"},"atualizadoEm":{"dataType":"string"},"atualizadoPor":{"dataType":"string"},"excluidoEm":{"dataType":"string"},"excluidoPor":{"dataType":"string"},"regAtivo":{"dataType":"boolean"}},"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 };
