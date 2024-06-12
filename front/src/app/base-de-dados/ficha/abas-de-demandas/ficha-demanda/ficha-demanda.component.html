@@ -24,7 +24,19 @@
 
             <div id="user-options">
                 <button (click)="openUpdateStatusDialog()">Atualizar status</button>
-                <button (click)="openNovoRegistroDialog()">Novo registro</button>
+                <button (click)="openNovoRegistroDialog()">+ Novo registro</button>
+            </div>
+        </div>
+
+        <div id="registros" *ngIf="isDemandaAssigned && currentAcolhimentoDemanda.atendimentos">
+            <div class="header">
+                <span>Data do registro</span>
+                <span>Registro</span>
+            </div>
+
+            <div class="registro" *ngFor="let atendimento of currentAcolhimentoDemanda.atendimentos">
+                <span>{{ this.dateService.makeDisplayableDate(atendimento.data) }}</span>
+                <span>{{ atendimento.registro }}</span>
             </div>
         </div>
     </section>

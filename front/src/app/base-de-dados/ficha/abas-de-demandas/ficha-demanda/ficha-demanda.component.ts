@@ -32,7 +32,7 @@ export class FichaDemandaComponent implements OnInit, OnDestroy {
 
   // private demandaAtribuida: Subscription | undefined;
 
-  constructor(private stateService: StateService, private router: Router, private dateService: DateService, private modalService: NgbModal, private apiService: ApiService){}
+  constructor(private stateService: StateService, private router: Router, protected dateService: DateService, private modalService: NgbModal, private apiService: ApiService){}
 
   ngOnInit(){
     try{
@@ -129,7 +129,7 @@ export class FichaDemandaComponent implements OnInit, OnDestroy {
 
         currentDemanda.atendimentos.push(novoAtendimento);
         console.log(currentDemanda);
-        
+
         this.apiService.updateDemanda(currentDemanda);
 
       }catch(error){
