@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { Demanda } from 'src/models/Demanda';
 import { DateService } from 'src/services/date.service';
@@ -8,6 +8,9 @@ import { JanelaAtribuirDemandaComponent } from './janela-atribuir-demanda/janela
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { ApiService } from 'src/services/api.service';
+import { JanelaAtualizarStatusComponent } from './janela-atualizar-status/janela-atualizar-status.component';
+import { AcolhimentoStatus } from 'src/models/enums/AcolhimentoEnums';
+import { DemandaStatus } from 'src/models/enums/DemandaEnums';
 
 @Component({
   selector: 'app-ficha-demanda',
@@ -16,7 +19,10 @@ import { ApiService } from 'src/services/api.service';
   templateUrl: './ficha-demanda.component.html',
   styleUrls: ['./ficha-demanda.component.scss']
 })
-export class FichaDemandaComponent implements OnInit {
+export class FichaDemandaComponent implements OnInit, OnDestroy {
+  private saveAssignmentSubscription: Subscription | undefined;
+  private saveUpdateStatusSubscription: Subscription | undefined;
+
   protected currentAcolhimentoDemanda!: Demanda;
 
   protected isDemandaAssigned: boolean = false;
@@ -45,6 +51,12 @@ export class FichaDemandaComponent implements OnInit {
     }
   }
 
+  ngOnDestroy(): void {
+    if(this.saveAssignmentSubscription){
+      this.saveAssignmentSubscription.unsubscribe();
+    }
+  }
+
   protected getInicioAtendimento(): string{
     if(this.currentAcolhimentoDemanda.atendimentos){
       let inicioAtendimento = this.currentAcolhimentoDemanda.atendimentos[0].data;
@@ -56,5 +68,38 @@ export class FichaDemandaComponent implements OnInit {
 
   protected openAssignDemandaDialog(): void {
     const modalRef = this.modalService.open(JanelaAtribuirDemandaComponent); // Open the pop-up
+    this.saveAssignmentSubscription = modalRef.componentInstance.saveAssignment.subscribe((usuarioNome: string) => {
+
+      try{
+        let currentDemanda = this.stateService.getCurrentAcolhimentoDemanda();
+        if(!currentDemanda){ throw new Error("Demanda não encontrada"); }
+
+        this.apiService.assignDemandaTo(currentDemanda, usuarioNome);
+
+      }catch(error){
+        console.error(error);
+        this.router.navigate(['/error']);
+      }
+    });
+  }
+
+  protected openUpdateStatusDialog(): void{
+    const modalRef = this.modalService.open(JanelaAtualizarStatusComponent);
+    this.saveUpdateStatusSubscription = modalRef.componentInstance.saveUpdateStatus.subscribe((statusUpdate: { newStatus: DemandaStatus, encaminhadoPara?: string, comentario: string }) => {
+      try{
+        let currentDemanda = this.stateService.getCurrentAcolhimentoDemanda();
+        if(!currentDemanda){ throw new Error("Demanda não encontrada"); }
+
+        // TODO: encaminhadoPara e descrição não estão sendo usados
+
+        console.log(statusUpdate);
+
+        this.apiService.updateDemandaStatus(currentDemanda, statusUpdate.newStatus);
+
+      }catch(error){
+        console.error(error);
+        this.router.navigate(['/error']);
+      }
+    });
   }
 }

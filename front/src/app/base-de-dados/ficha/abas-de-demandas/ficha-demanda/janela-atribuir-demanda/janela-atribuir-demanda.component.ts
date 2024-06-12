@@ -15,6 +15,8 @@ import { StateService } from 'src/services/state.service';
   styleUrls: ['./janela-atribuir-demanda.component.scss']
 })
 export class JanelaAtribuirDemandaComponent implements OnInit{
+  @Output() saveAssignment = new EventEmitter<string>();
+  
   protected usuarioNome: string | undefined;
 
   protected usuarios: Array<Usuario> | undefined;
@@ -32,18 +34,8 @@ export class JanelaAtribuirDemandaComponent implements OnInit{
   }
 
   protected save(): void {
-    try{
-      let currentDemanda = this.stateService.getCurrentAcolhimentoDemanda();
-      if(!currentDemanda){ throw new Error("Demanda não encontrada"); }
-      if(!this.usuarioNome){ return ;}
-
-      this.apiService.assignDemandaTo(currentDemanda, this.usuarioNome);
-
-    }catch(error){
-      console.error(error);
-      this.router.navigate(['/error']);
-    }
-
+    if(!this.usuarioNome){return;}
+    this.saveAssignment.emit(this.usuarioNome);
     this.activeModal.close();
   }
 
