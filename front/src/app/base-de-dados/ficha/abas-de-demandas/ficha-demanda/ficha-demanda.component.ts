@@ -11,6 +11,8 @@ import { ApiService } from 'src/services/api.service';
 import { JanelaAtualizarStatusComponent } from './janela-atualizar-status/janela-atualizar-status.component';
 import { AcolhimentoStatus } from 'src/models/enums/AcolhimentoEnums';
 import { DemandaStatus } from 'src/models/enums/DemandaEnums';
+import { JanelaNovoRegistroComponent } from './janela-novo-registro/janela-novo-registro.component';
+import { Atendimento } from 'src/models/Atendimento';
 
 @Component({
   selector: 'app-ficha-demanda',
@@ -22,6 +24,7 @@ import { DemandaStatus } from 'src/models/enums/DemandaEnums';
 export class FichaDemandaComponent implements OnInit, OnDestroy {
   private saveAssignmentSubscription: Subscription | undefined;
   private saveUpdateStatusSubscription: Subscription | undefined;
+  private saveRegistroSubscription: Subscription | undefined;
 
   protected currentAcolhimentoDemanda!: Demanda;
 
@@ -54,6 +57,14 @@ export class FichaDemandaComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if(this.saveAssignmentSubscription){
       this.saveAssignmentSubscription.unsubscribe();
+    }
+
+    if(this.saveUpdateStatusSubscription){
+      this.saveUpdateStatusSubscription.unsubscribe();
+    }
+
+    if(this.saveRegistroSubscription){
+      this.saveRegistroSubscription.unsubscribe();
     }
   }
 
@@ -90,11 +101,36 @@ export class FichaDemandaComponent implements OnInit, OnDestroy {
         let currentDemanda = this.stateService.getCurrentAcolhimentoDemanda();
         if(!currentDemanda){ throw new Error("Demanda não encontrada"); }
 
+        currentDemanda.status = statusUpdate.newStatus;
+
         // TODO: encaminhadoPara e descrição não estão sendo usados
 
         console.log(statusUpdate);
 
-        this.apiService.updateDemandaStatus(currentDemanda, statusUpdate.newStatus);
+        this.apiService.updateDemanda(currentDemanda);
+
+      }catch(error){
+        console.error(error);
+        this.router.navigate(['/error']);
+      }
+    });
+  }
+
+  protected openNovoRegistroDialog(): void{
+    const modalRef = this.modalService.open(JanelaNovoRegistroComponent);
+    this.saveRegistroSubscription = modalRef.componentInstance.saveRegistro.subscribe((novoAtendimento: Atendimento) => {
+      try{
+        let currentDemanda = this.stateService.getCurrentAcolhimentoDemanda();
+        if(!currentDemanda){ throw new Error("Demanda não encontrada"); }
+
+        if(!currentDemanda.atendimentos){
+          currentDemanda.atendimentos = [];
+        }
+
+        currentDemanda.atendimentos.push(novoAtendimento);
+        console.log(currentDemanda);
+        
+        this.apiService.updateDemanda(currentDemanda);
 
       }catch(error){
         console.error(error);
