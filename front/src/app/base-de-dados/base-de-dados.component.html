@@ -1,36 +1,47 @@
-<body>
+<body class="bg-light p-3 d-flex justify-content-center overflow-hidden">
+  <div class = "w-75">
     <header>
-        <div>
-            <h1>Base de dados</h1>
-            <button routerLink="novo-cadastro" mat-flat-button>Criar cadastro</button>
+      <div>
+        <div class="row g-3 w-full align-items-center">
+          <div class="col">
+            <h2 class="mb-3">Base de dados</h2>
+          </div>
+          <div class="col-auto" >
+            <button class="btn btn-primary"routerLink="novo-cadastro" mat-flat-button>Criar cadastro</button>
+          </div>
         </div>
-
-        <div>
-            <input type="text" id="name" name="name" placeholder="Buscar por nome" [(ngModel)]="searchName" (ngModelChange)="updateSearch()">
-        
-            <select name="status" [(ngModel)]="searchStatus" (ngModelChange)="updateSearch()">
-                <option value="">Todos os Status</option> 
-                <option *ngFor="let status of acolhimentoStatus" [value]="status">{{status}}</option>
+      </div>
+      <div>
+        <div class="input-group border border-secondary rounded p-0 bg-white mb-1">
+          <input type="text" id="name" name="name" class="form-control " placeholder="Buscar por nome" [(ngModel)]="searchName" (ngModelChange)="updateSearch()">
+          <div class="input-group-append  ">
+            <select name="status" class="btn border border-white m-1 mt-0 mb-0"[(ngModel)]="searchStatus" (ngModelChange)="updateSearch()">
+            <option value="">Todos os Status</option>
+            <option *ngFor="let status of acolhimentoStatus" [value]="status">{{status}}</option>
             </select>
-
-            <select name="tipo_demanda" [(ngModel)]="searchDemanda" (ngModelChange)="updateSearch()">
-                <option value="">Todas as Demandas</option>
-                <option *ngFor="let demanda of acolhimentoDemandas" [value]="demanda">{{demanda}}</option>
+            <select name="tipo_demanda" class="btn border border-white" [(ngModel)]="searchDemanda" (ngModelChange)="updateSearch()">
+            <option value="">Todas as Demandas</option>
+            <option *ngFor="let demanda of acolhimentoDemandas" [value]="demanda">{{demanda}}</option>
             </select>
+          </div>
         </div>
+      </div>
     </header>
-
-    <nav>
-        <ul>
-            <li><a routerLink="visao-geral">Visão geral</a></li>
-            <li><a (click)="openPsicologiaTable()">Psicologia</a></li>
-            <li><a (click)="openJuridicoTable()">Jurídico</a></li>
-            <li><a (click)="openServicoSocialTable()">Assistência social</a></li>
-            <li><a (click)="openAbrigamentosTable()">Abrigamentos</a></li>
-        </ul>
+    <nav class="navbar navbar-expand-lg p-0 bg-white card">
+      <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link m-1" routerLink="visao-geral">Visão geral</a></li>
+            <li class="nav-item"><a class="nav-link m-1" (click)="openPsicologiaTable()">Psicologia</a></li>
+            <li class="nav-item"><a class="nav-link m-1" (click)="openJuridicoTable()">Jurídico</a></li>
+            <li class="nav-item"><a class="nav-link m-1" (click)="openServicoSocialTable()">Assistência social</a></li>
+            <li class="nav-item"><a class="nav-link m-1" (click)="openAbrigamentosTable()">Abrigamentos</a></li>
+          </ul>
+        </div>
+      </div>
     </nav>
-
     <section>
-        <router-outlet></router-outlet>
+      <router-outlet></router-outlet>
     </section>
+  </div>
 </body>
