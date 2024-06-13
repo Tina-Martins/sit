@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Acolhimento } from 'src/models/Acolhimento';
 import { QueryOptions, QueryParam } from 'src/models/QueryOptions';
 import { ApiService } from './api.service';
@@ -11,19 +11,33 @@ import { Atendimento } from 'src/models/Atendimento';
   providedIn: 'root'
 })
 export class StateService {
-  private currentTipoDemanda: AcolhimentoDemandas | undefined;
-
   private currentAcolhimento: Acolhimento | undefined;
+  private currentTipoDemanda: AcolhimentoDemandas | undefined;
   private currentAcolhimentoDemanda: Demanda | undefined;
   private currentAtendimento: Atendimento | undefined;
 
   private lastDocRef: string | null = null;
 
-  constructor(private apiService: ApiService, private router: Router) { }
+  constructor(private apiService: ApiService, private router: Router ) { 
+    // Load from session storage on initialization
+    const storedAcolhimento = sessionStorage.getItem('currentAcolhimento');
+    if (storedAcolhimento) { this.currentAcolhimento = JSON.parse(storedAcolhimento); }
+
+    const storedTipoDemanda = sessionStorage.getItem('currentTipoDemanda');
+    if (storedTipoDemanda) { this.currentTipoDemanda = JSON.parse(storedTipoDemanda); }
+
+    const storedAcolhimentoDemanda = sessionStorage.getItem('currentAcolhimentoDemanda');
+    if (storedAcolhimentoDemanda) { this.currentAcolhimentoDemanda = JSON.parse(storedAcolhimentoDemanda); }
+
+    const storedAtendimento = sessionStorage.getItem('currentAtendimento');
+    if (storedAtendimento) { this.currentAtendimento = JSON.parse(storedAtendimento); }
+  }
 
   public async setCurrentAcolhimento(id: string): Promise<void>{
     let result = await this.apiService.getAcolhimentoById(id);
     this.currentAcolhimento = result;
+    
+    sessionStorage.setItem('currentAcolhimento', JSON.stringify(this.currentAcolhimento)) // Save to session storage
   }
 
   public async getAcolhimentos(searchName: string, searchStatus: string | '', searchDemanda: string | ''): Promise<Array<Acolhimento>> {
@@ -62,6 +76,8 @@ export class StateService {
 
   public setCurrentTipoDemanda(tipo: AcolhimentoDemandas): void {
     this.currentTipoDemanda = tipo;
+
+    sessionStorage.setItem('currentTipoDemanda', JSON.stringify(this.currentTipoDemanda));
   }
 
   public async setCurrentAcolhimentoDemanda(tipo: string): Promise<void> {
@@ -74,12 +90,17 @@ export class StateService {
     }
 
     this.currentAcolhimentoDemanda = result;
+    sessionStorage.setItem('currentAcolhimentoDemanda', JSON.stringify(this.currentAcolhimentoDemanda));
+
     this.setCurrentTipoDemanda(result.tipo);
   }
 
   public getCurrentTipoDemanda(): AcolhimentoDemandas | undefined { return this.currentTipoDemanda; }
   public getCurrentAcolhimentoDemanda(): Demanda | undefined { return this.currentAcolhimentoDemanda; }
 
-  public setCurrentAtendimento(atendimento: Atendimento): void { this.currentAtendimento = atendimento; }
+  public setCurrentAtendimento(atendimento: Atendimento): void { 
+    this.currentAtendimento = atendimento; 
+    sessionStorage.setItem('currentAtendimento', JSON.stringify(atendimento));
+  }
   public getCurrentAtendimento(): Atendimento | undefined { return this.currentAtendimento; }
 }
