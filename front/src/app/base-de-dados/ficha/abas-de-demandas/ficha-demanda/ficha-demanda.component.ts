@@ -13,6 +13,7 @@ import { AcolhimentoStatus } from 'src/models/enums/AcolhimentoEnums';
 import { DemandaStatus } from 'src/models/enums/DemandaEnums';
 import { JanelaNovoRegistroComponent } from './janela-novo-registro/janela-novo-registro.component';
 import { Atendimento } from 'src/models/Atendimento';
+import { JanelaVisualizarRegistroComponent } from './janela-visualizar-registro/janela-visualizar-registro.component';
 
 @Component({
   selector: 'app-ficha-demanda',
@@ -25,6 +26,7 @@ export class FichaDemandaComponent implements OnInit, OnDestroy {
   private saveAssignmentSubscription: Subscription | undefined;
   private saveUpdateStatusSubscription: Subscription | undefined;
   private saveRegistroSubscription: Subscription | undefined;
+  private saveUpdateRegistroSubscription: Subscription | undefined;
 
   protected currentAcolhimentoDemanda!: Demanda;
 
@@ -37,6 +39,8 @@ export class FichaDemandaComponent implements OnInit, OnDestroy {
   ngOnInit(){
     try{
       let result = this.stateService.getCurrentAcolhimentoDemanda();
+      console.log("Fetched demanda:");
+      console.log(result);
       if(!result){ throw new Error("Demanda não encontrada"); }
       
       this.currentAcolhimentoDemanda = result;
@@ -65,6 +69,10 @@ export class FichaDemandaComponent implements OnInit, OnDestroy {
 
     if(this.saveRegistroSubscription){
       this.saveRegistroSubscription.unsubscribe();
+    }
+
+    if(this.saveUpdateRegistroSubscription){
+      this.saveUpdateRegistroSubscription.unsubscribe();
     }
   }
 
@@ -137,5 +145,32 @@ export class FichaDemandaComponent implements OnInit, OnDestroy {
         this.router.navigate(['/error']);
       }
     });
+  }
+
+  protected openVisualizarRegistroDialog(atendimento: Atendimento): void{
+    this.stateService.setCurrentAtendimento(atendimento);
+    const modalRef = this.modalService.open(JanelaVisualizarRegistroComponent);
+    this.saveUpdateRegistroSubscription = modalRef.componentInstance.updateRegistro.subscribe((atendimento: Atendimento) => {
+      try{
+        let currentDemanda = this.stateService.getCurrentAcolhimentoDemanda();
+        if(!currentDemanda){ throw new Error("Demanda não encontrada"); }
+
+        if(!currentDemanda.atendimentos){
+          throw new Error("Atendimentos não encontrados");
+        }
+
+        let index = currentDemanda.atendimentos.findIndex((atend) => atend.id === atendimento.id);
+        if(index === -1){ throw new Error("Atendimento não encontrado"); }
+
+        currentDemanda.atendimentos[index] = atendimento;
+
+        this.apiService.updateDemanda(currentDemanda);
+
+      }catch(error){
+        console.error(error);
+        this.router.navigate(['/error']);
+      }
+    });
+    
   }
 }

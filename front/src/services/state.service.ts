@@ -5,6 +5,7 @@ import { ApiService } from './api.service';
 import { AcolhimentoDemandas, AcolhimentoStatus } from 'src/models/enums/AcolhimentoEnums';
 import { Router } from '@angular/router';
 import { Demanda } from 'src/models/Demanda';
+import { Atendimento } from 'src/models/Atendimento';
  
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class StateService {
 
   private currentAcolhimento: Acolhimento | undefined;
   private currentAcolhimentoDemanda: Demanda | undefined;
+  private currentAtendimento: Atendimento | undefined;
 
   private lastDocRef: string | null = null;
 
@@ -77,4 +79,7 @@ export class StateService {
 
   public getCurrentTipoDemanda(): AcolhimentoDemandas | undefined { return this.currentTipoDemanda; }
   public getCurrentAcolhimentoDemanda(): Demanda | undefined { return this.currentAcolhimentoDemanda; }
+
+  public setCurrentAtendimento(atendimento: Atendimento): void { this.currentAtendimento = atendimento; }
+  public getCurrentAtendimento(): Atendimento | undefined { return this.currentAtendimento; }
 }

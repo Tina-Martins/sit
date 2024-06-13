@@ -34,7 +34,8 @@
                 <span>Registro</span>
             </div>
 
-            <div class="registro" *ngFor="let atendimento of currentAcolhimentoDemanda.atendimentos">
+            <div class="registro" *ngFor="let atendimento of currentAcolhimentoDemanda.atendimentos" 
+                    (click)="openVisualizarRegistroDialog(atendimento)">
                 <span>{{ this.dateService.makeDisplayableDate(atendimento.data) }}</span>
                 <span>{{ atendimento.registro }}</span>
             </div>

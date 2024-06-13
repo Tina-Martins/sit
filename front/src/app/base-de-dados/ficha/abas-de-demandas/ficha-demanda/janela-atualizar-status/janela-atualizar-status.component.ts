@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DemandaStatus } from 'src/models/enums/DemandaEnums';
 import { ApiService } from 'src/services/api.service';
+import { StateService } from 'src/services/state.service';
 
 @Component({
   selector: 'app-janela-atualizar-status',
@@ -14,7 +15,6 @@ import { ApiService } from 'src/services/api.service';
   styleUrls: ['./janela-atualizar-status.component.scss']
 })
 export class JanelaAtualizarStatusComponent implements OnInit {
-  @Input() currentStatus!: DemandaStatus;
   @Output() saveUpdateStatus = new EventEmitter<{ newStatus: DemandaStatus, encaminhadoPara?: string, comentario: string }>();
 
   statusOptions: { value: DemandaStatus, label: string }[] = [];
@@ -24,13 +24,17 @@ export class JanelaAtualizarStatusComponent implements OnInit {
   encaminhadoPara: string | undefined;
   comentario: string = '';
 
-  constructor(public activeModal: NgbActiveModal, private apiService: ApiService, private router: Router){}
+  constructor(public activeModal: NgbActiveModal, private stateService: StateService, private apiService: ApiService, private router: Router){}
 
   async ngOnInit(): Promise<void> {
     try{
       this.statusOptions = Object.values(DemandaStatus).map(status => ({ value: status, label: status }));
       this.encaminhamentoOptions = (await this.apiService.fetchUsuarios()).map(usuario => usuario.nome);
-      this.newStatus = this.currentStatus;
+
+      let currentDemanda = await this.stateService.getCurrentAcolhimentoDemanda();
+      if(!currentDemanda){ throw new Error("Demanda não encontrada"); }
+      
+      this.newStatus = currentDemanda.status;
     } catch(error){
       console.error(error);
       this.router.navigate(['/error']);
