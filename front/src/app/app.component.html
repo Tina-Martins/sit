@@ -1,23 +1,20 @@
 <head></head>
-<body>
-  <header>
-    <div id="logo"></div>
-    <nav>
-      <div class="main-nav-option">
-        <a routerLink="/base-de-dados" routerLinkActive="active">Base de dados</a>
-      </div>
-
-      <div class="main-nav-option">
-        <a routerLink="/calendario" routerLinkActive="active">Calendário</a>
-      </div>
-      <div class="main-nav-option">
-        <a routerLink="/configuracoes" routerLinkActive="active">Configurações</a>
-      </div>
-    </nav>
-  </header>
-
-  <section>
-    <router-outlet></router-outlet>
-  </section>
-  
+<body class="bg-light w-100 ">
+   <header class="h-auto border border-secondary ">
+      <nav class="navbar navbar-expand-lg p-0 bg-info ">
+         <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navbarNav">
+               <ul class="navbar-nav  ">
+                  <div id="logo"></div>
+                  <li class="nav-item"><a routerLink="/base-de-dados" class ="nav-link m-1 text-white" routerLinkActive="active">Base de dados</a></li>
+                  <li class="nav-item"><a routerLink="/calendario" class ="nav-link m-1 text-white"  routerLinkActive="active">Calendário</a></li>
+                  <li class="nav-item"><a routerLink="/configuracoes" class ="nav-link m-1 text-white"  routerLinkActive="active">Configurações</a></li>
+               </ul>
+            </div>
+         </div>
+      </nav>
+   </header>
+   <section>
+      <router-outlet></router-outlet>
+   </section>
 </body>
