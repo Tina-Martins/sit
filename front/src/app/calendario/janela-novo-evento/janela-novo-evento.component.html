@@ -1,1 +1,52 @@
-<p>janela-novo-evento works!</p>
+<div class="modal-header">
+    <h4 class="modal-title">Novo evento</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="cancel()"></button>
+  </div>
+  
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="titulo">Título:</label>
+      <input type="text" id="titulo" name="titulo" [(ngModel)]="evento.titulo" required />
+    </div>
+  
+    <div class="form-group">
+      <label for="data">Data:</label>
+      <input type="date" id="data" name="data" [(ngModel)]="evento.data" required />
+    </div>
+  
+    <div class="form-group" *ngIf="!evento.diaTodo">
+      <label for="horaInicio">Horário de início:</label>
+      <input type="time" id="horaInicio" name="horaInicio" [(ngModel)]="evento.horaInicio" />
+    </div>
+  
+    <div class="form-group" *ngIf="!evento.diaTodo">
+      <label for="horaFim">Horário de final:</label>
+      <input type="time" id="horaFim" name="horaFim" [(ngModel)]="evento.horaFim" />
+    </div>
+  
+    <div class="form-group">
+      <input type="checkbox" id="diaTodo" name="diaTodo" [(ngModel)]="evento.diaTodo" />
+      <label for="diaTodo">Dia todo</label>
+    </div>
+  
+    <div class="form-group">
+      <label for="local">Local:</label>
+      <input type="text" id="local" name="local" [(ngModel)]="evento.local" required />
+    </div>
+  
+    <div class="form-group">
+      <label for="descricao">Descrição:</label>
+      <textarea id="descricao" name="descricao" [(ngModel)]="evento.descricao"></textarea>
+    </div>
+  
+    <div class="form-group">
+      <button type="button" disabled>
+        <span class="clip-icon">📎</span> Adicionar anexo
+      </button>
+    </div>
+  </div>
+  
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="cancel()">Cancelar</button>
+    <button type="button" class="btn btn-outline-dark" (click)="save()">Salvar</button>
+  </div>

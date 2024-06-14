@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Acolhimento } from 'src/models/Acolhimento';
 import { Demanda } from 'src/models/Demanda';
+import { Evento } from 'src/models/Evento';
 import { QueryOptions } from 'src/models/QueryOptions';
 import { Usuario } from 'src/models/Usuario';
 import { DemandaStatus } from 'src/models/enums/DemandaEnums';
@@ -118,6 +119,33 @@ export class ApiService {
     }
 
     const data: { data: Usuario[], lastDocRef?: string } = await response.json(); // 'Blind trust'
+    return data.data;
+  }
+
+  public async postEvento(evento: Evento): Promise<void>{
+    const response = await fetch(`${API_URL}/eventos`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(evento),
+    })
+    
+    if(!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+  }
+
+  public async fetchEventos(queryOptions?: QueryOptions): Promise<Array<Evento>>{
+    const query_params = queryOptions ? `?queryOptions=${JSON.stringify(queryOptions)}` : ``;
+    let request: string = `${API_URL}/eventos${query_params}`;
+
+    const response = await fetch(request);
+    if(!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data: { data: Evento[], lastDocRef?: string } = await response.json(); // 'Blind trust'
     return data.data;
   }
 }
