@@ -4,9 +4,9 @@ import { Demanda } from 'src/models/Demanda';
 import { Evento } from 'src/models/Evento';
 import { QueryOptions } from 'src/models/QueryOptions';
 import { Usuario } from 'src/models/Usuario';
-import { DemandaStatus } from 'src/models/enums/DemandaEnums';
+import { environment } from 'src/environment';
 
-const API_URL = 'http://localhost:5001/tina-martins/us-central1/api';
+const API_URL = environment.apiUrl;
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,7 @@ export class ApiService {
       },
       body: JSON.stringify(acolhimento),
     })
-    
+
     if(!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -36,7 +36,7 @@ export class ApiService {
       },
       body: JSON.stringify(acolhimento),
     })
-    
+
     if(!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -75,7 +75,7 @@ export class ApiService {
       },
       body: JSON.stringify(demanda),
     })
-    
+
     if(!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -130,7 +130,7 @@ export class ApiService {
       },
       body: JSON.stringify(evento),
     })
-    
+
     if(!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
