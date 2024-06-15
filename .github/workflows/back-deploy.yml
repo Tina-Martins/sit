@@ -17,9 +17,9 @@ jobs:
             node-version: '18'
     
         - name: Install Dependencies
-          run: npm install
+          run: cd back/functions && npm install
     
         - name: Generate TSOA Specs and Routes
-          run: npm run deploy
+          run: cd back/functions && npm run deploy
           env:
             FIREBASE_TOKEN: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_TINA_MARTINS }}
