@@ -22,11 +22,11 @@ jobs:
           uses: actions/cache@v3
           id: cache-dependencies
           with:
-              path: |
-                ~/.npm
-                ~/.cache/firebase
-              key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-              restore-keys: |
+            path: |
+              ~/.npm
+              ~/.cache/firebase
+            key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+            restore-keys: |
                 ${{ runner.os }}-node-
 
         - name: Prepare Google Application Credentials
@@ -39,3 +39,8 @@ jobs:
     
         - name: Generate TSOA Specs and Routes
           run: cd back/functions && npm run deploy
+
+        - name: Remove credentials file
+          if: success() || failure()
+          run: |
+            rm google-application-credentials.json
