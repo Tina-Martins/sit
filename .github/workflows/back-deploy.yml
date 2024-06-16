@@ -42,8 +42,3 @@ jobs:
     
         - name: Generate TSOA Specs and Routes
           run: cd back/functions && npm run deploy
-
-        - name: Remove credentials file
-          if: success() || failure()
-          run: |
-            rm google-application-credentials.json
