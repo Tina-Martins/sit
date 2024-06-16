@@ -5,8 +5,6 @@ on:
       - production
 jobs:
     main:
-        env:
-            GOOGLE_APPLICATION_CREDENTIALS: google-application-credentials.json
         name: Deploy
         runs-on: ubuntu-latest
         steps:
@@ -29,10 +27,15 @@ jobs:
             restore-keys: |
                 ${{ runner.os }}-node-
 
-        - name: Prepare Google Application Credentials
-          shell: bash
-          run: |
-            echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" | base64 --decode > "google-application-credentials.json"
+        - name: create-json
+          id: create-json
+          uses: jsdaniell/create-json@1.1.2
+          with:
+            name: "credentials.json"
+            json: "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}"
+        
+        - name: Set environment variable with path to credentials.json
+          run: echo "GOOGLE_APPLICATION_CREDENTIALS=$(readlink -f credentials.json)" >> $GITHUB_ENV
 
         - name: Install Dependencies
           run: cd back/functions && npm install
