@@ -15,11 +15,14 @@ jobs:
           uses: actions/setup-node@v4
           with:
             node-version: '18'
+            
+        - name: Setup Google Cloud
+          uses: google-github-actions/auth@v0.4.0
+          with:
+            credentials_json: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
     
         - name: Install Dependencies
           run: cd back/functions && npm install
     
         - name: Generate TSOA Specs and Routes
           run: cd back/functions && npm run deploy
-          env:
-            GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
