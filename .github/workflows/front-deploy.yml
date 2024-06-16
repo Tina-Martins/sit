@@ -7,15 +7,38 @@ on:
     branches:
       - production
 jobs:
-  build_and_deploy:
+  deploy_front:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - run: cd front && npm ci && npm run build:production
-      - uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_TINA_MARTINS }}
-          channelId: live
-          projectId: tina-martins
-          entryPoint: ./front
+    - name: Check out code
+      uses: actions/checkout@master
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+
+    - name: Cache Dependencies
+      uses: actions/cache@v3
+      id: cache-dependencies
+      with:
+        path: |
+          ~/.npm
+          ~/.cache/firebase
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+            ${{ runner.os }}-node-
+
+    - name: create-json
+      id: create-json
+      uses: jsdaniell/create-json@1.1.2
+      with:
+        name: "credentials.json"
+        json: "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}"
+    
+    - name: Set environment variable with path to credentials.json
+      run: echo "GOOGLE_APPLICATION_CREDENTIALS=$(readlink -f credentials.json)" >> $GITHUB_ENV
+
+    - name: Deploy
+      run: cd front && npm ci && npm run build:production
+
