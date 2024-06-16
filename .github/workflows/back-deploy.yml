@@ -5,6 +5,8 @@ on:
       - production
 jobs:
     main:
+        env:
+            GOOGLE_APPLICATION_CREDENTIALS: google-application-credentials.json
         name: Deploy
         runs-on: ubuntu-latest
         steps:
@@ -16,15 +18,21 @@ jobs:
           with:
             node-version: '18'
 
-        - name: create-json
-          id: create-json
-          uses: jsdaniell/create-json@1.1.2
+        - name: Cache Dependencies
+          uses: actions/cache@v3
+          id: cache-dependencies
           with:
-            name: "credentials.json"
-            json: "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}"
-          
-        - name: Set environment variable with path to credentials.json
-          run: echo "GOOGLE_APPLICATION_CREDENTIALS=$(readlink -f credentials.json)" >> $GITHUB_ENV
+              path: |
+                ~/.npm
+                ~/.cache/firebase
+              key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+              restore-keys: |
+                ${{ runner.os }}-node-
+
+        - name: Prepare Google Application Credentials
+          shell: bash
+          run: |
+            echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" | base64 --decode > "google-application-credentials.json"
 
         - name: Install Dependencies
           run: cd back/functions && npm install
