@@ -4,7 +4,7 @@ import { Demanda } from 'src/models/Demanda';
 import { Evento } from 'src/models/Evento';
 import { QueryOptions } from 'src/models/QueryOptions';
 import { Usuario } from 'src/models/Usuario';
-import { environment } from 'src/environment';
+import { environment } from 'src/environments/environment';
 
 const API_URL = environment.apiUrl;
 
