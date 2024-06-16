@@ -25,3 +25,9 @@ jobs:
           
         - name: Set environment variable with path to credentials.json
           run: echo "GOOGLE_APPLICATION_CREDENTIALS=$(readlink -f credentials.json)" >> $GITHUB_ENV
+
+        - name: Install Dependencies
+          run: cd back/functions && npm install
+    
+        - name: Generate TSOA Specs and Routes
+          run: cd back/functions && npm run deploy
