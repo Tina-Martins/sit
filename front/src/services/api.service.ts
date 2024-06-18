@@ -109,19 +109,6 @@ export class ApiService {
     return null;
   }
 
-  public async fetchUsuarios(queryOptions?: QueryOptions): Promise<Array<Usuario>> {
-    const query_params = queryOptions ? `?queryOptions=${JSON.stringify(queryOptions)}` : ``;
-    let request: string = `${API_URL}/usuarios${query_params}`;
-
-    const response = await fetch(request);
-    if(!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const data: { data: Usuario[], lastDocRef?: string } = await response.json(); // 'Blind trust'
-    return data.data;
-  }
-
   public async postEvento(evento: Evento): Promise<void>{
     const response = await fetch(`${API_URL}/eventos`, {
       method: 'POST',
@@ -147,5 +134,59 @@ export class ApiService {
 
     const data: { data: Evento[], lastDocRef?: string } = await response.json(); // 'Blind trust'
     return data.data;
+  }
+
+  public async fetchUsuarios(queryOptions?: QueryOptions): Promise<Array<Usuario>> {
+    const query_params = queryOptions ? `?queryOptions=${JSON.stringify(queryOptions)}` : ``;
+    let request: string = `${API_URL}/usuarios${query_params}`;
+
+    const response = await fetch(request);
+    if(!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data: { data: Usuario[], lastDocRef?: string } = await response.json(); // 'Blind trust'
+    return data.data;
+  }
+
+  public async createUsuario(usuario: Usuario): Promise<Usuario> {
+    const response = await fetch(`${API_URL}/usuarios`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(usuario),
+    });
+
+    if(!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data: Usuario = await response.json(); // 'Blind trust'
+    return data;
+  }
+
+  public async updateUsuario(usuario: Usuario): Promise<void> {
+    const response = await fetch(`${API_URL}/usuarios/${usuario.id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(usuario),
+    });
+
+    if(!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+  }
+
+  public async deleteUsuario(id: string): Promise<void> {
+    const response = await fetch(`${API_URL}/usuarios/${id}`, {
+      method: 'DELETE',
+    });
+
+    if(!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
   }
 }
