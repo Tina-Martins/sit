@@ -149,7 +149,7 @@ export class ApiService {
     return data.data;
   }
 
-  public async createUsuario(usuario: Usuario): Promise<Usuario> {
+  public async postUsuario(usuario: Usuario): Promise<Usuario> {
     const response = await fetch(`${API_URL}/usuarios`, {
       method: 'POST',
       headers: {

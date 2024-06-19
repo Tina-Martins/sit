@@ -1,91 +1,76 @@
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, TemplateRef } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { Usuario } from 'src/models/Usuario';
-import { UsuarioEscopos } from 'src/models/enums/UsuarioEnums';
 import { ApiService } from 'src/services/api.service';
+import { Usuario } from 'src/models/Usuario';
+import { Router } from '@angular/router';
+import { DateService } from 'src/services/date.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { JanelaEditarUsuarioComponent } from './janela-editar-usuario/janela-editar-usuario.component';
 
 @Component({
   selector: 'app-configuracoes',
   standalone: true,
-  imports: [CommonModule, FormsModule, NgbModule],
+  imports: [CommonModule],
   templateUrl: './configuracoes.component.html',
   styleUrls: ['./configuracoes.component.scss']
 })
 export class ConfiguracoesComponent implements OnInit {
-  protected users: Usuario[] = [];
-  protected usuarioEscopos = Object.values(UsuarioEscopos);
-  protected newUser: Usuario = {
-    nome: '',
-    email: '',
-    escopo: UsuarioEscopos.ADM // Default escopo
-  };
-  protected selectedUser: Usuario | undefined;
+  protected usuarios: Usuario[] = [];
 
-  constructor(private apiService: ApiService, private modalService: NgbModal) {}
+  constructor(private apiService: ApiService, private router: Router, protected dateService: DateService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
-    this.fetchUsers();
+    this.fetchUsuarios();
   }
 
-  private fetchUsers(): void {
+  private fetchUsuarios(): void {
     this.apiService.fetchUsuarios()
-      .then(users => this.users = users)
-      .catch(error => console.error(error));
+      .then(usuarios => {
+        this.usuarios = [];
+
+        usuarios.forEach(usuario => {
+          if(usuario.regAtivo) {
+            this.usuarios.push(usuario);
+          }
+        });
+      })
+      .catch(error => {
+        console.error(error);
+        this.router.navigate(['/error']);
+      });
   }
 
-  protected openAddUserModal(): void {
+  protected abrirModalAdicionarUsuario() {
     const modalRef = this.modalService.open(JanelaEditarUsuarioComponent);
-    modalRef.componentInstance.usuario = { ...this.newUser }; // Pass a copy of newUser
-    modalRef.componentInstance.usuarioEscopos = this.usuarioEscopos;
     modalRef.result.then((result) => {
-      if (result === 'save') { // Check if modal was closed with 'save'
-        this.addUser();
+      if (result === 'save') { 
+        this.fetchUsuarios();
       }
     });
   }
 
-  protected addUser(): void {
-    this.apiService.createUsuario(this.newUser)
-      .then(() => {
-        this.fetchUsers();
-      })
-      .catch(error => console.error(error));
-  }
-
-  protected openEditUserModal(user: Usuario): void {
+  protected abrirModalEditarUsuario(usuario: Usuario) {
     const modalRef = this.modalService.open(JanelaEditarUsuarioComponent);
-    modalRef.componentInstance.usuario = { ...user }; // Pass a copy of user data
-    modalRef.componentInstance.usuarioEscopos = this.usuarioEscopos;
+    modalRef.componentInstance.novoUsuario = { ...usuario };
     modalRef.result.then((result) => {
       if (result === 'save') {
-        this.updateUser();
+        this.fetchUsuarios();
       }
     });
   }
 
-  protected updateUser(): void { // No need for modal parameter anymore
-    if (this.selectedUser) {
-      this.apiService.updateUsuario(this.selectedUser)
+  protected deletarUsuario(usuario: Usuario) {
+    if (confirm(`Tem certeza que deseja deletar o usuário ${usuario.nome}?`)) {
+      this.apiService.deleteUsuario(usuario.id!)
         .then(() => {
-          this.fetchUsers();
+          this.fetchUsuarios();
         })
-        .catch(error => console.error(error));
+        .catch(error => {
+          console.error(error);
+          this.router.navigate(['/error']);
+        });
     }
   }
 
-  protected deleteUser(user: Usuario): void {
-    this.selectedUser = user;
-    try{
-      this.apiService.deleteUsuario(user.id!)
-        .then(() => {
-          this.fetchUsers();
-        })
-        .catch(error => console.error(error));
-    }catch(error){
-      console.error(error);
-    }
-  }
+
 }

@@ -1,8 +1,10 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Usuario } from 'src/models/Usuario';
+import { ApiService } from 'src/services/api.service';
+import { Router } from '@angular/router';
 import { UsuarioEscopos } from 'src/models/enums/UsuarioEnums';
 
 @Component({
@@ -12,19 +14,44 @@ import { UsuarioEscopos } from 'src/models/enums/UsuarioEnums';
   templateUrl: './janela-editar-usuario.component.html',
   styleUrls: ['./janela-editar-usuario.component.scss']
 })
-export class JanelaEditarUsuarioComponent {
-  @Input() usuario: Usuario = { nome: '', email: '', escopo: UsuarioEscopos.ADM };
-  @Input() usuarioEscopos: UsuarioEscopos[] = [];
-  @Output() saveUser = new EventEmitter<Usuario>();
+export class JanelaEditarUsuarioComponent implements OnInit {
+  @Input() novoUsuario: Usuario = {
+    nome: '',
+    email: '',
+    escopo: UsuarioEscopos.ADM,
+    ultimoLogin: new Date().toISOString(),
+  };
 
-  constructor(public activeModal: NgbActiveModal) {}
+  protected escopos = Object.values(UsuarioEscopos);
+  protected isEditing: boolean = false;
 
-  save(): void {
-    this.saveUser.emit(this.usuario);
-    this.activeModal.close('save');
+  constructor(public activeModal: NgbActiveModal, private apiService: ApiService, private router: Router) { }
+
+  ngOnInit(): void {
+    this.isEditing = !!this.novoUsuario.id; // Set isEditing based on if the user has an id
   }
 
-  cancel(): void {
-    this.activeModal.dismiss();
+  protected saveUsuario(): void {
+    if (this.isEditing) {
+      // Update existing user
+      this.apiService.updateUsuario(this.novoUsuario)
+        .then(() => {
+          this.activeModal.close('save');
+        })
+        .catch(error => {
+          console.error(error);
+          this.router.navigate(['/error']);
+        });
+    } else {
+      
+      this.apiService.postUsuario(this.novoUsuario)
+        .then(() => {
+          this.activeModal.close('save');
+        })
+        .catch(error => {
+          console.error(error);
+          this.router.navigate(['/error']);
+        });
+    }
   }
 }
