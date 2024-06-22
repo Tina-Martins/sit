@@ -36,5 +36,5 @@ jobs:
       run: echo "GOOGLE_APPLICATION_CREDENTIALS=$(readlink -f credentials.json)" >> $GITHUB_ENV
 
     - name: Deploy
-      run: cd front && npm ci && npm run build:production
+      run: cd front && npm run deploy
 
