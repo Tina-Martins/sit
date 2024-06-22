@@ -1,1 +1,33 @@
-<p>configuracoes works!</p>
+<div class="container">
+    <h1>Configurações</h1>
+  
+    <div class="card">
+      <h2>Gestão de acessos</h2>
+      <button class="btn btn-primary add-user-button" (click)="abrirModalAdicionarUsuario()">
+        <span class="plus-icon">+</span> Adicionar usuário
+      </button>
+      <table>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Perfil</th>
+            <th>Último login</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let usuario of usuarios">
+            <td>{{ usuario.nome }}</td>
+            <td>{{ usuario.email }}</td>
+            <td>{{ usuario.escopo }}</td>
+            <td>{{ this.dateService.makeDisplayableDate(usuario.ultimoLogin!) }}</td>
+            <td>
+              <button class="btn btn-secondary btn-sm me-2" (click)="abrirModalEditarUsuario(usuario)">Editar</button>
+              <button class="btn btn-danger btn-sm" (click)="deletarUsuario(usuario)">Deletar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
