@@ -32,7 +32,7 @@ jobs:
     - name: Set environment variable with path to credentials.json
       run: echo "GOOGLE_APPLICATION_CREDENTIALS=$(readlink -f credentials.json)" >> $GITHUB_ENV
 
-    - name: Install Dependencies
+    - name: Install Dependencies & deploy
       run: |
         cd front
         npm install
