@@ -18,11 +18,11 @@
           <div class="input-group-append  ">
             <select name="status" class="btn border border-white m-1 mt-0 mb-0"[(ngModel)]="searchStatus" (ngModelChange)="updateSearch()">
             <option value="">Todos os Status</option>
-            <option *ngFor="let status of acolhimentoStatus" [value]="status">{{status}}</option>
+            <option *ngFor="let status of acolhimentoStatus" class="text-end" [value]="status">{{status}}</option>
             </select>
             <select name="tipo_demanda" class="btn border border-white" [(ngModel)]="searchDemanda" (ngModelChange)="updateSearch()">
             <option value="">Todas as Demandas</option>
-            <option *ngFor="let demanda of acolhimentoDemandas" [value]="demanda">{{demanda}}</option>
+            <option *ngFor="let demanda of acolhimentoDemandas" class="text-end" [value]="demanda">{{demanda}}</option>
             </select>
           </div>
         </div>
