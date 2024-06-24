@@ -159,3 +159,40 @@ responsável pelo atendimento.
 
 # Figma
 [https://www.figma.com/file/DxPe8PoIhkBFxHgBAPy2qe/SIT---MVP?type=design&node-id=322-2650&mode=design](https://www.figma.com/file/DxPe8PoIhkBFxHgBAPy2qe/SIT---MVP?type=design&node-id=322-2650&mode=design)
+
+Arquitetura Hexagonal
+A arquitetura do SIT foi desenvolvida seguindo os princípios da Arquitetura Hexagonal, também conhecida como Arquitetura de Portas e Adaptadores, visando isolar a lógica de negócio das dependências externas. A estrutura do projeto reflete esta abordagem, conforme descrito a seguir:
+
+Estrutura de Pastas
+
+![Captura de tela 2024-06-24 173246](https://github.com/Tina-Martins/sit/assets/53982954/f9d1a39b-2cb2-4cf9-8a67-1d018f36d5ce)
+
+
+- src/core: Contém a lógica central da aplicação.
+  - acompanhamentos/adapters: Adaptadores que se comunicam com as interfaces externas (controladores e repositórios).
+      - controllers: Responsáveis por receber as requisições do usuário e encaminhá-las para os serviços apropriados.
+        - AcolhimentoController.ts: Recebe as requisições HTTP relacionadas a acolhimentos e chama os serviços correspondentes para processá-las.
+        - DemandaController.ts: Recebe as requisições HTTP relacionadas a demandas e chama os serviços correspondentes para processá-las.
+      - repositories: Implementações dos repositórios que interagem com o banco de dados.
+        - AcolhimentoRepository.ts: Contém a lógica para persistir e recuperar dados de acolhimentos no banco de dados.
+        - DemandaRepository.ts: Contém a lógica para persistir e recuperar dados de demandas no banco de dados.
+  - domain: Contém as entidades, enums e serviços que representam e manipulam os dados do domínio.
+      - entities: Definições das entidades do domínio, que são representações dos objetos principais da aplicação.
+        - Acolhimento.ts: Define a estrutura de dados e comportamento de um acolhimento.
+        - Atendimento.ts: Define a estrutura de dados e comportamento de um atendimento.
+        - Demanda.ts: Define a estrutura de dados e comportamento de uma demanda.
+      - enums: Definições dos tipos enumerados utilizados na aplicação.
+      - services: Serviços que contêm a lógica de negócio.
+        - AcolhimentoService.ts: Contém a lógica de negócio para gerenciar acolhimentos, incluindo validações e regras específicas.
+        - AtendimentoService.ts: Contém a lógica de negócio para gerenciar atendimentos.
+        - DemandaService.ts: Contém a lógica de negócio para gerenciar demandas.
+  - ports: Define as interfaces (portas) de entrada e saída da aplicação.
+      - in: Interfaces que definem os contratos dos serviços, descrevendo as operações disponíveis para os controladores.
+        - IAcolhimentoService.ts: Define os métodos que o serviço de acolhimentos deve implementar.
+        - IAttendimentoService.ts: Define os métodos que o serviço de atendimentos deve implementar.
+        - IDemandaService.ts: Define os métodos que o serviço de demandas deve implementar.
+      - out: Interfaces que definem os contratos dos repositórios, descrevendo as operações disponíveis para os serviços.
+        - IAcolhimentoRepository.ts: Define os métodos que o repositório de acolhimentos deve implementar.
+        - IAttendimentoRepository.ts: Define os métodos que o repositório de atendimentos deve implementar.
+          
+Essa estrutura modular permite uma fácil manutenção e extensão do sistema, além de garantir que a lógica de negócio permaneça independente das tecnologias de implementação e das interfaces externas. Cada camada da aplicação é claramente separada, promovendo um design limpo e sustentável a longo prazo.
