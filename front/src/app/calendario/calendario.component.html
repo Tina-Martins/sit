@@ -26,10 +26,10 @@
                   <tbody>
                      <tr *ngFor="let week of calendarDays">
                         <td *ngFor="let day of week">
-                           <div *ngIf="day.date !== 0">
+                           <div *ngIf="day.date !== 0" >
                               {{ day.date }}
-                              <div class="evento-wrapper" *ngFor="let event of day.events" (click)="openVisualizarEventoModal(event)"> 
-                              <span >{{ event.titulo }} - {{ event.horaInicio }}</span>
+                              <div class="evento-wrapper badge bg-warning" *ngFor="let event of day.events" (click)="openVisualizarEventoModal(event)"> 
+                              <span >{{ event.titulo }} — {{ event.horaInicio }}</span>
                            </div>
          </div>
          </td>
