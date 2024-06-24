@@ -14,6 +14,7 @@ import { DemandaStatus } from 'src/models/enums/DemandaEnums';
 import { JanelaNovoRegistroComponent } from './janela-novo-registro/janela-novo-registro.component';
 import { Atendimento } from 'src/models/Atendimento';
 import { JanelaVisualizarRegistroComponent } from './janela-visualizar-registro/janela-visualizar-registro.component';
+import { Usuario } from 'src/models/Usuario';
 
 @Component({
   selector: 'app-ficha-demanda',
@@ -87,13 +88,24 @@ export class FichaDemandaComponent implements OnInit, OnDestroy {
 
   protected openAssignDemandaDialog(): void {
     const modalRef = this.modalService.open(JanelaAtribuirDemandaComponent); // Open the pop-up
-    this.saveAssignmentSubscription = modalRef.componentInstance.saveAssignment.subscribe((usuarioNome: string) => {
+    this.saveAssignmentSubscription = modalRef.componentInstance.saveAssignment.subscribe((usuario: Usuario) => {
 
       try{
         let currentDemanda = this.stateService.getCurrentAcolhimentoDemanda();
         if(!currentDemanda){ throw new Error("Demanda não encontrada"); }
 
-        this.apiService.assignDemandaTo(currentDemanda, usuarioNome);
+        currentDemanda.usuarioId = usuario.id;
+        currentDemanda.usuarioNome = usuario.nome;
+
+        console.log("Demanda atribuida: ");
+        console.log(currentDemanda);
+        this.apiService.updateDemanda(currentDemanda)
+        .catch((error) => {
+          console.error(error);
+          this.router.navigate(['/error']);
+        });
+
+        this.isDemandaAssigned = true;
 
       }catch(error){
         console.error(error);

@@ -12,7 +12,7 @@
                <button class="btn btn-secondary m-1 mt-0 mb-0" routerLink="/base-de-dados/ficha/editar">Editar cadastro</button>
                <button class="btn btn-secondary m-1 mt-0 mb-0"><a (click)="openCadastro()">Cadastro</a></button>
                <button class="btn btn-secondary m-1 mt-0 mb-0"*ngFor="let demanda of this.acolhimento?.demandas"><a (click)="openDemanda(demanda)">{{demanda}}</a></button>
-               <button class="btn btn-secondary m-1 mt-0 mb-0"><a (click)="openAnexos()">Anexos</a></button>
+               <!-- <button class="btn btn-secondary m-1 mt-0 mb-0"><a (click)="openAnexos()">Anexos</a></button> -->
             </div>
          </div>
          <div class="p-3">
@@ -28,7 +28,7 @@
             <section>
                <app-cadastro #cadastro *ngIf="isCadastroActive"></app-cadastro>
                <app-ficha-demanda #fichaDemanda *ngIf="isDemandaActive"></app-ficha-demanda>
-               <app-anexos #anexos *ngIf="isAnexosActive"></app-anexos>
+               <!-- <app-anexos #anexos *ngIf="isAnexosActive"></app-anexos> -->
             </section>
          </div>
       </div>

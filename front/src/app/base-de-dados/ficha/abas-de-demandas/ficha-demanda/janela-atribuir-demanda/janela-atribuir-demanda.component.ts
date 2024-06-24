@@ -15,9 +15,9 @@ import { StateService } from 'src/services/state.service';
   styleUrls: ['./janela-atribuir-demanda.component.scss']
 })
 export class JanelaAtribuirDemandaComponent implements OnInit{
-  @Output() saveAssignment = new EventEmitter<string>();
+  @Output() saveAssignment = new EventEmitter<Usuario>();
   
-  protected usuarioNome: string | undefined;
+  protected selectionIndex: number | undefined;
 
   protected usuarios: Array<Usuario> | undefined;
   constructor(public activeModal: NgbActiveModal, protected stateService: StateService, private apiService: ApiService, private router: Router) {}
@@ -34,8 +34,11 @@ export class JanelaAtribuirDemandaComponent implements OnInit{
   }
 
   protected save(): void {
-    if(!this.usuarioNome){return;}
-    this.saveAssignment.emit(this.usuarioNome);
+    if(!this.selectionIndex){return;}
+
+    let selectedUsuario = this.usuarios![this.selectionIndex!];
+    
+    this.saveAssignment.emit(selectedUsuario);
     this.activeModal.close();
   }
 
