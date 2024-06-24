@@ -5,6 +5,8 @@ import { Evento } from 'src/models/Evento';
 import { QueryOptions } from 'src/models/QueryOptions';
 import { Usuario } from 'src/models/Usuario';
 import { environment } from 'src/environments/environment';
+import { DemandaStatus } from 'src/models/enums/DemandaEnums';
+import { AcolhimentoDemandas } from 'src/models/enums/AcolhimentoEnums';
 
 const API_URL = environment.apiUrl;
 
@@ -21,11 +23,51 @@ export class ApiService {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(acolhimento),
-    })
+    });
 
     if(!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
+
+
+    ////////// SOLUCAO TEMPORARIA //////////
+    let demandas: Demanda[] = [];
+    let postedAcolhimento: Acolhimento = (await this.fetchAcolhimentos({filters: [{field: 'nome', operator: '==', value: acolhimento.nome}]})).data[0]; // Solucao temporaria
+    let demandaTipos = Object.values(AcolhimentoDemandas);
+    acolhimento.demandas.forEach((demanda_type) => {
+      demandaTipos.forEach((tipo) => {
+        if (demanda_type === tipo) {
+          let newDemanda: Demanda = {
+            acolhimentoId: postedAcolhimento.id!,
+            tipo: tipo,
+            status: DemandaStatus.EM_ABERTO,
+            criadoEm: new Date().toISOString(),
+            atualizadoEm: new Date().toISOString(),
+            regAtivo: true,
+          }
+
+          demandas.push(newDemanda);
+        }
+      });
+    });
+
+    const demandaPromises = demandas.map(async (demanda) => {
+      const response = await fetch(`${API_URL}/demandas`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(demanda), // Make sure to stringify each demanda individually
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error status: ${response.status}`);
+      }
+    });
+
+    await Promise.all(demandaPromises);
+
+    ////////// SOLUCAO TEMPORARIA //////////
   }
 
   public async updateAcolhimento(acolhimento: Acolhimento): Promise<void>{
