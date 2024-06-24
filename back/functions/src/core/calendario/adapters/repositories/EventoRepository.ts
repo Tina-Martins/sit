@@ -18,7 +18,11 @@ export class EventoRepository implements IEventoRepository {
 
   async save(eventoData: Evento): Promise<Evento> {
     try {
-      this.validateEvento(eventoData);
+      const isEventoValid = await this.validateEvento(eventoData);
+
+      if (!isEventoValid) {
+        throw new Error("Conflito de horário!");
+      }
 
       const docRef = await this.collection.add({
         ...eventoData,
@@ -35,7 +39,7 @@ export class EventoRepository implements IEventoRepository {
       };
     } catch (error: any) {
       console.error(error);
-      throw new Error("Erro ao criar evento!");
+      throw new Error(error.message || "Erro ao criar evento!");
     }
   }
 
@@ -60,10 +64,14 @@ export class EventoRepository implements IEventoRepository {
         throw new Error("Evento não encontrado!");
       }
 
-      this.validateEvento({
+      const isEventoValid = await this.validateEvento({
         ...(doc.data() as Evento),
         ...body,
       });
+
+      if (!isEventoValid) {
+        throw new Error("Conflito de horário!");
+      }
 
       await this.collection.doc(id).update({
         ...body,
@@ -73,7 +81,7 @@ export class EventoRepository implements IEventoRepository {
       return createModelFromDoc<Evento>(updatedDoc);
     } catch (error: any) {
       console.error(error);
-      throw new Error("Erro ao atualizar evento!");
+      throw new Error(error.message || "Erro ao criar evento!");
     }
   }
 
@@ -95,7 +103,7 @@ export class EventoRepository implements IEventoRepository {
     }
   }
 
-  private async validateEvento(eventoData: Evento): Promise<void> {
+  private async validateEvento(eventoData: Evento): Promise<boolean> {
     const eventosSnapshot = await this.collection
       .where("local", "==", eventoData.local)
       .where("data", "==", eventoData.data)
@@ -106,18 +114,18 @@ export class EventoRepository implements IEventoRepository {
     );
 
     const novoInicio = new Date(
-      `${eventoData.data}T${eventoData.horaInicio || "00:00:00"}`
+      `${eventoData.data}T${eventoData.horaInicio || "00:00:00"}Z`
     ).getTime();
     const novoFim = new Date(
-      `${eventoData.data}T${eventoData.horaFim || "23:59:59"}`
+      `${eventoData.data}T${eventoData.horaFim || "23:59:59"}Z`
     ).getTime();
 
     for (const evento of eventos) {
       const eventoInicio = new Date(
-        `${evento.data}T${evento.horaInicio || "00:00:00"}`
+        `${evento.data}T${evento.horaInicio || "00:00:00"}Z`
       ).getTime();
       const eventoFim = new Date(
-        `${evento.data}T${evento.horaFim || "23:59:59"}`
+        `${evento.data}T${evento.horaFim || "23:59:59"}Z`
       ).getTime();
 
       if (
@@ -125,10 +133,9 @@ export class EventoRepository implements IEventoRepository {
         eventoData.diaTodo ||
         evento.diaTodo
       ) {
-        throw new Error(
-          "Conflito de horário/local com outro evento já existente."
-        );
+        return false;
       }
     }
+    return true;
   }
 }
