@@ -5,7 +5,7 @@
     "mocha": "^10.6.0"
   },
   "scripts": {
-    "start": "npx concurrently \"cd back/functions && npm run serve\" \"cd front && ng serve\""
+    "start": "npx concurrently \"cd back/functions && npm install && npm run serve\" \"cd front && npm install && ng serve\""
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
