@@ -12,14 +12,18 @@ import * as functions from "firebase-functions";
 import { RegisterRoutes } from "./routes/routes";
 import swaggerUI from "swagger-ui-express";
 import * as swaggerJson from "./swagger/swagger.json";
-// import cors from 'cors';
+import cors from 'cors';
 
 const app = express();
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  console.log(`Received request: ${req.method} ${req.url}`);
   next();
 });
+
+app.use(cors({
+  origin: '*' 
+}));
+
 
 app.use(express.json());
 RegisterRoutes(app);
