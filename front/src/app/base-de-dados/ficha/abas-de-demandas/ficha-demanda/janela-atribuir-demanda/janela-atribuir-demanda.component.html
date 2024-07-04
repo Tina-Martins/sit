@@ -5,7 +5,7 @@
     </div>
     
     <div class="modal-body">
-        <select name="tipo_demanda" [(ngModel)]="selectionIndex">
+        <select id="usuario" name="usuario" [(ngModel)]="selectionIndex">
             <option *ngFor="let usuario of usuarios; let i = index" [value]="i">{{usuario.nome}}</option>
         </select>
     </div>

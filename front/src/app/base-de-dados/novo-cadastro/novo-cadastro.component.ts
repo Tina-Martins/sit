@@ -89,6 +89,8 @@ export class NovoCadastroComponent implements OnDestroy{
       this.acolhimento.dataNascimento = dataNascimento;
     }
 
+    this.acolhimentoForm
+
     if (this.acolhimentoForm.valid) { // Form fully filled
       console.info("Registering acolhimento:")
       console.info(this.acolhimento);
