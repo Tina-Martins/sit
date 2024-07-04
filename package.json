@@ -5,6 +5,9 @@
     "mocha": "^10.6.0"
   },
   "scripts": {
-    "cy:open": "cypress open"
+    "start": "npx concurrently \"cd back/functions && npm run serve\" \"cd front && ng serve\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
   }
 }
