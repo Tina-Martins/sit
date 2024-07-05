@@ -1,6 +1,9 @@
 import * as admin from "firebase-admin";
 console.log("Initializing Firebase Admin SDK");
-admin.initializeApp();
+const serviceAccount = require(process.env.GOOGLE_APPLICATION_CREDENTIALS!);
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount)
+});
 
 import express, {
     Response as ExResponse,
