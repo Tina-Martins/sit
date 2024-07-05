@@ -6,48 +6,35 @@ describe('Workflow da base de dados', () => {
     cy.visit('http://localhost:4200/base-de-dados');
   });
 
-  it('should navigate through each Demanda tab and display data', () => {
+  it('Deve navegar por cada aba de demanda sem erros', () => {
     const demandas = ['Psicologia', 'Jurídico', 'Assistência Social', 'Abrigamento'];
 
     demandas.forEach(demanda => {
-      // Get element by name
       cy.get('select[name="tipo_demanda"]').type(demanda).select(demanda);
     });
   });
 
-  // it('should filter by status without errors', () => {
-  //   const statusOptions = ['Ativo', 'Encerrado', 'Encaminhado'];
+  it('Deve filtrar os status sem erros', () => {
+    const statusOptions = ['Ativo', 'Encerrado', 'Encaminhado'];
 
-  //   statusOptions.forEach(status => {
-  //     // Select the status from the dropdown
-  //     cy.get('select[name="status"]').select(status);
+    statusOptions.forEach(status => {
+      cy.get('select[name="status"]').select(status);
+      cy.get('input[name="name"]').type('{enter}');
+      cy.get('.error-message').should('not.exist');
 
-  //     // Trigger the search/filter (you might need to adjust this based on your app)
-  //     cy.get('input[name="name"]').type('{enter}');
+      cy.get('tbody');
+    });
+  });
 
-  //     // Assert that no error messages are displayed
-  //     cy.get('.error-message').should('not.exist');
+  it('Deve filtrar as demandas sem erros', () => {
+    const demandas = ['Psicologia', 'Jurídico', 'Assistência Social', 'Abrigamento'];
 
-  //     // Assert that the table body is displayed (it might be empty if no matching data)
-  //     cy.get('tbody').should('be.visible');
-  //   });
-  // });
+    demandas.forEach(demanda => {
+      cy.get('select[name="tipo_demanda"]').select(demanda);
+      cy.get('input[name="name"]').type('{enter}');
+      cy.get('.error-message').should('not.exist');
 
-  // it('should filter by demanda without errors', () => {
-  //   const demandas = ['Psicologia', 'Jurídico', 'Assistência Social', 'Abrigamento'];
-
-  //   demandas.forEach(demanda => {
-  //     // Select the demanda from the dropdown
-  //     cy.get('select[name="tipo_demanda"]').select(demanda);
-
-  //     // Trigger the search/filter (you might need to adjust this based on your app)
-  //     cy.get('input[name="name"]').type('{enter}');
-
-  //     // Assert that no error messages are displayed
-  //     cy.get('.error-message').should('not.exist');
-
-  //     // Assert that the table body is displayed (it might be empty if no matching data)
-  //     cy.get('tbody').should('be.visible');
-  //   });
-  // });
+      cy.get('tbody');
+    });
+  });
 });

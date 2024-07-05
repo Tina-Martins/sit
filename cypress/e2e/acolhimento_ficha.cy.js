@@ -6,7 +6,9 @@ describe('Workflow da ficha de acolhimento', () => {
     cy.visit('http://localhost:4200/base-de-dados');
   });
 
-  it('should create a new acolhimento and navigate to ficha, handling incomplete form', () => {
+  const demandas = ['Psicologia', 'Jurídico', 'Abrigamento'];
+
+  it('Deve criar um novo acolhimento (incompleto)', () => {
     const acolhimentoNome = chance.name();
     const acolhimentoDataNascimento = chance.date({ year: chance.integer({ min: 1950, max: 2005 }) }).toISOString().slice(0, 10);
 
@@ -26,22 +28,22 @@ describe('Workflow da ficha de acolhimento', () => {
     cy.contains(acolhimentoNome).should('be.visible');
   });
 
-  it('should create a new acolhimento with complete form and navigate to ficha', () => {
-    cy.createCompleteAcolhimento().then(acolhimentoNome => {
+  it('Deve criar um novo acolhimento (completo)', () => {
+    cy.createCompleteAcolhimento().then(resultado => {
       cy.url().should('include', '/base-de-dados');
-      cy.contains(acolhimentoNome).should('be.visible');
+      cy.contains(resultado.nome).should('be.visible');
     });
   });
 
-  it('should edit acolhimento details', () => {
-    cy.createCompleteAcolhimento().then(acolhimentoNome => {
+  it('Deve editar os detalhes de um acolhimento', () => {
+    cy.createCompleteAcolhimento().then(resultado => {
       cy.url().should('include', '/base-de-dados');
-      cy.contains(acolhimentoNome).should('be.visible');
+      cy.contains(resultado.nome).should('be.visible');
 
       const newNome = chance.name();
       const newEmail = chance.email();
 
-      cy.contains(acolhimentoNome).click(); 
+      cy.contains(resultado.nome).click(); 
       cy.url().should('include', '/base-de-dados/ficha'); 
 
       cy.contains('Editar cadastro').click();
@@ -66,7 +68,7 @@ describe('Workflow da ficha de acolhimento', () => {
     })
   });
 
-  it('should navigate to a specific demanda tab and assign a user', () => {
+  it('Deve navegar para um aba de demanda específica atribuir a um usuário e adicionar registros', () => {
     cy.createCompleteAcolhimento().then(result => {
       cy.url().should('include', '/base-de-dados');
       cy.contains(result.nome).should('be.visible');
@@ -78,15 +80,34 @@ describe('Workflow da ficha de acolhimento', () => {
       cy.get('.card-header:contains("Informações do Profissional Responsável")').should('not.exist');
       cy.contains('Atribuir demanda').click();
 
-      cy.get('#usuario').select('admin1');
+      const usuarioNome = 'adm1';
+      cy.get('#usuario').select(usuarioNome);
+      cy.contains('Salvar').click();
 
-      const usuarioNome = 'admin';
-      // cy.get('select').select();
-      // cy.contains('Salvar').click();
+      cy.get('.card-header:contains("Informações do Profissional Responsável")').should('be.visible');
+      cy.contains(usuarioNome).should('be.visible');
 
-      // cy.get('.card-header:contains("Informações do Profissional Responsável")').should('be.visible');
-      // cy.contains(usuarioNome).should('be.visible');
+      cy.get('.card-header:contains("Informações do Profissional Responsável")').should('be.visible');
+      cy.contains(usuarioNome).should('be.visible');
+
+      const registro1Data = chance.date({ year: 2023 }).toISOString().slice(0, 10);
+      const registro1Descricao = chance.sentence();
+      cy.contains('+ Novo registro').click();
+      cy.get('#dataRegistro').type(registro1Data);
+      cy.get('#registro').type(registro1Descricao);
+      cy.contains('Salvar').click();
+
+      cy.get('.list-group-item').should('contain', registro1Descricao);
+
+      const registro2Data = chance.date({ year: 2023 }).toISOString().slice(0, 10);
+      const registro2Descricao = chance.sentence();
+      cy.contains('+ Novo registro').click();
+      cy.get('#dataRegistro').type(registro2Data);
+      cy.get('#registro').type(registro2Descricao);
+      cy.contains('Salvar').click();
+
+      cy.get('.list-group-item').should('contain', registro1Descricao);
+      cy.get('.list-group-item').should('contain', registro2Descricao);
     });
-    
   });
 });
