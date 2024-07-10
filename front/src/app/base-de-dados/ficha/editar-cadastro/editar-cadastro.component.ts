@@ -80,8 +80,8 @@ export class EditarCadastroComponent implements OnInit{
 
   protected save() {
     this.tried_submit = true;
-
-    let minimum_valid_state: boolean = (this.acolhimento?.nome.length!=0 && this.isAnyDemandaSelected());
+    console.log(this.dataNascimento)
+    let minimum_valid_state: boolean = (this.acolhimento?.nome.length!=0 && this.isAnyDemandaSelected() && !!this.dataNascimento);
 
     if(!minimum_valid_state){ // User has to select at least one demanda and fill the name field
       this.acolhimentoForm.control.markAllAsTouched();
